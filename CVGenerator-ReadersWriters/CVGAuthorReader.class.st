@@ -6,7 +6,7 @@ Author1_name Author1_surname, Author2_name Author2_surname, Author3_name Author3
 Class {
 	#name : #CVGAuthorReader,
 	#superclass : #Object,
-	#category : #'CVGenerator-ReadersWriters'
+	#category : #'CVGenerator-ReadersWriters-Readers'
 }
 
 { #category : #reading }

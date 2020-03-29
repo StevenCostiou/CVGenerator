@@ -5,7 +5,7 @@ I instantiate a CVGPublication from a dictionary representing a CVGPublication i
 Class {
 	#name : #CVGPublicationReader,
 	#superclass : #Object,
-	#category : #'CVGenerator-ReadersWriters'
+	#category : #'CVGenerator-ReadersWriters-Readers'
 }
 
 { #category : #reading }

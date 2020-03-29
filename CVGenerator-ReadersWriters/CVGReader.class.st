@@ -15,5 +15,5 @@ Each data file contains a STON array in which are serialized the STON dictionari
 Class {
 	#name : #CVGReader,
 	#superclass : #Object,
-	#category : #'CVGenerator-ReadersWriters'
+	#category : #'CVGenerator-ReadersWriters-Readers'
 }
