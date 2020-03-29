@@ -24,6 +24,24 @@ CVGPublicationReaderTest >> sampleSTON [
 ]
 
 { #category : #accessing }
+CVGPublicationReaderTest >> testReadFromDictionary [ 
+	|cvgpub|
+	cvgpub := CVGPublicationReader readFromDictionary: self sampleDictionary.
+	self assert: cvgpub type publicationTypeKey equals: (self sampleDictionary at: #type).
+	self assert: cvgpub title equals: (self sampleDictionary at: #title).
+	self assert: cvgpub year equals: (self sampleDictionary at: #year).
+	self assert: cvgpub publisher equals: (self sampleDictionary at: #publisher).
+	self assert: cvgpub doi equals: (self sampleDictionary at: #doi).
+	self assert: cvgpub link equals: (self sampleDictionary at: #link).
+	
+	
+	self assert: cvgpub authors first fullName equals: 'Steven Costiou'.
+	self assert: cvgpub authors second fullName equals: 'Mickaël Kerboeuf'.
+	self assert: cvgpub authors third fullName equals: 'Glenn Cavarlé'.
+	self assert: cvgpub authors fourth fullName equals: 'Alain Plantec'
+]
+
+{ #category : #accessing }
 CVGPublicationReaderTest >> testReadIntegerPropertyIn [
 	self assert: (CVGPublicationReader readIntegerProperty: #year in: self sampleDictionary) equals: 2018.
 	self assert: (CVGPublicationReader readIntegerProperty: #absent in: self sampleDictionary) equals: -1. 
