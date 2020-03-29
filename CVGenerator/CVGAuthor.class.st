@@ -12,6 +12,11 @@ Class {
 	#category : #CVGenerator
 }
 
+{ #category : #accessing }
+CVGAuthor >> fullName [ 
+	^name, ' ', surname
+]
+
 { #category : #testing }
 CVGAuthor >> isSelf [
 	^ (name , surname) = Author uniqueInstance fullName
