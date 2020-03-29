@@ -6,3 +6,8 @@ Class {
 	#superclass : #CVGPublicationType,
 	#category : #CVGenerator
 }
+
+{ #category : #'accessing - defaults' }
+CVGThesis >> publicationTypeKey [
+	^#thesis
+]

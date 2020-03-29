@@ -36,3 +36,13 @@ CVGPublicationType class >> thesis [
 CVGPublicationType class >> workshop [
 	^CVGWorkshop new
 ]
+
+{ #category : #'accessing - defaults' }
+CVGPublicationType >> publicationTypeKey [
+	^self subclassResponsibility 
+]
+
+{ #category : #'accessing - defaults' }
+CVGPublicationType >> publicationTypeName [
+	self flag: 'todo'
+]
