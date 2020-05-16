@@ -15,7 +15,7 @@ Class {
 		'doi',
 		'link'
 	],
-	#category : #CVGenerator
+	#category : #'CVGenerator-publications'
 }
 
 { #category : #accessing }

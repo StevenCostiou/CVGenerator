@@ -4,7 +4,7 @@ I represent the abstract type of a publication.
 Class {
 	#name : #CVGPublicationType,
 	#superclass : #Object,
-	#category : #CVGenerator
+	#category : #'CVGenerator-publications'
 }
 
 { #category : #'instance creation' }
