@@ -94,15 +94,22 @@ CVGAbstractWriter >> writeDotSpace: aString [
 { #category : #writing }
 CVGAbstractWriter >> writePublication: aPublication [
 	self openItem.
-	self bold: aPublication title.
-	self writeDot.
+	stream << (self bold: aPublication title).
+	self writeDotSpace.
 	self writeAuthors: aPublication authors.
 	self writeDotSpace: aPublication publisher.
-	self writeDotSpace: aPublication year.
+	self writeDotSpace: aPublication year printString.
+	self writeURL: aPublication link.
 	self closeItem
 ]
 
 { #category : #helpers }
 CVGAbstractWriter >> writeSpace [
 	stream space
+]
+
+{ #category : #writing }
+CVGAbstractWriter >> writeURL: aPublicationURL [
+	(#(nil '') includes: aPublicationURL) ifTrue:[^self].
+	stream << (self url: aPublicationURL labeled: '(pdf)')
 ]
