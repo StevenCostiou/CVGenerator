@@ -14,13 +14,19 @@ CVGHtmlWriter >> bold: aString [
 	str << '<b>'.
 	str << aString.
 	str << '</b>'.
-	^str contents
+	stream << str contents
 ]
 
 { #category : #lists }
 CVGHtmlWriter >> closeItem [
-	stream << '</ul>'
+	stream << '</li>'
 	
+]
+
+{ #category : #lists }
+CVGHtmlWriter >> closeItemList [
+	stream << '</ul>'.
+	stream cr
 ]
 
 { #category : #emphasis }
@@ -35,8 +41,53 @@ CVGHtmlWriter >> italic: aString [
 
 { #category : #lists }
 CVGHtmlWriter >> openItem [
-	stream << '<ul>'
+	stream << '<li>'
 	
+]
+
+{ #category : #lists }
+CVGHtmlWriter >> openItemList [
+	stream << '<ul>'.
+	stream cr
+]
+
+{ #category : #sections }
+CVGHtmlWriter >> section: aString [
+	self title: aString h: 4 class: nil
+]
+
+{ #category : #beacons }
+CVGHtmlWriter >> span: aString class: aClass [
+	stream << '<span'.
+	aClass
+		ifNotNil: [ stream space.
+			stream << 'class="'.
+			stream << aClass.
+			stream << '"' ].
+	stream << '>'.
+	stream << aString.
+	stream << '</span>'
+]
+
+{ #category : #sections }
+CVGHtmlWriter >> subSection: aString [
+	self title: aString h: 5 class: nil
+]
+
+{ #category : #'html - titles' }
+CVGHtmlWriter >> title: aString h: level class: class [
+	stream << '<h'.
+	stream << level printString.
+	class
+		ifNotNil: [ stream space.
+			stream << 'class="'.
+			stream << class.
+			stream << '"' ].
+	stream << '>'.
+	stream << aString.
+	stream << '</h'.
+	stream << level printString.
+	stream << '>'
 ]
 
 { #category : #links }

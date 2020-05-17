@@ -11,6 +11,11 @@ Class {
 	#category : #'CVGenerator-ReadersWriters-Writers'
 }
 
+{ #category : #'instance creation' }
+CVGAbstractWriter class >> on: aStream [
+	^self new on: aStream
+]
+
 { #category : #emphasis }
 CVGAbstractWriter >> bold: aString [
 	self subclassResponsibility 
@@ -21,9 +26,14 @@ CVGAbstractWriter >> closeItem [
 	self subclassResponsibility 
 ]
 
+{ #category : #lists }
+CVGAbstractWriter >> closeItemList [
+	self subclassResponsibility 
+]
+
 { #category : #initialization }
 CVGAbstractWriter >> initialize [
-	self flag: 'change String new by target on disk'.
+	super initialize.
 	stream := WriteStream on: String new
 ]
 
@@ -32,8 +42,28 @@ CVGAbstractWriter >> italic: aString [
 	self subclassResponsibility 
 ]
 
+{ #category : #'instance creation' }
+CVGAbstractWriter >> on: aStream [
+	stream := aStream
+]
+
 { #category : #lists }
 CVGAbstractWriter >> openItem [
+	self subclassResponsibility 
+]
+
+{ #category : #lists }
+CVGAbstractWriter >> openItemList [
+	self subclassResponsibility 
+]
+
+{ #category : #sections }
+CVGAbstractWriter >> section: aString [
+	self subclassResponsibility 
+]
+
+{ #category : #sections }
+CVGAbstractWriter >> subSection: aString [
 	self subclassResponsibility 
 ]
 
@@ -43,16 +73,8 @@ CVGAbstractWriter >> url: aString labeled: aName [
 ]
 
 { #category : #writing }
-CVGAbstractWriter >> writeAuthors: authors [
-	authors
-		do: [ :author | 
-			| formattedAuthor |
-			formattedAuthor := author isSelf
-				ifTrue: [ self bold: author fullName ]
-				ifFalse: [ author fullName ].
-			author = authors last
-				ifTrue: [ self writeDotSpace: formattedAuthor ]
-				ifFalse: [ self writeCommaSpace: formattedAuthor ] ]
+CVGAbstractWriter >> write: aString [
+	stream << aString
 ]
 
 { #category : #helpers }
@@ -91,18 +113,6 @@ CVGAbstractWriter >> writeDotSpace: aString [
 	self writeDotSpace
 ]
 
-{ #category : #writing }
-CVGAbstractWriter >> writePublication: aPublication [
-	self openItem.
-	stream << (self bold: aPublication title).
-	self writeDotSpace.
-	self writeAuthors: aPublication authors.
-	self writeDotSpace: aPublication publisher.
-	self writeDotSpace: aPublication year printString.
-	self writeURL: aPublication link.
-	self closeItem
-]
-
 { #category : #helpers }
 CVGAbstractWriter >> writeSpace [
 	stream space
@@ -110,6 +120,7 @@ CVGAbstractWriter >> writeSpace [
 
 { #category : #writing }
 CVGAbstractWriter >> writeURL: aPublicationURL [
-	(#(nil '') includes: aPublicationURL) ifTrue:[^self].
-	stream << (self url: aPublicationURL labeled: '(pdf)')
+	(#(nil '') includes: aPublicationURL)
+		ifTrue: [ ^ self ].
+	self url: aPublicationURL labeled: '(pdf)'
 ]

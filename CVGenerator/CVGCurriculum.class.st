@@ -12,6 +12,13 @@ Class {
 	#category : #'CVGenerator-core'
 }
 
+{ #category : #materializing }
+CVGCurriculum class >> materializeFrom: aPath [
+	^ self new
+		path: aPath;
+		materialize
+]
+
 { #category : #'api - publications' }
 CVGCurriculum >> allBooks [
 	^ publications
@@ -52,6 +59,11 @@ CVGCurriculum >> allWorkshops [
 		select: [ :pub | pub isWorkshop ]
 ]
 
+{ #category : #generation }
+CVGCurriculum >> generateHTML [
+	^ CVGGenerator generateHTML: self
+]
+
 { #category : #materializing }
 CVGCurriculum >> materialize [
 	sections := Dictionary new.
@@ -67,4 +79,19 @@ CVGCurriculum >> materializeDataFrom: aString [
 { #category : #accessing }
 CVGCurriculum >> path: aPath [
 	path := aPath
+]
+
+{ #category : #accessing }
+CVGCurriculum >> publications [
+	^publications
+]
+
+{ #category : #'api - publications' }
+CVGCurriculum >> sortedPublications [
+	^ {(CVGPublicationType journal -> self allJournals).
+	(CVGPublicationType conference -> self allConferences).
+	(CVGPublicationType workshop -> self allWorkshops).
+	(CVGPublicationType book -> self allBooks).
+	(CVGPublicationType other -> self allOtherPublications).
+	(CVGPublicationType thesis -> self allTheses)}
 ]
