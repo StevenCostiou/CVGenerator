@@ -7,7 +7,17 @@ Class {
 	#category : #'CVGenerator-publications'
 }
 
+{ #category : #testing }
+CVGBook >> isBook [
+	^true
+]
+
 { #category : #'accessing - defaults' }
 CVGBook >> publicationTypeKey [
 	^#book
+]
+
+{ #category : #'accessing - defaults' }
+CVGBook >> publicationTypeName [
+	^'Books'
 ]

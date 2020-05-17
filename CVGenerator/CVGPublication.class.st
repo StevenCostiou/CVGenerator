@@ -38,6 +38,30 @@ CVGPublication >> doi: anObject [
 	doi := anObject
 ]
 
+{ #category : #testing }
+CVGPublication >> isBook [ ^type isBook
+]
+
+{ #category : #testing }
+CVGPublication >> isConference [ ^type isConference
+]
+
+{ #category : #testing }
+CVGPublication >> isJournal [ ^type isJournal
+]
+
+{ #category : #testing }
+CVGPublication >> isOther [ ^type isOther
+]
+
+{ #category : #testing }
+CVGPublication >> isThesis [ ^type isThesis
+]
+
+{ #category : #testing }
+CVGPublication >> isWorkshop [ ^type isWorkshop
+]
+
 { #category : #accessing }
 CVGPublication >> link [
 	^ link

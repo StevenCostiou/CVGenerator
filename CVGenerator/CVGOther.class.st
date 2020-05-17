@@ -7,7 +7,17 @@ Class {
 	#category : #'CVGenerator-publications'
 }
 
+{ #category : #testing }
+CVGOther >> isOther [
+	^ true
+]
+
 { #category : #'accessing - defaults' }
 CVGOther >> publicationTypeKey [
 	^#other
+]
+
+{ #category : #'accessing - defaults' }
+CVGOther >> publicationTypeName [
+	^'Other'
 ]

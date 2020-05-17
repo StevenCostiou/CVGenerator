@@ -37,6 +37,36 @@ CVGPublicationType class >> workshop [
 	^CVGWorkshop new
 ]
 
+{ #category : #testing }
+CVGPublicationType >> isBook [
+	^false
+]
+
+{ #category : #testing }
+CVGPublicationType >> isConference [
+	^false
+]
+
+{ #category : #testing }
+CVGPublicationType >> isJournal [
+	^false
+]
+
+{ #category : #testing }
+CVGPublicationType >> isOther [
+	^false
+]
+
+{ #category : #testing }
+CVGPublicationType >> isThesis [
+	^false
+]
+
+{ #category : #testing }
+CVGPublicationType >> isWorkshop [
+	^false
+]
+
 { #category : #'accessing - defaults' }
 CVGPublicationType >> publicationTypeKey [
 	^self subclassResponsibility 
@@ -44,5 +74,5 @@ CVGPublicationType >> publicationTypeKey [
 
 { #category : #'accessing - defaults' }
 CVGPublicationType >> publicationTypeName [
-	self flag: 'todo'
+	self subclassResponsibility 
 ]
