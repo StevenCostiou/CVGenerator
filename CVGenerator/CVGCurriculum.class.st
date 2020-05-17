@@ -51,3 +51,20 @@ CVGCurriculum >> allWorkshops [
 	^ publications
 		select: [ :pub | pub isWorkshop ]
 ]
+
+{ #category : #materializing }
+CVGCurriculum >> materialize [
+	sections := Dictionary new.
+	publications := (self materializeDataFrom: 'publications.ston')
+		collect: [ :dic | CVGPublicationReader readFromDictionary: dic ]
+]
+
+{ #category : #materializing }
+CVGCurriculum >> materializeDataFrom: aString [
+	^ STON fromString: (path , '/' , aString) asFileReference contents
+]
+
+{ #category : #accessing }
+CVGCurriculum >> path: aPath [
+	path := aPath
+]
