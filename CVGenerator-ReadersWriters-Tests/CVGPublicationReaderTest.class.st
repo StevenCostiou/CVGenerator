@@ -26,7 +26,7 @@ CVGPublicationReaderTest >> sampleSTON [
 { #category : #accessing }
 CVGPublicationReaderTest >> testReadFromDictionary [ 
 	|cvgpub|
-	cvgpub := CVGPublicationReader readFromDictionary: self sampleDictionary.
+	cvgpub := CVGPublication readerClass  readFromDictionary: self sampleDictionary.
 	self assert: cvgpub type publicationTypeKey equals: (self sampleDictionary at: #type).
 	self assert: cvgpub title equals: (self sampleDictionary at: #title).
 	self assert: cvgpub year equals: (self sampleDictionary at: #year).
@@ -43,18 +43,18 @@ CVGPublicationReaderTest >> testReadFromDictionary [
 
 { #category : #accessing }
 CVGPublicationReaderTest >> testReadIntegerPropertyIn [
-	self assert: (CVGPublicationReader readIntegerProperty: #year in: self sampleDictionary) equals: 2018.
-	self assert: (CVGPublicationReader readIntegerProperty: #absent in: self sampleDictionary) equals: -1. 
+	self assert: (CVGPublication readerClass readIntegerProperty: #year in: self sampleDictionary) equals: 2018.
+	self assert: (CVGPublication readerClass readIntegerProperty: #absent in: self sampleDictionary) equals: -1. 
 ]
 
 { #category : #accessing }
 CVGPublicationReaderTest >> testReadStringPropertyIn [
-	self assert: (CVGPublicationReader readStringProperty: #title in: self sampleDictionary) equals: 'Lub: A pattern for fine grained behavior adaptation at runtime'.
-	self assert: (CVGPublicationReader readStringProperty: #absent in: self sampleDictionary) equals: ''. 
+	self assert: (CVGPublication readerClass readStringProperty: #title in: self sampleDictionary) equals: 'Lub: A pattern for fine grained behavior adaptation at runtime'.
+	self assert: (CVGPublication readerClass readStringProperty: #absent in: self sampleDictionary) equals: ''. 
 ]
 
 { #category : #accessing }
 CVGPublicationReaderTest >> testReadSymbolPropertyIn [
-	self assert: (CVGPublicationReader readSymbolProperty: #type in: self sampleDictionary) equals: #journal.
-	self assert: (CVGPublicationReader readSymbolProperty: #absent in: self sampleDictionary) equals: #other. 
+	self assert: (CVGPublication readerClass readSymbolProperty: #type in: self sampleDictionary) equals: #journal.
+	self assert: (CVGPublication readerClass readSymbolProperty: #absent in: self sampleDictionary) equals: #other. 
 ]

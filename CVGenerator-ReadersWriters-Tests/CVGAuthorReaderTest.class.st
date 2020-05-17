@@ -8,7 +8,7 @@ Class {
 CVGAuthorReaderTest >> testReadAuthorsFrom [
 	|authorString authors|
 	authorString := 'John Doe, John McLane, Jean Valjean'.
-	authors := CVGAuthorReader readAuthorsFrom: authorString.
+	authors := CVGAuthor readerClass readAuthorsFrom: authorString.
 	self assert: authors size equals: 3.
 	self assert: (authors allSatisfy: [ :auth| auth class == CVGAuthor ]).
 	self assert: authors first name equals: 'John'.

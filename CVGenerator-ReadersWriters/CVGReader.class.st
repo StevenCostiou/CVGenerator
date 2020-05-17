@@ -17,3 +17,23 @@ Class {
 	#superclass : #Object,
 	#category : #'CVGenerator-ReadersWriters-Readers'
 }
+
+{ #category : #reading }
+CVGReader class >> readFromDictionary: dic [
+	^ self subclassResponsibility
+]
+
+{ #category : #reading }
+CVGReader class >> readIntegerProperty: aPropertyName in: aDictionary [
+	^aDictionary at: aPropertyName ifAbsent:[-1]
+]
+
+{ #category : #reading }
+CVGReader class >> readStringProperty: aPropertyName in: aDictionary [
+	^aDictionary at: aPropertyName ifAbsent:['']
+]
+
+{ #category : #reading }
+CVGReader class >> readSymbolProperty: aPropertyName in: aDictionary [
+	^aDictionary at: aPropertyName ifAbsent:[#other]
+]

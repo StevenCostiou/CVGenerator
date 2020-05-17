@@ -5,7 +5,7 @@ type = journal, conference, workshop, book, thesis, other
 "
 Class {
 	#name : #CVGPublication,
-	#superclass : #Object,
+	#superclass : #CVGSectionElement,
 	#instVars : [
 		'type',
 		'title',
@@ -17,6 +17,11 @@ Class {
 	],
 	#category : #'CVGenerator-publications'
 }
+
+{ #category : #accessing }
+CVGPublication class >> readerClass [
+	^ CVGPublicationReader
+]
 
 { #category : #accessing }
 CVGPublication >> authors [

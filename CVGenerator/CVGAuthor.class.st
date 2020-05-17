@@ -4,13 +4,18 @@ I am ""self"" if I am the same author as the one in the current Pharo image.
 "
 Class {
 	#name : #CVGAuthor,
-	#superclass : #Object,
+	#superclass : #CVGSectionElement,
 	#instVars : [
 		'name',
 		'surname'
 	],
 	#category : #'CVGenerator-publications'
 }
+
+{ #category : #accessing }
+CVGAuthor class >> readerClass [
+	^ CVGAuthorReader
+]
 
 { #category : #accessing }
 CVGAuthor >> fullName [ 

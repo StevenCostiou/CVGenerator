@@ -33,6 +33,16 @@ CVGSection >> dataPath: anObject [
 	dataPath := anObject
 ]
 
+{ #category : #paths }
+CVGSection >> dataPathFilename [
+	^dataPath, '.ston'
+]
+
+{ #category : #printing }
+CVGSection >> printOn: aStream [
+	aStream << title
+]
+
 { #category : #accessing }
 CVGSection >> title [
 	^ title

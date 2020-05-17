@@ -21,26 +21,22 @@ CVGCurriculum class >> materializeFrom: aPath [
 
 { #category : #'api - publications' }
 CVGCurriculum >> allBooks [
-	^ publications
-		select: [ :pub | pub isBook]
+	^ self publications select: [ :pub | pub isBook ]
 ]
 
 { #category : #'api - publications' }
 CVGCurriculum >> allConferences [
-	^ publications
-		select: [ :pub | pub isConference ]
+	^ self publications select: [ :pub | pub isConference ]
 ]
 
 { #category : #'api - publications' }
 CVGCurriculum >> allJournals [
-	^ publications
-		select: [ :pub | pub isJournal ]
+	^ self publications select: [ :pub | pub isJournal ]
 ]
 
 { #category : #'api - publications' }
 CVGCurriculum >> allOtherPublications [
-	^ publications
-		select: [ :pub | pub isOther ]
+	^ self publications select: [ :pub | pub isOther ]
 ]
 
 { #category : #software }
@@ -49,14 +45,19 @@ CVGCurriculum >> allSoftware [
 
 { #category : #'api - publications' }
 CVGCurriculum >> allTheses [
-	^ publications
-		select: [ :pub | pub isThesis ]
+	^ self publications select: [ :pub | pub isThesis ]
 ]
 
 { #category : #'api - publications' }
 CVGCurriculum >> allWorkshops [
-	^ publications
-		select: [ :pub | pub isWorkshop ]
+	^ self publications select: [ :pub | pub isWorkshop ]
+]
+
+{ #category : #sections }
+CVGCurriculum >> findSection: aSectionType [
+	^ sections
+		detect: [ :sec | sec type = aSectionType ]
+		ifNone: [ OrderedCollection new ]
 ]
 
 { #category : #generation }
@@ -66,9 +67,9 @@ CVGCurriculum >> generateHTML [
 
 { #category : #materializing }
 CVGCurriculum >> materialize [
-	sections := Dictionary new.
-	publications := (self materializeDataFrom: 'publications.ston')
-		collect: [ :dic | CVGPublicationReader readFromDictionary: dic ]
+	sections := (self materializeDataFrom: 'sections.ston')
+		collect: [ :dic | CVGSectionReader readFromDictionary: dic ].
+	sections do: [ :sec | self materializeSectionData: sec ]
 ]
 
 { #category : #materializing }
@@ -76,14 +77,23 @@ CVGCurriculum >> materializeDataFrom: aString [
 	^ STON fromString: (path , '/' , aString) asFileReference contents
 ]
 
+{ #category : #materializing }
+CVGCurriculum >> materializeSectionData: sec [
+	| stonData data |
+	stonData := self materializeDataFrom: sec dataPathFilename.
+	data := stonData
+		collect: [ :dic | sec type readerClass readFromDictionary: dic ].
+	sec data: data
+]
+
 { #category : #accessing }
 CVGCurriculum >> path: aPath [
 	path := aPath
 ]
 
-{ #category : #accessing }
+{ #category : #'api - publications' }
 CVGCurriculum >> publications [
-	^publications
+	^ (self findSection: CVGPublication) data
 ]
 
 { #category : #'api - publications' }
