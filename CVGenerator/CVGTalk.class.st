@@ -94,6 +94,11 @@ CVGTalk class >> allVulgarizationsIn: flattenedData [
 ]
 
 { #category : #accessing }
+CVGTalk class >> htmlWriterClass [
+	^ CVGHtmlTalkWriter 
+]
+
+{ #category : #accessing }
 CVGTalk class >> readerClass [
 	^ CVGTalkReader
 ]
