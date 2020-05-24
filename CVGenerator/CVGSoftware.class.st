@@ -16,6 +16,33 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'data sorting' }
+CVGSoftware class >> allContributedSoftwareIn: flattenedData [
+	^ flattenedData select: [ :data | data isContributor ]
+]
+
+{ #category : #'data sorting' }
+CVGSoftware class >> allDevelopedSoftwareIn: flattenedData [
+	^ flattenedData select: [ :data | data isDeveloper ]
+]
+
+{ #category : #accessing }
+CVGSoftware class >> htmlWriterClass [
+	^ CVGHtmlSoftwareWriter 
+]
+
+{ #category : #accessing }
+CVGSoftware class >> readerClass [ 	
+	^CVGSoftwareReader 
+]
+
+{ #category : #'data sorting' }
+CVGSoftware class >> sortedElements: flattenedData [
+
+	^ {(CVGSoftwareType developer -> (self allDevelopedSoftwareIn: flattenedData)).
+	(CVGSoftwareType contributor -> (self allContributedSoftwareIn: flattenedData)).}
+]
+
 { #category : #accessing }
 CVGSoftware >> description [
 	^ description
