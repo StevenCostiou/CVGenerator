@@ -93,6 +93,23 @@ CVGGenerator >> generateSoftware: s [
 	writer closeItem
 ]
 
+{ #category : #generation }
+CVGGenerator >> generateTalk: s [
+	| writer |
+	self halt.
+	writer := self newWriterFor: s.
+	writer openItem.
+	writer bold: s title.
+	writer writeSpace.
+	writer write: '(', s yearStart printString, ' - '.
+	writer write: (s yearStop = 0 ifTrue:['...'] ifFalse:[s yearStop printString]), ')'.
+	writer writeDotSpace.
+	writer write: s description.
+	writer writeDotSpace.
+	writer writeURL: s link.
+	writer closeItem
+]
+
 { #category : #initialization }
 CVGGenerator >> html [
 	writerClass := CVGHtmlWriter
