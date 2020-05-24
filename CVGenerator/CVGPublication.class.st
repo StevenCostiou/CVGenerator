@@ -36,10 +36,6 @@ CVGPublication class >> allOtherPublicationsIn: flattenedData [
 	^ flattenedData select: [ :pub | pub isOther ]
 ]
 
-{ #category : #software }
-CVGPublication class >> allSoftware [
-]
-
 { #category : #'data - sorting' }
 CVGPublication class >> allThesesIn: flattenedData [
 	^ flattenedData select: [ :pub | pub isThesis ]
