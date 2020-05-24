@@ -16,6 +16,40 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'data - sorting' }
+CVGPublication class >> allBooksIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isBook ]
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> allConferencesIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isConference ]
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> allJournalsIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isJournal ]
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> allOtherPublicationsIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isOther ]
+]
+
+{ #category : #software }
+CVGPublication class >> allSoftware [
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> allThesesIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isThesis ]
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> allWorkshopsIn: flattenedData [
+	^ flattenedData select: [ :pub | pub isWorkshop ]
+]
+
 { #category : #accessing }
 CVGPublication class >> htmlWriterClass [
 	^ CVGHtmlPublicationWriter 
@@ -24,6 +58,17 @@ CVGPublication class >> htmlWriterClass [
 { #category : #accessing }
 CVGPublication class >> readerClass [
 	^ CVGPublicationReader
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> sortedElements: flattenedData [
+
+	^ {(CVGPublicationType journal -> (self allJournalsIn: flattenedData)).
+	(CVGPublicationType conference -> (self allConferencesIn: flattenedData)).
+	(CVGPublicationType workshop -> (self allWorkshopsIn: flattenedData)).
+	(CVGPublicationType book -> (self allBooksIn: flattenedData)).
+	(CVGPublicationType other -> (self allOtherPublicationsIn: flattenedData)).
+	(CVGPublicationType thesis -> (self allThesesIn: flattenedData))}
 ]
 
 { #category : #accessing }

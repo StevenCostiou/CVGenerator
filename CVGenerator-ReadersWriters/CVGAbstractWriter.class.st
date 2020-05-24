@@ -21,6 +21,11 @@ CVGAbstractWriter >> bold: aString [
 	self subclassResponsibility 
 ]
 
+{ #category : #emphasis }
+CVGAbstractWriter >> boldBlue: aString [
+	self subclassResponsibility 
+]
+
 { #category : #lists }
 CVGAbstractWriter >> closeItem [
 	self subclassResponsibility 
@@ -29,6 +34,11 @@ CVGAbstractWriter >> closeItem [
 { #category : #lists }
 CVGAbstractWriter >> closeItemList [
 	self subclassResponsibility 
+]
+
+{ #category : #accessing }
+CVGAbstractWriter >> contents [
+	^stream contents
 ]
 
 { #category : #initialization }
@@ -114,13 +124,18 @@ CVGAbstractWriter >> writeDotSpace: aString [
 ]
 
 { #category : #helpers }
+CVGAbstractWriter >> writeNewLine [
+	self subclassResponsibility 
+]
+
+{ #category : #helpers }
 CVGAbstractWriter >> writeSpace [
 	stream space
 ]
 
 { #category : #writing }
-CVGAbstractWriter >> writeURL: aPublicationURL [
-	(#(nil '') includes: aPublicationURL)
+CVGAbstractWriter >> writeURL: aString [
+	(#(nil '') includes: aString)
 		ifTrue: [ ^ self ].
-	self url: aPublicationURL labeled: '(pdf)'
+	self url: aString labeled: '(pdf)'
 ]

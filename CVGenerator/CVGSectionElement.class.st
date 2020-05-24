@@ -21,6 +21,18 @@ CVGSectionElement class >> readerClass [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'data sorting' }
+CVGSectionElement class >> sortedElements: flattenedData [
+	^flattenedData
+	
+	
+]
+
+{ #category : #accessing }
+CVGSectionElement >> htmlWriterClass [
+	^ self class htmlWriterClass
+]
+
 { #category : #accessing }
 CVGSectionElement >> title [
 	^ title

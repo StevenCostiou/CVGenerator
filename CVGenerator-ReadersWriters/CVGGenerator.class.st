@@ -8,6 +8,7 @@ Class {
 	#instVars : [
 		'writerClass',
 		'model',
+		'outputDic',
 		'stream'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
@@ -20,30 +21,22 @@ CVGGenerator class >> generateHTML: aCVGModel [
 
 { #category : #generation }
 CVGGenerator >> generate [
-
-	stream := WriteStream on: String new.
-	self generatePublications.
-	stream close
+	outputDic := Dictionary new.
+	self generateCV
 ]
 
 { #category : #generation }
-CVGGenerator >> generate: aCVGModel [
-	model := aCVGModel.
-	self generate
-]
-
-{ #category : #generation }
-CVGGenerator >> generateAuthors: authors [
+CVGGenerator >> generateAuthor: author [
 	| writer |
-	writer := self newWriter.
-	authors
-		do: [ :author | 
-			author isSelf
-				ifTrue: [ writer bold: author fullName ]
-				ifFalse: [ writer write: author fullName ].
-			author = authors last
-				ifTrue: [ writer writeDotSpace ]
-				ifFalse: [ writer writeCommaSpace ] ]
+	writer := self newWriterFor: author.
+	author isSelf
+		ifTrue: [ writer italic: author fullName ]
+		ifFalse: [ writer write: author fullName ]
+]
+
+{ #category : #generation }
+CVGGenerator >> generateCV [
+	model sections do: [ :sec | sec acceptGenerator: self ]
 ]
 
 { #category : #generation }
@@ -53,7 +46,12 @@ CVGGenerator >> generatePublication: pub [
 	writer openItem.
 	writer bold: pub title.
 	writer writeDotSpace.
-	self generateAuthors: pub authors.
+	pub authors
+		do: [ :auth | 
+			auth acceptGenerator: self.
+			pub authors last == auth
+				ifTrue: [ writer writeDotSpace ]
+				ifFalse: [ writer writeCommaSpace ] ].
 	writer writeDotSpace: pub publisher.
 	writer writeDotSpace: pub year printString.
 	writer writeURL: pub link.
@@ -61,20 +59,38 @@ CVGGenerator >> generatePublication: pub [
 ]
 
 { #category : #generation }
-CVGGenerator >> generatePublications [
-	| writer |	
-	writer := self newWriter.	
-	writer section: 'Publications'.
-	model sortedPublications
-		do: [ :typedPublications | 
-			| type pubs |
-			type := typedPublications key.
-			pubs := typedPublications value.
-			pubs isEmpty
+CVGGenerator >> generateSection: aSection [
+	| writer |
+	stream := self newStringWriteStream.
+	writer := self newWriterFor: aSection type.
+	writer section: aSection title.
+	aSection sortedElements
+		do: [ :typedElement | 
+			| type elements |
+			type := typedElement key.
+			elements := typedElement value.
+			elements isEmpty
 				ifFalse: [ writer subSection: type typeName.
 					writer openItemList.
-					pubs do: [ :pub | self generatePublication: pub ].
-					writer closeItemList ] ]
+					elements do: [ :e | e acceptGenerator: self ].
+					writer closeItemList ] ].
+	outputDic at: aSection title put: writer contents
+]
+
+{ #category : #generation }
+CVGGenerator >> generateSoftware: s [
+	| writer |
+	writer := self newWriterFor: s.
+	writer openItem.
+	writer bold: s title.
+	writer writeSpace.
+	writer write: '(', s yearStart printString, ' - '.
+	writer write: (s yearStop = 0 ifTrue:['...'] ifFalse:[s yearStop printString]), ')'.
+	writer writeDotSpace.
+	writer write: s description.
+	writer writeDotSpace.
+	writer writeURL: s link.
+	writer closeItem
 ]
 
 { #category : #initialization }
@@ -83,13 +99,18 @@ CVGGenerator >> html [
 ]
 
 { #category : #initialization }
+CVGGenerator >> initialize [
+	outputDic := Dictionary new
+]
+
+{ #category : #initialization }
 CVGGenerator >> model: aCVGCurriculum [
 	model := aCVGCurriculum 
 ]
 
 { #category : #writers }
-CVGGenerator >> newWriter [
-	^ writerClass on: stream
+CVGGenerator >> newStringWriteStream [
+	^ WriteStream on: String new
 ]
 
 { #category : #writers }

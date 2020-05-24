@@ -22,6 +22,16 @@ CVGHtmlWriter >> bold: aString [
 	stream << str contents
 ]
 
+{ #category : #emphasis }
+CVGHtmlWriter >> boldBlue: aString [
+	|str|
+	str := WriteStream on: String new.
+	str << '<i class="blue-font">'.
+	str << aString.
+	str << '</i>'.
+	stream << str contents
+]
+
 { #category : #lists }
 CVGHtmlWriter >> closeItem [
 	stream << '</li>'
@@ -30,18 +40,22 @@ CVGHtmlWriter >> closeItem [
 
 { #category : #lists }
 CVGHtmlWriter >> closeItemList [
-	stream << '</ul>'.
+	stream << '</'.
+	stream << self itemListMark.
+	stream <<'>'.
 	stream cr
 ]
 
 { #category : #emphasis }
 CVGHtmlWriter >> italic: aString [
-	|str|
-	str := WriteStream on: String new.
-	str << '<i>'.
-	str << aString.
-	str << '</i>'.
-	^str contents
+	stream << '<i>'.
+	stream << aString.
+	stream << '</i>'
+]
+
+{ #category : #lists }
+CVGHtmlWriter >> itemListMark [
+	^'ul'
 ]
 
 { #category : #lists }
@@ -52,7 +66,9 @@ CVGHtmlWriter >> openItem [
 
 { #category : #lists }
 CVGHtmlWriter >> openItemList [
-	stream << '<ul>'.
+	stream << '<'.
+	stream << self itemListMark.
+	stream <<'>'.
 	stream cr
 ]
 
@@ -107,4 +123,9 @@ CVGHtmlWriter >> url: aString labeled: aName [
 	^str contents
 	
 	
+]
+
+{ #category : #helpers }
+CVGHtmlWriter >> writeNewLine [
+	 stream << '<br>'
 ]

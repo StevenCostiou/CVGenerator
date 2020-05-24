@@ -44,6 +44,11 @@ CVGSection >> printOn: aStream [
 ]
 
 { #category : #accessing }
+CVGSection >> sortedElements [
+	^type sortedElements: data
+]
+
+{ #category : #accessing }
 CVGSection >> title [
 	^ title
 ]

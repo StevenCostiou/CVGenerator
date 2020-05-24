@@ -19,50 +19,11 @@ CVGCurriculum class >> materializeFrom: aPath [
 		materialize
 ]
 
-{ #category : #'api - publications' }
-CVGCurriculum >> allBooks [
-	^ self publications select: [ :pub | pub isBook ]
-]
-
-{ #category : #'api - publications' }
-CVGCurriculum >> allConferences [
-	^ self publications select: [ :pub | pub isConference ]
-]
-
-{ #category : #'api - publications' }
-CVGCurriculum >> allJournals [
-	^ self publications select: [ :pub | pub isJournal ]
-]
-
-{ #category : #'api - publications' }
-CVGCurriculum >> allOtherPublications [
-	^ self publications select: [ :pub | pub isOther ]
-]
-
-{ #category : #software }
-CVGCurriculum >> allSoftware [
-]
-
-{ #category : #'api - publications' }
-CVGCurriculum >> allTheses [
-	^ self publications select: [ :pub | pub isThesis ]
-]
-
-{ #category : #'api - publications' }
-CVGCurriculum >> allWorkshops [
-	^ self publications select: [ :pub | pub isWorkshop ]
-]
-
 { #category : #sections }
 CVGCurriculum >> findSection: aSectionType [
 	^ sections
 		detect: [ :sec | sec type = aSectionType ]
 		ifNone: [ OrderedCollection new ]
-]
-
-{ #category : #generation }
-CVGCurriculum >> generateHTML [
-	^ CVGGenerator generateHTML: self
 ]
 
 { #category : #materializing }
@@ -96,12 +57,7 @@ CVGCurriculum >> publications [
 	^ (self findSection: CVGPublication) data
 ]
 
-{ #category : #'api - publications' }
-CVGCurriculum >> sortedPublications [
-	^ {(CVGPublicationType journal -> self allJournals).
-	(CVGPublicationType conference -> self allConferences).
-	(CVGPublicationType workshop -> self allWorkshops).
-	(CVGPublicationType book -> self allBooks).
-	(CVGPublicationType other -> self allOtherPublications).
-	(CVGPublicationType thesis -> self allTheses)}
+{ #category : #accessing }
+CVGCurriculum >> sections [
+	^sections
 ]

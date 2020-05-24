@@ -36,6 +36,14 @@ CVGSoftware >> image: anObject [
 	image := anObject
 ]
 
+{ #category : #testing }
+CVGSoftware >> isContributor [ ^type isContributor
+]
+
+{ #category : #testing }
+CVGSoftware >> isDeveloper [ ^type isDeveloper
+]
+
 { #category : #accessing }
 CVGSoftware >> link [
 	^ link
