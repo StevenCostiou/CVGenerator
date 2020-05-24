@@ -7,6 +7,11 @@ Class {
 	#category : #'CVGenerator-ReadersWriters-Writers'
 }
 
+{ #category : #'instance creation' }
+CVGHtmlWriter class >> for: aCVGElement [
+	^aCVGElement htmlWriterClass 
+]
+
 { #category : #emphasis }
 CVGHtmlWriter >> bold: aString [
 	|str|

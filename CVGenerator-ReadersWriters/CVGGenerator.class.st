@@ -49,7 +49,7 @@ CVGGenerator >> generateAuthors: authors [
 { #category : #generation }
 CVGGenerator >> generatePublication: pub [
 	| writer |
-	writer := self newWriter.
+	writer := self newWriterFor: pub.
 	writer openItem.
 	writer bold: pub title.
 	writer writeDotSpace.
@@ -62,8 +62,8 @@ CVGGenerator >> generatePublication: pub [
 
 { #category : #generation }
 CVGGenerator >> generatePublications [
-	| writer |
-	writer := self newWriter.
+	| writer |	
+	writer := self newWriter.	
 	writer section: 'Publications'.
 	model sortedPublications
 		do: [ :typedPublications | 
@@ -71,7 +71,7 @@ CVGGenerator >> generatePublications [
 			type := typedPublications key.
 			pubs := typedPublications value.
 			pubs isEmpty
-				ifFalse: [ writer subSection: type publicationTypeName.
+				ifFalse: [ writer subSection: type typeName.
 					writer openItemList.
 					pubs do: [ :pub | self generatePublication: pub ].
 					writer closeItemList ] ]
@@ -79,7 +79,7 @@ CVGGenerator >> generatePublications [
 
 { #category : #initialization }
 CVGGenerator >> html [
-	writerClass := "CVGHtmlWriter"CVGHtmlPublicationWriter
+	writerClass := CVGHtmlWriter
 ]
 
 { #category : #initialization }
@@ -90,4 +90,9 @@ CVGGenerator >> model: aCVGCurriculum [
 { #category : #writers }
 CVGGenerator >> newWriter [
 	^ writerClass on: stream
+]
+
+{ #category : #writers }
+CVGGenerator >> newWriterFor: aCVGElement [
+	^ (writerClass for: aCVGElement) on: stream
 ]

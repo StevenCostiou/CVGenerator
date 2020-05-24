@@ -17,6 +17,11 @@ Class {
 }
 
 { #category : #accessing }
+CVGPublication class >> htmlWriterClass [
+	^ CVGHtmlPublicationWriter 
+]
+
+{ #category : #accessing }
 CVGPublication class >> readerClass [
 	^ CVGPublicationReader
 ]
