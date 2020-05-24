@@ -27,7 +27,7 @@ CVGPublicationReaderTest >> sampleSTON [
 CVGPublicationReaderTest >> testReadFromDictionary [ 
 	|cvgpub|
 	cvgpub := CVGPublication readerClass  readFromDictionary: self sampleDictionary.
-	self assert: cvgpub type publicationTypeKey equals: (self sampleDictionary at: #type).
+	self assert: cvgpub type typeKey equals: (self sampleDictionary at: #type).
 	self assert: cvgpub title equals: (self sampleDictionary at: #title).
 	self assert: cvgpub year equals: (self sampleDictionary at: #year).
 	self assert: cvgpub publisher equals: (self sampleDictionary at: #publisher).

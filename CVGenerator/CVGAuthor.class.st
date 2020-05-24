@@ -9,7 +9,7 @@ Class {
 		'name',
 		'surname'
 	],
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements'
 }
 
 { #category : #accessing }

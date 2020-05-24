@@ -4,7 +4,7 @@ I represent conferences publication type
 Class {
 	#name : #CVGConference,
 	#superclass : #CVGPublicationType,
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
@@ -13,11 +13,11 @@ CVGConference >> isConference [
 ]
 
 { #category : #'accessing - defaults' }
-CVGConference >> publicationTypeKey [
+CVGConference >> typeKey [
 	^#conference
 ]
 
 { #category : #'accessing - defaults' }
-CVGConference >> publicationTypeName [
+CVGConference >> typeName [
 	^'Conferences'
 ]

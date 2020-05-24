@@ -4,7 +4,7 @@ I represent other publication type
 Class {
 	#name : #CVGOther,
 	#superclass : #CVGPublicationType,
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
@@ -13,11 +13,11 @@ CVGOther >> isOther [
 ]
 
 { #category : #'accessing - defaults' }
-CVGOther >> publicationTypeKey [
+CVGOther >> typeKey [
 	^#other
 ]
 
 { #category : #'accessing - defaults' }
-CVGOther >> publicationTypeName [
+CVGOther >> typeName [
 	^'Other'
 ]

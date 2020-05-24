@@ -3,8 +3,8 @@ I represent the abstract type of a publication.
 "
 Class {
 	#name : #CVGPublicationType,
-	#superclass : #Object,
-	#category : #'CVGenerator-publications'
+	#superclass : #CVGElementType,
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #'instance creation' }
@@ -65,14 +65,4 @@ CVGPublicationType >> isThesis [
 { #category : #testing }
 CVGPublicationType >> isWorkshop [
 	^false
-]
-
-{ #category : #'accessing - defaults' }
-CVGPublicationType >> publicationTypeKey [
-	^self subclassResponsibility 
-]
-
-{ #category : #'accessing - defaults' }
-CVGPublicationType >> publicationTypeName [
-	self subclassResponsibility 
 ]

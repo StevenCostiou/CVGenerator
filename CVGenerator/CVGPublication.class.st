@@ -7,15 +7,13 @@ Class {
 	#name : #CVGPublication,
 	#superclass : #CVGSectionElement,
 	#instVars : [
-		'type',
-		'title',
 		'authors',
 		'publisher',
 		'year',
 		'doi',
 		'link'
 	],
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements'
 }
 
 { #category : #accessing }
@@ -85,26 +83,6 @@ CVGPublication >> publisher [
 { #category : #accessing }
 CVGPublication >> publisher: anObject [
 	publisher := anObject
-]
-
-{ #category : #accessing }
-CVGPublication >> title [
-	^ title
-]
-
-{ #category : #accessing }
-CVGPublication >> title: anObject [
-	title := anObject
-]
-
-{ #category : #accessing }
-CVGPublication >> type [
-	^ type
-]
-
-{ #category : #accessing }
-CVGPublication >> type: anObject [
-	type := anObject
 ]
 
 { #category : #accessing }

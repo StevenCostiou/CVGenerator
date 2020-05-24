@@ -4,7 +4,7 @@ I represent thesis publication type
 Class {
 	#name : #CVGThesis,
 	#superclass : #CVGPublicationType,
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
@@ -13,11 +13,11 @@ CVGThesis >> isThesis [
 ]
 
 { #category : #'accessing - defaults' }
-CVGThesis >> publicationTypeKey [
+CVGThesis >> typeKey [
 	^#thesis
 ]
 
 { #category : #'accessing - defaults' }
-CVGThesis >> publicationTypeName [
+CVGThesis >> typeName [
 	^'Theses'
 ]

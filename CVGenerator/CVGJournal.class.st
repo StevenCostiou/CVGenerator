@@ -4,7 +4,7 @@ I represent journals publication type
 Class {
 	#name : #CVGJournal,
 	#superclass : #CVGPublicationType,
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
@@ -13,11 +13,11 @@ CVGJournal >> isJournal [
 ]
 
 { #category : #'accessing - defaults' }
-CVGJournal >> publicationTypeKey [
+CVGJournal >> typeKey [
 	^#journal
 ]
 
 { #category : #'accessing - defaults' }
-CVGJournal >> publicationTypeName [
+CVGJournal >> typeName [
 	^'Journals'
 ]

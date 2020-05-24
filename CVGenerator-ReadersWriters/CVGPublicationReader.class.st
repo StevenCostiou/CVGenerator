@@ -13,7 +13,7 @@ CVGPublicationReader class >> readFromDictionary: dic [
 
 	|publication|
 	publication := CVGPublication new.
-	publication type: (CVGPublicationType perform: (self readSymbolProperty: #type in: dic)).
+	publication type: (CVGPublicationType type: (self readSymbolProperty: #type in: dic)).
 	publication title: (self readStringProperty: #title in: dic).
 	publication authors: (CVGAuthor readerClass readAuthorsFrom: (self readStringProperty: #authors in: dic)).
 	publication year: (self readIntegerProperty: #year in: dic).

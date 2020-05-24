@@ -4,7 +4,7 @@ I represent books and booklets publication types
 Class {
 	#name : #CVGBook,
 	#superclass : #CVGPublicationType,
-	#category : #'CVGenerator-publications'
+	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
@@ -13,11 +13,11 @@ CVGBook >> isBook [
 ]
 
 { #category : #'accessing - defaults' }
-CVGBook >> publicationTypeKey [
+CVGBook >> typeKey [
 	^#book
 ]
 
 { #category : #'accessing - defaults' }
-CVGBook >> publicationTypeName [
+CVGBook >> typeName [
 	^'Books'
 ]
