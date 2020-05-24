@@ -11,13 +11,15 @@ Class {
 { #category : #reading }
 CVGTalkReader class >> readFromDictionary: dic [
 
-	|softwareArtefact|
-	softwareArtefact := CVGSoftware new.
-	softwareArtefact type: (CVGTalkType type: (self readSymbolProperty: #type in: dic)).
-	softwareArtefact title: (self readStringProperty: #title in: dic).
-	softwareArtefact date: (Date readFrom: (self readIntegerProperty: #yearStart in: dic) readStream).
-	softwareArtefact description: (self readStringProperty: #description in: dic).
-	softwareArtefact location: (self readStringProperty: #location in: dic).
-	softwareArtefact link: (self readStringProperty: #link in: dic).
-	^softwareArtefact
+	|talk dateString|
+	talk := CVGTalk new.
+	talk type: (CVGTalkType type: (self readSymbolProperty: #type in: dic)).
+	talk title: (self readStringProperty: #title in: dic).
+	dateString := (self readIntegerProperty: #date in: dic).
+	dateString isEmpty 
+		ifFalse:[talk date: (Date readFrom: dateString readStream)].
+	talk description: (self readStringProperty: #description in: dic).
+	talk location: (self readStringProperty: #location in: dic).
+	talk link: (self readStringProperty: #link in: dic).
+	^talk
 ]

@@ -1,17 +1,20 @@
+"
+I represent a keynote talk type
+"
 Class {
 	#name : #CVGTalkKeynote,
 	#superclass : #CVGTalkType,
 	#category : #'CVGenerator-elements - types'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkKeynote >> isKeynote [ ^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkKeynote >> typeKey [ ^#keynote
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkKeynote >> typeName [ ^'Keynotes'
 ]

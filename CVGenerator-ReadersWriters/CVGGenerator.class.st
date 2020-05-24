@@ -94,19 +94,21 @@ CVGGenerator >> generateSoftware: s [
 ]
 
 { #category : #generation }
-CVGGenerator >> generateTalk: s [
+CVGGenerator >> generateTalk: t [
 	| writer |
-	self halt.
-	writer := self newWriterFor: s.
+	writer := self newWriterFor: t.
 	writer openItem.
-	writer bold: s title.
-	writer writeSpace.
-	writer write: '(', s yearStart printString, ' - '.
-	writer write: (s yearStop = 0 ifTrue:['...'] ifFalse:[s yearStop printString]), ')'.
+	writer bold: t title.
 	writer writeDotSpace.
-	writer write: s description.
+	writer write: t description.
+	writer writeCommaSpace.
+	t date isEmpty 
+		ifFalse:[
+			writer write: t date ddmmyyyy.
+			writer writeCommaSpace.].
+	writer write: t location.
 	writer writeDotSpace.
-	writer writeURL: s link.
+	writer writeURL: t link.
 	writer closeItem
 ]
 

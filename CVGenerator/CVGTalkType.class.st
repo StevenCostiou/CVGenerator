@@ -1,3 +1,6 @@
+"
+I represent the abstract type of a talk.
+"
 Class {
 	#name : #CVGTalkType,
 	#superclass : #CVGElementType,
@@ -24,22 +27,22 @@ CVGTalkType class >> tool [ ^CVGTalkTool new
 CVGTalkType class >> vulgarization [ ^CVGTalkVulgarization new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkType >> isConference [ ^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkType >> isKeynote [ ^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkType >> isSeminar [ ^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkType >> isTool [ ^false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkType >> isVulgarization [ ^false
 ]

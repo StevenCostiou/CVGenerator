@@ -1,17 +1,20 @@
+"
+I represent a conference talk type
+"
 Class {
 	#name : #CVGTalkConference,
 	#superclass : #CVGTalkType,
 	#category : #'CVGenerator-elements - types'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkConference >> isConference [ ^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkConference >> typeKey [ ^#conference
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkConference >> typeName [ ^'International conferences'
 ]

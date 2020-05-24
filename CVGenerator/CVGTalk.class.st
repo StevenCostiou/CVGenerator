@@ -1,5 +1,5 @@
 "
-Generation code:
+Gen code:
 {
 'Keynote'->'Keynotes'.
 'Tool'->'Tool presentations'.
@@ -21,6 +21,7 @@ Generation code:
 	classVariableNames: ''
 	package: 'CVGenerator-elements - types'.
 	
+	CVGTalk compile: (testAccessor asString, ' ^type ', testAccessor).
 	class compile: (testAccessor asString, ' ^true').
 	class compile: ('typeKey ^', typeKey printString).
 	class compile: ('typeName ^', typeName printString).
@@ -68,27 +69,27 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> allConferencesIn: flattenedData [
 		^flattenedData select: [ :e | e isConference]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> allKeynotesIn: flattenedData [
 		^flattenedData select: [ :e | e isKeynote]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> allSeminarsIn: flattenedData [
 		^flattenedData select: [ :e | e isSeminar]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> allToolsIn: flattenedData [
 		^flattenedData select: [ :e | e isTool]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> allVulgarizationsIn: flattenedData [
 		^flattenedData select: [ :e | e isVulgarization]
 ]
@@ -103,7 +104,7 @@ CVGTalk class >> readerClass [
 	^ CVGTalkReader
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'data - sorting' }
 CVGTalk class >> sortedElements: flattenedData [
 	^ {
 	(CVGTalkKeynote keynote -> (self allKeynotesIn: flattenedData)).
@@ -132,6 +133,26 @@ CVGTalk >> description [
 { #category : #accessing }
 CVGTalk >> description: anObject [
 	description := anObject
+]
+
+{ #category : #testing }
+CVGTalk >> isConference [ ^type isConference
+]
+
+{ #category : #testing }
+CVGTalk >> isKeynote [ ^type isKeynote
+]
+
+{ #category : #testing }
+CVGTalk >> isSeminar [ ^type isSeminar
+]
+
+{ #category : #testing }
+CVGTalk >> isTool [ ^type isTool
+]
+
+{ #category : #testing }
+CVGTalk >> isVulgarization [ ^type isVulgarization
 ]
 
 { #category : #accessing }

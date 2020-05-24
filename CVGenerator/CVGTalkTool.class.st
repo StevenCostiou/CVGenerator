@@ -1,17 +1,20 @@
+"
+I represent a tool presentation talk type
+"
 Class {
 	#name : #CVGTalkTool,
 	#superclass : #CVGTalkType,
 	#category : #'CVGenerator-elements - types'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkTool >> isTool [ ^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkTool >> typeKey [ ^#tool
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkTool >> typeName [ ^'Tool presentations'
 ]

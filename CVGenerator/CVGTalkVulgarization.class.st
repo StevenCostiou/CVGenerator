@@ -1,17 +1,20 @@
+"
+I represent a vulgarization talk type
+"
 Class {
 	#name : #CVGTalkVulgarization,
 	#superclass : #CVGTalkType,
 	#category : #'CVGenerator-elements - types'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #testing }
 CVGTalkVulgarization >> isVulgarization [ ^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkVulgarization >> typeKey [ ^#vulgarization
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkVulgarization >> typeName [ ^'Vulgarization'
 ]

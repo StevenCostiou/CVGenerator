@@ -1,17 +1,20 @@
+"
+I represent a seminar talk type
+"
 Class {
 	#name : #CVGTalkSeminar,
 	#superclass : #CVGTalkType,
 	#category : #'CVGenerator-elements - types'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkSeminar >> isSeminar [ ^true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkSeminar >> typeKey [ ^#seminar
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CVGTalkSeminar >> typeName [ ^'Academic and industrial seminars'
 ]
