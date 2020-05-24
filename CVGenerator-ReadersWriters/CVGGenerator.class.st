@@ -102,9 +102,8 @@ CVGGenerator >> generateTalk: t [
 	writer writeDotSpace.
 	writer write: t description.
 	writer writeCommaSpace.
-	t date isEmpty 
-		ifFalse:[
-			writer write: t date ddmmyyyy.
+	t date ifNotNil:[:date|
+			writer write: date ddmmyyyy.
 			writer writeCommaSpace.].
 	writer write: t location.
 	writer writeDotSpace.

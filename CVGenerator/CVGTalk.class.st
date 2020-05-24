@@ -107,9 +107,9 @@ CVGTalk class >> readerClass [
 { #category : #'data - sorting' }
 CVGTalk class >> sortedElements: flattenedData [
 	^ {
-	(CVGTalkKeynote keynote -> (self allKeynotesIn: flattenedData)).
-	(CVGTalkTool tool -> (self allToolsIn: flattenedData)).
+	(CVGTalkKeynote keynote -> (self allKeynotesIn: flattenedData)).	
 	(CVGTalkConference conference	-> (self allConferencesIn: flattenedData)).
+	(CVGTalkTool tool -> (self allToolsIn: flattenedData)).
 	(CVGTalkVulgarization vulgarization -> (self allVulgarizationsIn: flattenedData)).
 	(CVGTalkSeminar seminar -> (self allSeminarsIn: flattenedData))
 	}
