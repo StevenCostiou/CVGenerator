@@ -9,7 +9,8 @@ Class {
 		'writerClass',
 		'model',
 		'outputDic',
-		'stream'
+		'stream',
+		'generatorWriter'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
 }
@@ -22,6 +23,7 @@ CVGGenerator class >> generateHTML: aCVGModel [
 { #category : #generation }
 CVGGenerator >> generate [
 	outputDic := Dictionary new.
+	generatorWriter := writerClass on: self stream.
 	self generateCV
 ]
 
@@ -61,7 +63,6 @@ CVGGenerator >> generatePublication: pub [
 { #category : #generation }
 CVGGenerator >> generateSection: aSection [
 	| writer |
-	stream := self newStringWriteStream.
 	writer := self newWriterFor: aSection type.
 	writer section: aSection title.
 	aSection sortedElements
@@ -74,7 +75,7 @@ CVGGenerator >> generateSection: aSection [
 					writer openItemList.
 					elements do: [ :e | e acceptGenerator: self ].
 					writer closeItemList ] ].
-	outputDic at: aSection title put: writer contents
+	outputDic at: aSection put: stream contents
 ]
 
 { #category : #generation }
@@ -113,7 +114,7 @@ CVGGenerator >> generateTalk: t [
 
 { #category : #initialization }
 CVGGenerator >> html [
-	writerClass := CVGHtmlWriter
+	writerClass := CVGSimpleHtmlWriter
 ]
 
 { #category : #initialization }
@@ -126,12 +127,17 @@ CVGGenerator >> model: aCVGCurriculum [
 	model := aCVGCurriculum 
 ]
 
-{ #category : #writers }
-CVGGenerator >> newStringWriteStream [
+{ #category : #streams }
+CVGGenerator >> newStream [
 	^ WriteStream on: String new
 ]
 
 { #category : #writers }
 CVGGenerator >> newWriterFor: aCVGElement [
-	^ (writerClass for: aCVGElement) on: stream
+	^ (writerClass for: aCVGElement) on: self stream
+]
+
+{ #category : #streams }
+CVGGenerator >> stream [
+	^ stream ifNil: [ stream := self newStream ]
 ]

@@ -13,7 +13,7 @@ Class {
 
 { #category : #accessing }
 CVGSectionElement class >> htmlWriterClass [
-	^ CVGHtmlWriter 
+	^ CVGSimpleHtmlWriter 
 ]
 
 { #category : #accessing }

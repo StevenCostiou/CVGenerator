@@ -3,13 +3,18 @@ I specialize specific writing behavior for HTML themes
 "
 Class {
 	#name : #CVGHtmlPublicationWriter,
-	#superclass : #CVGHtmlWriter,
+	#superclass : #CVGSimpleHtmlWriter,
 	#category : #'CVGenerator-ReadersWriters-Writers'
 }
 
 { #category : #lists }
-CVGHtmlPublicationWriter >> itemListMark [
-	^'ol'
+CVGHtmlPublicationWriter >> closeItemList [
+	self stopOrderedList 
+]
+
+{ #category : #lists }
+CVGHtmlPublicationWriter >> openItemList [
+	self startOrderedList 
 ]
 
 { #category : #sections }
@@ -23,7 +28,7 @@ CVGHtmlPublicationWriter >> section: aString [
 
 { #category : #sections }
 CVGHtmlPublicationWriter >> subSection: aString [
-	self title: aString h: 5 class: 'blue-title'.
+	self title: aString h: 'h5' class: 'blue-title'.
 	stream << '<hr class="blue-hr">'
 
 ]
