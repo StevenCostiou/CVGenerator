@@ -1,3 +1,8 @@
+"
+I represent a course.
+
+type = lecture
+"
 Class {
 	#name : #CVGCourse,
 	#superclass : #CVGSectionElement,
@@ -9,10 +14,16 @@ Class {
 		'cm',
 		'td',
 		'tp',
-		'responsible'
+		'responsible',
+		'link'
 	],
 	#category : #'CVGenerator-elements'
 }
+
+{ #category : #accessing }
+CVGCourse class >> readerClass [
+	^ CVGCourseReader 
+]
 
 { #category : #visiting }
 CVGCourse >> acceptGenerator: aCVGGenerator [
@@ -57,6 +68,16 @@ CVGCourse >> level: anObject [
 { #category : #accessing }
 CVGCourse >> levelEnglish [
 	^ level second
+]
+
+{ #category : #accessing }
+CVGCourse >> link [
+	^ link
+]
+
+{ #category : #accessing }
+CVGCourse >> link: anObject [
+	link := anObject
 ]
 
 { #category : #accessing }

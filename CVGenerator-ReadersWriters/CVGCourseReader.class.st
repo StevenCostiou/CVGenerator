@@ -13,8 +13,9 @@ CVGCourseReader class >> readFromDictionary: dic [
 
 	|course|
 	course := CVGCourse new.
-	course type: (CVGTalkType type: (self readSymbolProperty: #type in: dic)).
-	course institute: (dic at: #institute).	
+	course type: (CVGTeachingType type: (self readSymbolProperty: #type in: dic)).
+	course institute: (dic at: #institute).
+	course title: (self readStringProperty: #name in: dic)..	
 	course year: (dic at: #year).
 	course level: (dic at: #level).
 	course cm: (dic at: #cm).
