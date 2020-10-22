@@ -1,15 +1,11 @@
-"
-I am a utility class.
-I instantiate a CVGCourse from a dictionary representing a CVGCourse instance.
-"
 Class {
-	#name : #CVGCourseReader,
+	#name : #CVGAdditionalTeachingCapReader,
 	#superclass : #CVGReader,
 	#category : #'CVGenerator-ReadersWriters-Readers'
 }
 
 { #category : #reading }
-CVGCourseReader class >> readFromDictionary: dic [
+CVGAdditionalTeachingCapReader class >> readFromDictionary: dic [
 
 	|course|
 	course := CVGCourse new.

@@ -6,7 +6,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'type',
-		'title'
+		'title',
+		'over'
 	],
 	#category : #'CVGenerator-elements'
 }
@@ -31,6 +32,16 @@ CVGSectionElement class >> sortedElements: flattenedData [
 { #category : #accessing }
 CVGSectionElement >> htmlWriterClass [
 	^ self class htmlWriterClass
+]
+
+{ #category : #accessing }
+CVGSectionElement >> over [ 
+	^over ifNil:[false]
+]
+
+{ #category : #accessing }
+CVGSectionElement >> over: aBoolean [ 
+	over := aBoolean
 ]
 
 { #category : #accessing }
