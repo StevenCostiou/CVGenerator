@@ -6,12 +6,12 @@ Class {
 
 { #category : #'as yet unclassified' }
 CVGResearchWorkType class >> collaboration [  
-	^CVGCollaboration new
+	^CVGCollaborationType new
 ]
 
 { #category : #'as yet unclassified' }
 CVGResearchWorkType class >> research [ 
-	^CVGResearch new
+	^CVGResearchType new
 ]
 
 { #category : #testing }

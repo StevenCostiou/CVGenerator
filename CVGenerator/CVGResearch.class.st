@@ -1,20 +1,18 @@
 Class {
 	#name : #CVGResearch,
-	#superclass : #CVGResearchWorkType,
-	#category : #'CVGenerator-elements - types'
+	#superclass : #CVGTextTranslatedSectionElement,
+	#instVars : [
+		'dateString'
+	],
+	#category : #'CVGenerator-elements'
 }
 
-{ #category : #testing }
-CVGResearch >> isResearch [ 
-	^true
+{ #category : #accessing }
+CVGResearch >> dateString [
+	^ dateString
 ]
 
-{ #category : #'accessing - defaults' }
-CVGResearch >> typeKey [
-	^#research
-]
-
-{ #category : #'accessing - defaults' }
-CVGResearch >> typeName [
-	^ 'Research'
+{ #category : #accessing }
+CVGResearch >> dateString: anObject [
+	dateString := anObject
 ]

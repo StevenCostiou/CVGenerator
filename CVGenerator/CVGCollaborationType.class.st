@@ -1,20 +1,20 @@
 Class {
-	#name : #CVGCollaboration,
+	#name : #CVGCollaborationType,
 	#superclass : #CVGResearchWorkType,
 	#category : #'CVGenerator-elements - types'
 }
 
 { #category : #testing }
-CVGCollaboration >> isCollaboration [ 
+CVGCollaborationType >> isCollaboration [ 
 	^true
 ]
 
 { #category : #'accessing - defaults' }
-CVGCollaboration >> typeKey [
+CVGCollaborationType >> typeKey [
 	^ #collaboration
 ]
 
 { #category : #'accessing - defaults' }
-CVGCollaboration >> typeName [
+CVGCollaborationType >> typeName [
 	^ 'Collaboration'
 ]
