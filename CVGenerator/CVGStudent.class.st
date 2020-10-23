@@ -16,6 +16,11 @@ Class {
 }
 
 { #category : #accessing }
+CVGStudent class >> readerClass [
+	^ CVGStudentReader
+]
+
+{ #category : #accessing }
 CVGStudent >> academic [
 	^ academic
 ]
