@@ -14,7 +14,7 @@ CVGAtelierReader class >> readFromDictionary: dic [
 	|atelierOrVulga|
 	atelierOrVulga := CVGAtelier new.
 	atelierOrVulga type: (CVGAdditionalTeachingType type: (self readSymbolProperty: #type in: dic)).
-	atelierOrVulga title: (self readStringProperty: #title in: dic).
+	atelierOrVulga title: (dic at: #title).
 	atelierOrVulga text: (dic at: #text).
 	atelierOrVulga dateString: (dic at: #dateString).
 	atelierOrVulga over: (dic at: #over ifAbsent: [false]).	
