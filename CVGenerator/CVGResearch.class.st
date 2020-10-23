@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #accessing }
+CVGResearch class >> readerClass [
+	^ CVGResearchReader 
+]
+
+{ #category : #accessing }
 CVGResearch >> dateString [
 	^ dateString
 ]
