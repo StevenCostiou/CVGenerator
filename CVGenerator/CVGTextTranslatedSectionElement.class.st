@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #accessing }
+CVGTextTranslatedSectionElement class >> readerClass [
+	^ CVGAdditionalTeachingReader 
+]
+
+{ #category : #accessing }
 CVGTextTranslatedSectionElement >> text [
 	^ text first
 ]

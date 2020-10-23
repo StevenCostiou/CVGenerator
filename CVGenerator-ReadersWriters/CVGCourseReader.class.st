@@ -16,6 +16,7 @@ CVGCourseReader class >> readFromDictionary: dic [
 	course type: (CVGTeachingType type: (self readSymbolProperty: #type in: dic)).
 	course institute: (dic at: #institute).
 	course title: (self readStringProperty: #name in: dic).
+	course name: course title.
 	course year: (dic at: #year).
 	course level: (dic at: #level).
 	course cm: (dic at: #cm).

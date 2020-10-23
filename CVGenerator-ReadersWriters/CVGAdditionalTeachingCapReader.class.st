@@ -8,16 +8,11 @@ Class {
 CVGAdditionalTeachingCapReader class >> readFromDictionary: dic [
 
 	|cap|
-	cap := CVGCourse new.
-	cap type: (CVGTeachingType type: (self readSymbolProperty: #type in: dic)).
-	cap institute: (dic at: #institute).
-	cap title: (self readStringProperty: #name in: dic).
-	cap year: (dic at: #year).
-	cap level: (dic at: #level).
-	cap cm: (dic at: #cm).
-	cap td: (dic at: #td).
-	cap tp: (dic at: #tp).
-	cap responsible: (dic at: #responsible).
-	cap link: (self readStringProperty: #link in: dic).	
+	cap := CVGCap new.
+	cap type: (CVGAdditionalTeachingType type: (self readSymbolProperty: #type in: dic)).
+	cap title: (self readStringProperty: #title in: dic).
+	cap text: (dic at: #text).
+	cap sectionType: (dic at: #section).
+	cap over: (dic at: #over ifAbsent: [false]).	
 	^cap
 ]
