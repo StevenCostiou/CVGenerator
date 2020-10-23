@@ -17,7 +17,7 @@ CVGSoftwareReader class >> readFromDictionary: dic [
 	softwareArtefact title: (self readStringProperty: #title in: dic).
 	softwareArtefact yearStart: (self readIntegerProperty: #yearStart in: dic).
 	softwareArtefact yearStop: (self readIntegerProperty: #yearStop in: dic).
-	softwareArtefact description: (self readStringProperty: #description in: dic).
+	softwareArtefact description: (dic at: #description).
 	softwareArtefact image: (self readStringProperty: #image in: dic).
 	softwareArtefact link: (self readStringProperty: #link in: dic).
 	^softwareArtefact

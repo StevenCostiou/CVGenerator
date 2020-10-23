@@ -45,12 +45,17 @@ CVGSoftware class >> sortedElements: flattenedData [
 
 { #category : #accessing }
 CVGSoftware >> description [
-	^ description
+	^ description first
 ]
 
 { #category : #accessing }
 CVGSoftware >> description: anObject [
 	description := anObject
+]
+
+{ #category : #accessing }
+CVGSoftware >> descriptionEnglish [
+	^ description second
 ]
 
 { #category : #accessing }
