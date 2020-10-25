@@ -41,6 +41,11 @@ CVGSimpleHtmlWriter >> closeItem [
 	self closeMarkup 
 ]
 
+{ #category : #lists }
+CVGSimpleHtmlWriter >> closeItemList [
+	self stopUnorderedList 
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> closeMarkup [
 	self writeMarkup: '/' , markupStack pop
@@ -125,6 +130,11 @@ CVGSimpleHtmlWriter >> listItem: aString [
 { #category : #lists }
 CVGSimpleHtmlWriter >> openItem [
 	self openMarkup: self listItem
+]
+
+{ #category : #lists }
+CVGSimpleHtmlWriter >> openItemList [
+	self startUnorderedList 
 ]
 
 { #category : #markup }
