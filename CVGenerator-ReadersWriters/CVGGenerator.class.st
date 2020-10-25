@@ -74,12 +74,13 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer title: (self translated: aCVGHeader title) h: 'h5' class: 'title-name'.
 	writer writeNewLine.
 	writer title: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution) h: 'h5' class: 'title-name'.
-	writer writeNewLine.
+	"writer writeNewLine.
 	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
 	writer writeNewLine.
-	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. 
+	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. "
 	writer closeDiv.
 	writer closeDiv
+
 ]
 
 { #category : #generation }
@@ -174,6 +175,30 @@ CVGGenerator >> html [
 	writerClass := CVGSimpleHtmlWriter
 ]
 
+{ #category : #generation }
+CVGGenerator >> htmlPagePostface [
+	^'</div></body></html>'
+]
+
+{ #category : #generation }
+CVGGenerator >> htmlPagePreamble [
+	^'<!DOCTYPE html>
+	<html>
+	<head>
+	<meta charset="utf-8">
+	<title>Dr. Steven Costiou - CV</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="css/normalize.css"> <link rel="stylesheet" href="css/skeleton.css"> 	<link rel="stylesheet" href="styles/main-s.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	</head>
+	<body> 
+	<div class="container">'
+]
+
 { #category : #accessing }
 CVGGenerator >> imageDirectory [
 	^'images/'
@@ -199,7 +224,7 @@ CVGGenerator >> newWriterFor: aCVGElement [
 	^ (writerClass for: aCVGElement) on: self stream
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #streams }
 CVGGenerator >> resetStream [
 	stream := self newStream
 ]
