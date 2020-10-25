@@ -26,6 +26,11 @@ CVGCurriculum >> findSection: aSectionType [
 		ifNone: [ OrderedCollection new ]
 ]
 
+{ #category : #sections }
+CVGCurriculum >> header [
+	^ self findSection: CVGHeader
+]
+
 { #category : #materializing }
 CVGCurriculum >> materialize [
 	sections := (self materializeDataFrom: 'sections.ston')

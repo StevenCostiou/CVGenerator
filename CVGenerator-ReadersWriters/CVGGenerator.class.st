@@ -11,7 +11,8 @@ Class {
 		'outputDic',
 		'stream',
 		'generatorWriter',
-		'translated'
+		'translated',
+		'generatedPages'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
 }
@@ -19,6 +20,29 @@ Class {
 { #category : #'instance creation' }
 CVGGenerator class >> generateHTML: aCVGModel [
 	^self new html; model: aCVGModel; generate
+]
+
+{ #category : #pages }
+CVGGenerator >> buildPagesDescriptions [
+
+	|pages description|
+	pages := Dictionary new.
+	
+	"Contributions"
+	description := OrderedCollection new.
+	description add: (outputDic at: 'Publications').
+	description add: (outputDic at: 'Software').
+	description add: (outputDic at: 'Talks').
+	pages at: self pageTitles first put: description.
+
+	"Teaching"
+	description := OrderedCollection new.
+	description add: (outputDic at: 'Teaching').
+	description add: (outputDic at: 'Past teaching activities').
+	pages at: self pageTitles second put: description.
+	
+	^pages	
+	
 ]
 
 { #category : #generation }
@@ -44,7 +68,10 @@ CVGGenerator >> generateAuthor: author [
 
 { #category : #generation }
 CVGGenerator >> generateCV [
-	model sections do: [ :sec | sec acceptGenerator: self ]
+	model sections do: [ :sec | sec acceptGenerator: self ].
+	self resetStream.
+	self generateHeader: model header data first.
+	outputDic at: 'Header' put: stream contents
 ]
 
 { #category : #generation }
@@ -60,6 +87,26 @@ CVGGenerator >> generateCordee: aCVGCordee [
 { #category : #generation }
 CVGGenerator >> generateCourse: aCVGCourse [ 
 	
+]
+
+{ #category : #generation }
+CVGGenerator >> generateHTMLPage: pageDescription [
+
+	|str|
+	str := self newStream.
+	str << self htmlPagePreamble.
+	str << self htmlHeader.
+	str << (self generateMenuFor: pageDescription key).
+	pageDescription values do:[:html| str << html].
+	str << self htmlPagePostface  
+]
+
+{ #category : #generation }
+CVGGenerator >> generateHTMLPages [
+	generatedPages := OrderedCollection new.
+	self buildPagesDescriptions
+		do:
+			[ :pageDescription | generatedPages add: (self generateHTMLPage: pageDescription) ]
 ]
 
 { #category : #generation }
@@ -222,6 +269,11 @@ CVGGenerator >> newStream [
 { #category : #writers }
 CVGGenerator >> newWriterFor: aCVGElement [
 	^ (writerClass for: aCVGElement) on: self stream
+]
+
+{ #category : #pages }
+CVGGenerator >> pageTitles [
+	^ #(#('Contributions' 'Contributions' 2) #('Enseignement' 'Teaching' 3))
 ]
 
 { #category : #streams }
