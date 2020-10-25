@@ -30,15 +30,15 @@ CVGGenerator >> buildPagesDescriptions [
 	
 	"Contributions"
 	description := OrderedCollection new.
-	description add: (outputDic at: 'Publications').
-	description add: (outputDic at: 'Software').
-	description add: (outputDic at: 'Talks').
+	description add: (self generatedSection: 'Publications').
+	description add: (self generatedSection: 'Software').
+	description add: (self generatedSection: 'Talks').
 	pages at: self pageTitles first put: description.
 
 	"Teaching"
 	description := OrderedCollection new.
-	description add: (outputDic at: 'Teaching').
-	description add: (outputDic at: 'Past teaching activities').
+	description add: (self generatedSection: 'Teachings').
+	description add: (self generatedSection: 'Past teaching activities').
 	pages at: self pageTitles second put: description.
 	
 	^pages	
@@ -71,7 +71,7 @@ CVGGenerator >> generateCV [
 	model sections do: [ :sec | sec acceptGenerator: self ].
 	self resetStream.
 	self generateHeader: model header data first.
-	outputDic at: 'Header' put: stream contents
+	outputDic at: (CVGSection new title:'Header') put: stream contents
 ]
 
 { #category : #generation }
@@ -91,22 +91,21 @@ CVGGenerator >> generateCourse: aCVGCourse [
 
 { #category : #generation }
 CVGGenerator >> generateHTMLPage: pageDescription [
-
-	|str|
+	| str |
 	str := self newStream.
 	str << self htmlPagePreamble.
 	str << self htmlHeader.
 	str << (self generateMenuFor: pageDescription key).
-	pageDescription values do:[:html| str << html].
-	str << self htmlPagePostface  
+	pageDescription value do: [ :html | str << html ].
+	str << self htmlPagePostface.
+	generatedPages at: pageDescription key fourth put: str contents
 ]
 
 { #category : #generation }
 CVGGenerator >> generateHTMLPages [
-	generatedPages := OrderedCollection new.
+	generatedPages := Dictionary new.
 	self buildPagesDescriptions
-		do:
-			[ :pageDescription | generatedPages add: (self generateHTMLPage: pageDescription) ]
+		associationsDo: [ :pageDescription | self generateHTMLPage: pageDescription ]
 ]
 
 { #category : #generation }
@@ -128,6 +127,31 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer closeDiv.
 	writer closeDiv
 
+]
+
+{ #category : #generation }
+CVGGenerator >> generateMenuFor: pageTitle [
+
+	|sortedTitles writer|
+	sortedTitles := SortedCollection new.
+	sortedTitles sortBlock: [:a :b| a third < b third ].
+	sortedTitles addAll: self pageTitles.
+	writer := CVGSimpleHtmlWriter new.
+	writer div: 'topmargin-10 menu'.
+	writer write: '<hr class="blue-hr">'.
+	sortedTitles do:[:title|
+		|titleTranslated pageTitleTranslated|
+		titleTranslated := (self translated: title).
+		pageTitleTranslated := (self translated: pageTitle).		
+		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
+		writer write: (writer url: title fourth labeled: titleTranslated).
+		titleTranslated =  pageTitleTranslated ifTrue:[writer closeDiv].
+		].
+	writer write: '<hr class="blue-hr">'.
+	writer closeDiv.
+	^writer contents
+
+	
 ]
 
 { #category : #generation }
@@ -217,9 +241,20 @@ CVGGenerator >> generateWorkStudy: aCVGWorkStudy [
 
 ]
 
+{ #category : #accessing }
+CVGGenerator >> generatedSection: aSectionName [
+
+	^outputDic at: (outputDic keys detect:[:key| key title = aSectionName])
+]
+
 { #category : #initialization }
 CVGGenerator >> html [
 	writerClass := CVGSimpleHtmlWriter
+]
+
+{ #category : #pages }
+CVGGenerator >> htmlHeader [
+	^ self generatedSection: 'Header'
 ]
 
 { #category : #generation }
@@ -273,7 +308,7 @@ CVGGenerator >> newWriterFor: aCVGElement [
 
 { #category : #pages }
 CVGGenerator >> pageTitles [
-	^ #(#('Contributions' 'Contributions' 2) #('Enseignement' 'Teaching' 3))
+	^ #(#('Contributions' 'Contributions' 2 'contributions.html') #('Enseignement' 'Teaching' 3 'teaching.html'))
 ]
 
 { #category : #streams }
