@@ -10,7 +10,8 @@ Class {
 		'model',
 		'outputDic',
 		'stream',
-		'generatorWriter'
+		'generatorWriter',
+		'translated'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
 }
@@ -179,4 +180,15 @@ CVGGenerator >> newWriterFor: aCVGElement [
 { #category : #streams }
 CVGGenerator >> stream [
 	^ stream ifNil: [ stream := self newStream ]
+]
+
+{ #category : #accessing }
+CVGGenerator >> translated [
+	^ translated ifNil:[translated := false]
+]
+
+{ #category : #generation }
+CVGGenerator >> translated: anArray [
+	self translated ifTrue:[^anArray second].
+	^anArray first
 ]
