@@ -13,7 +13,7 @@ CVGHeaderReader class >> readFromDictionary: dic [
 	header lab: (dic at: #lab ifAbsent: [ nil ]).
 	header institution: (dic at: #institution ifAbsent: [ nil ]).
 	header title: (dic at: #title ifAbsent: [ nil ]).
-	header type: (dic at: #type ifAbsent: [ nil ]).
+	header type: (CVGHeaderType type: (dic at: #type ifAbsent: [ nil ])).
 	header photo: (dic at: #photo ifAbsent: [ nil ]).
 	^ header
 ]
