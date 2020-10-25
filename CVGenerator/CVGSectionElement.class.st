@@ -24,9 +24,11 @@ CVGSectionElement class >> readerClass [
 
 { #category : #'data sorting' }
 CVGSectionElement class >> sortedElements: flattenedData [
-	^flattenedData
-	
-	
+	| types |
+	types := (flattenedData collect: #type) asSet.
+	^ (types
+		collect: [ :t | t -> (flattenedData select: [ :d | d type = t ]) ])
+		reject: [ :assoc | assoc value isEmpty ]
 ]
 
 { #category : #accessing }
