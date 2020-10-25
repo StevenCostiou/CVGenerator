@@ -47,6 +47,11 @@ CVGGenerator >> generateCV [
 ]
 
 { #category : #generation }
+CVGGenerator >> generateCap: aCVGCap [ 
+	
+]
+
+{ #category : #generation }
 CVGGenerator >> generateCordee: aCVGCordee [ 
 	
 ]
