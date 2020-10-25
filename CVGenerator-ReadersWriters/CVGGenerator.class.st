@@ -28,6 +28,11 @@ CVGGenerator >> generate [
 ]
 
 { #category : #generation }
+CVGGenerator >> generateAtelier: aCVGAtelier [ 
+	
+]
+
+{ #category : #generation }
 CVGGenerator >> generateAuthor: author [
 	| writer |
 	writer := self newWriterFor: author.
@@ -39,6 +44,20 @@ CVGGenerator >> generateAuthor: author [
 { #category : #generation }
 CVGGenerator >> generateCV [
 	model sections do: [ :sec | sec acceptGenerator: self ]
+]
+
+{ #category : #generation }
+CVGGenerator >> generateCordee: aCVGCordee [ 
+	
+]
+
+{ #category : #generation }
+CVGGenerator >> generateCourse: aCVGCourse [ 
+	
+]
+
+{ #category : #generation }
+CVGGenerator >> generateHeader: aCVGHeader [ 
 ]
 
 { #category : #generation }
@@ -58,6 +77,11 @@ CVGGenerator >> generatePublication: pub [
 	writer writeDotSpace: pub year printString.
 	writer writeURL: pub link.
 	writer closeItem
+]
+
+{ #category : #generation }
+CVGGenerator >> generateResearch: aCVGResearch [ 
+
 ]
 
 { #category : #generation }
@@ -95,6 +119,11 @@ CVGGenerator >> generateSoftware: s [
 ]
 
 { #category : #generation }
+CVGGenerator >> generateStudent: aCVGStudent [ 
+
+]
+
+{ #category : #generation }
 CVGGenerator >> generateTalk: t [
 	| writer |
 	writer := self newWriterFor: t.
@@ -110,6 +139,11 @@ CVGGenerator >> generateTalk: t [
 	writer writeDotSpace.
 	writer writeURL: t link.
 	writer closeItem
+]
+
+{ #category : #generation }
+CVGGenerator >> generateWorkStudy: aCVGWorkStudy [ 
+
 ]
 
 { #category : #initialization }
