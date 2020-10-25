@@ -4,6 +4,11 @@ Class {
 	#category : #'CVGenerator-elements - types'
 }
 
+{ #category : #'as yet unclassified' }
+CVGStudentType class >> student [ 
+	^self new
+]
+
 { #category : #'accessing - defaults' }
 CVGStudentType >> typeKey [
 	^#student
