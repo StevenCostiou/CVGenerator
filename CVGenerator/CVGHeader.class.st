@@ -58,17 +58,12 @@ CVGHeader >> photo: anObject [
 
 { #category : #accessing }
 CVGHeader >> rank [
-	^ rank first
+	^ rank
 ]
 
 { #category : #accessing }
 CVGHeader >> rank: anObject [
 	rank := anObject
-]
-
-{ #category : #accessing }
-CVGHeader >> rankEnglish [
-	^ rank second
 ]
 
 { #category : #accessing }
@@ -89,11 +84,6 @@ CVGHeader >> teamName [
 { #category : #accessing }
 CVGHeader >> teamURL [
 	^ team second
-]
-
-{ #category : #accessing }
-CVGHeader >> title [ 
-	 ^title first
 ]
 
 { #category : #accessing }

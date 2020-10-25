@@ -64,6 +64,22 @@ CVGGenerator >> generateCourse: aCVGCourse [
 
 { #category : #generation }
 CVGGenerator >> generateHeader: aCVGHeader [ 
+	| writer |
+	writer := self newWriterFor: aCVGHeader.
+	writer div: 'profile'.
+	writer div: 'profile-picture'.
+	writer image: (self imageDirectory, aCVGHeader photo).
+	writer closeDiv.
+	writer div: 'profile-info'.
+	writer title: (self translated: aCVGHeader title) h: 'h5' class: 'title-name'.
+	writer writeNewLine.
+	writer title: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution) h: 'h5' class: 'title-name'.
+	writer writeNewLine.
+	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
+	writer writeNewLine.
+	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. 
+	writer closeDiv.
+	writer closeDiv
 ]
 
 { #category : #generation }
@@ -93,6 +109,7 @@ CVGGenerator >> generateResearch: aCVGResearch [
 { #category : #generation }
 CVGGenerator >> generateSection: aSection [
 	| writer |
+	self resetStream.
 	writer := self newWriterFor: aSection type.
 	writer section: aSection title.
 	aSection sortedElements
@@ -157,6 +174,11 @@ CVGGenerator >> html [
 	writerClass := CVGSimpleHtmlWriter
 ]
 
+{ #category : #accessing }
+CVGGenerator >> imageDirectory [
+	^'images/'
+]
+
 { #category : #initialization }
 CVGGenerator >> initialize [
 	outputDic := Dictionary new
@@ -175,6 +197,11 @@ CVGGenerator >> newStream [
 { #category : #writers }
 CVGGenerator >> newWriterFor: aCVGElement [
 	^ (writerClass for: aCVGElement) on: self stream
+]
+
+{ #category : #'as yet unclassified' }
+CVGGenerator >> resetStream [
+	stream := self newStream
 ]
 
 { #category : #streams }

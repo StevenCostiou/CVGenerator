@@ -36,6 +36,11 @@ CVGSimpleHtmlWriter >> boldBlue: aString [
 	stream << str contents
 ]
 
+{ #category : #markup }
+CVGSimpleHtmlWriter >> closeDiv [
+	self closeMarkup
+]
+
 { #category : #lists }
 CVGSimpleHtmlWriter >> closeItem [
 	self closeMarkup 
@@ -49,6 +54,11 @@ CVGSimpleHtmlWriter >> closeItemList [
 { #category : #markup }
 CVGSimpleHtmlWriter >> closeMarkup [
 	self writeMarkup: '/' , markupStack pop
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> div: aString [ 
+	self openMarkup: 'div' class: aString
 ]
 
 { #category : #markup }
@@ -99,6 +109,14 @@ CVGSimpleHtmlWriter >> h5 [
 { #category : #'html - titles' }
 CVGSimpleHtmlWriter >> h5: title [
 	self title: title h: self h5
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> image: aString [ 
+	stream << '<img src="'.
+	stream << aString.
+	stream << '">'
+	
 ]
 
 { #category : #initialization }
@@ -254,4 +272,11 @@ CVGSimpleHtmlWriter >> writeMarkup: aMarkup class: aClass [
 { #category : #helpers }
 CVGSimpleHtmlWriter >> writeNewLine [
 	 stream << '<br>'
+]
+
+{ #category : #links }
+CVGSimpleHtmlWriter >> writeUrl: aString labeled: aName [
+	stream << (self url: aString labeled: aName )
+	
+	
 ]
