@@ -142,7 +142,8 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	sortedTitles do:[:title|
 		|titleTranslated pageTitleTranslated|
 		titleTranslated := (self translated: title).
-		pageTitleTranslated := (self translated: pageTitle).		
+		pageTitleTranslated := (self translated: pageTitle).	
+		writer write: '<i class="material-icons" style="color:#1565c0">school</i>'.	
 		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
 		writer write: (writer url: title fourth labeled: titleTranslated).
 		titleTranslated =  pageTitleTranslated ifTrue:[writer closeDiv].
