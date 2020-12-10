@@ -72,15 +72,17 @@ CVGGenerator >> generate [
 
 { #category : #export }
 CVGGenerator >> generateAndExportHtml [
-	| dir |
-	dir := self exportDirectory.
-	generatedPages
-		keysAndValuesDo: [ :pageName :page | 
-			| file |
-			file := dir / pageName.
-			file writeStream
-				nextPutAll: page;
-				close ]
+	|oldHeaderKey|
+	translated := false.
+	self regenerateHeader.
+	self generateHTMLPages.
+	self writePages.
+	translated := true.
+	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'].
+	oldHeaderKey ifNotNil: [ outputDic removeKey: oldHeaderKey ].
+	self regenerateHeader.
+	self generateHTMLPages.
+	self writePages
 ]
 
 { #category : #generation }
@@ -99,10 +101,7 @@ CVGGenerator >> generateAuthor: author [
 
 { #category : #generation }
 CVGGenerator >> generateCV [
-	model sections do: [ :sec | sec acceptGenerator: self ].
-	self resetStream.
-	self generateHeader: model header data first.
-	outputDic at: (CVGSection new title:'Header-formatted') put: stream contents
+	(model sections reject:[:s| s title = 'Header']) do: [ :sec | sec acceptGenerator: self ]
 ]
 
 { #category : #generation }
@@ -362,6 +361,13 @@ CVGGenerator >> pageTitles [
 	
 	
 	)
+]
+
+{ #category : #generation }
+CVGGenerator >> regenerateHeader [
+	self resetStream.
+	self generateHeader: model header data first.
+	outputDic at: (CVGSection new title:'Header-formatted') put: stream contents
 ]
 
 { #category : #streams }

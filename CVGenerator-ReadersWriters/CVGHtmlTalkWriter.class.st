@@ -50,5 +50,5 @@ CVGHtmlTalkWriter >> writeContributionNumbers: anInteger [
 	stream << anInteger printString.
 	stream space.
 	stream << ' talks.'.
-	stream cr
+	stream << '</br>'
 ]
