@@ -53,11 +53,34 @@ CVGGenerator >> buildPagesDescriptions [
 	
 ]
 
+{ #category : #export }
+CVGGenerator >> exportDirectory [
+
+	|dir|
+	dir := self pageDirectory asFileReference.
+	dir ensureCreateDirectory.
+	dir deleteAllChildren.
+	^dir 
+]
+
 { #category : #generation }
 CVGGenerator >> generate [
 	outputDic := Dictionary new.
 	generatorWriter := writerClass on: self stream.
 	self generateCV
+]
+
+{ #category : #export }
+CVGGenerator >> generateAndExportHtml [
+	| dir |
+	dir := self exportDirectory.
+	generatedPages
+		keysAndValuesDo: [ :pageName :page | 
+			| file |
+			file := dir / pageName.
+			file writeStream
+				nextPutAll: page;
+				close ]
 ]
 
 { #category : #generation }
@@ -320,6 +343,12 @@ CVGGenerator >> newWriterFor: aCVGElement [
 	^ (writerClass for: aCVGElement) on: self stream
 ]
 
+{ #category : #export }
+CVGGenerator >> pageDirectory [
+	^ '/Users/steven/Documents/projets/website/site/'
+		, (self translated: #('fr' 'en'))
+]
+
 { #category : #pages }
 CVGGenerator >> pageTitles [
 	^ #(
@@ -354,4 +383,17 @@ CVGGenerator >> translated [
 CVGGenerator >> translated: anArray [
 	self translated ifTrue:[^anArray second].
 	^anArray first
+]
+
+{ #category : #export }
+CVGGenerator >> writePages [
+	| dir |
+	dir := self exportDirectory.
+	generatedPages
+		keysAndValuesDo: [ :pageName :page | 
+			| file |
+			file := dir / pageName.
+			file writeStream
+				nextPutAll: page;
+				close ]
 ]
