@@ -310,9 +310,9 @@ CVGGenerator >> htmlPagePreamble [
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/normalize.css"> <link rel="stylesheet" href="css/skeleton.css"> 	<link rel="stylesheet" href="styles/main-s.css">
+	<link rel="stylesheet" href="../css/normalize.css"> <link rel="stylesheet" href="../css/skeleton.css"> 	<link rel="stylesheet" href="../styles/main-s.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="icon" type="image/png" href="images/favicon.png">
+	<link rel="icon" type="image/png" href="../images/favicon.png">
 	</head>
 	<body> 
 	<div class="container">'
@@ -320,7 +320,7 @@ CVGGenerator >> htmlPagePreamble [
 
 { #category : #accessing }
 CVGGenerator >> imageDirectory [
-	^'images/'
+	^'../images/'
 ]
 
 { #category : #initialization }
