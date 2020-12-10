@@ -28,18 +28,26 @@ CVGGenerator >> buildPagesDescriptions [
 	|pages description|
 	pages := Dictionary new.
 	
-	"Contributions"
+	"Publications"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Publications').
+	pages at: self pageTitles second put: description.
+	
+	"Software"
+	description := OrderedCollection new.
 	description add: (self generatedSection: 'Software').
+	pages at: self pageTitles third put: description.
+	
+	"Talks"
+	description := OrderedCollection new.
 	description add: (self generatedSection: 'Talks').
-	pages at: self pageTitles first put: description.
+	pages at: self pageTitles fourth put: description.
 
 	"Teaching"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Teachings').
 	description add: (self generatedSection: 'Past teaching activities').
-	pages at: self pageTitles second put: description.
+	pages at: self pageTitles sixth put: description.
 	
 	^pages	
 	
@@ -71,7 +79,7 @@ CVGGenerator >> generateCV [
 	model sections do: [ :sec | sec acceptGenerator: self ].
 	self resetStream.
 	self generateHeader: model header data first.
-	outputDic at: (CVGSection new title:'Header') put: stream contents
+	outputDic at: (CVGSection new title:'Header-formatted') put: stream contents
 ]
 
 { #category : #generation }
@@ -142,11 +150,15 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	sortedTitles do:[:title|
 		|titleTranslated pageTitleTranslated|
 		titleTranslated := (self translated: title).
-		pageTitleTranslated := (self translated: pageTitle).	
-		writer write: '<i class="material-icons" style="color:#1565c0">school</i>'.	
+		pageTitleTranslated := (self translated: pageTitle).
+		writer div: 'menu-item'.
+		writer div: 'menu-item-logo'.	
+		writer write: '<i class="material-icons" style="color:#1565c0">', title fifth, '</i>'.	
+		writer closeDiv.
 		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
 		writer write: (writer url: title fourth labeled: titleTranslated).
 		titleTranslated =  pageTitleTranslated ifTrue:[writer closeDiv].
+		writer closeDiv.
 		].
 	writer write: '<hr class="blue-hr">'.
 	writer closeDiv.
@@ -184,7 +196,8 @@ CVGGenerator >> generateSection: aSection [
 	| writer |
 	self resetStream.
 	writer := self newWriterFor: aSection type.
-	writer section: aSection title.
+	"writer section: aSection title."
+	writer writeContributionNumbers: aSection data size.
 	aSection sortedElements
 		do: [ :typedElement | 
 			| type elements |
@@ -255,7 +268,7 @@ CVGGenerator >> html [
 
 { #category : #pages }
 CVGGenerator >> htmlHeader [
-	^ self generatedSection: 'Header'
+	^ self generatedSection: 'Header-formatted'
 ]
 
 { #category : #generation }
@@ -309,7 +322,17 @@ CVGGenerator >> newWriterFor: aCVGElement [
 
 { #category : #pages }
 CVGGenerator >> pageTitles [
-	^ #(#('Contributions' 'Contributions' 2 'contributions.html') #('Enseignement' 'Teaching' 3 'teaching.html'))
+	^ #(
+	#('Recherche' 'Research' 2 'research.html' 'school') 
+	#('Publications' 'Publications' 3 'publications.html' 'school') 
+	#('Logiciels' 'Software' 4 'software.html' 'save') 
+	#('Communications' 'Talks' 5 'talks.html' 'mic') 
+	#('Enseignement' 'Teaching' 6 'teaching.html' 'school')
+	#('Administration' 'Administration' 7 'admin.html' 'school')
+	#('CV' 'CV' 8 'cv.html' 'school') 
+	
+	
+	)
 ]
 
 { #category : #streams }

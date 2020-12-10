@@ -29,7 +29,7 @@ CVGHtmlPublicationWriter >> section: aString [
 { #category : #sections }
 CVGHtmlPublicationWriter >> subSection: aString [
 	self title: aString h: 'h5' class: 'blue-title'.
-	stream << '<hr class="blue-hr">'
+"	stream << '<hr class=""blue-hr"">'"
 
 ]
 
@@ -44,4 +44,12 @@ CVGHtmlPublicationWriter >> url: aString labeled: aName [
 	str << '</a>'.
 	self span: str contents class: 'paper-pdf'
 	
+]
+
+{ #category : #sections }
+CVGHtmlPublicationWriter >> writeContributionNumbers: anInteger [
+	stream << anInteger printString.
+	stream space.
+	stream << ' contributions.'.
+	stream << '</br>'
 ]

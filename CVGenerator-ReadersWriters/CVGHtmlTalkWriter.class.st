@@ -29,7 +29,7 @@ CVGHtmlTalkWriter >> section: aString [
 { #category : #sections }
 CVGHtmlTalkWriter >> subSection: aString [
 	self title: aString h: 'h5' class: 'blue-title'.
-	stream << '<hr class="blue-hr">'
+	"stream << '<hr class=""blue-hr"">'"
 
 ]
 
@@ -43,4 +43,12 @@ CVGHtmlTalkWriter >> url: aString labeled: aName [
 	str << '<i class="material-icons md-18">link</i>'.
 	str << '</a>'.
 	self span: str contents class: 'paper-pdf'
+]
+
+{ #category : #sections }
+CVGHtmlTalkWriter >> writeContributionNumbers: anInteger [
+	stream << anInteger printString.
+	stream space.
+	stream << ' talks.'.
+	stream cr
 ]

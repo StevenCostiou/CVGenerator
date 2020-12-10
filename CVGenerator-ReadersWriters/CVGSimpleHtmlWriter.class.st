@@ -253,6 +253,10 @@ CVGSimpleHtmlWriter >> url: aString labeled: aName [
 	
 ]
 
+{ #category : #sections }
+CVGSimpleHtmlWriter >> writeContributionNumbers: anInteger [
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> writeMarkup: aMarkup [
 	stream << '<'.
