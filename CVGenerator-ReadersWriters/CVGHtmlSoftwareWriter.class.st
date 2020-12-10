@@ -49,5 +49,5 @@ CVGHtmlSoftwareWriter >> writeContributionNumbers: anInteger [
 	stream << anInteger printString.
 	stream space.
 	stream << ' software contributions.'.
-	stream cr
+	stream << '</br>'
 ]

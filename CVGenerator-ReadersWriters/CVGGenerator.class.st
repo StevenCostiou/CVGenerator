@@ -72,15 +72,12 @@ CVGGenerator >> generate [
 
 { #category : #export }
 CVGGenerator >> generateAndExportHtml [
-	| dir |
-	dir := self exportDirectory.
-	generatedPages
-		keysAndValuesDo: [ :pageName :page | 
-			| file |
-			file := dir / pageName.
-			file writeStream
-				nextPutAll: page;
-				close ]
+	translated := false.
+	self generateHTMLPages.
+	self writePages.
+	translated := true.
+	self generateHTMLPages.
+	self writePages
 ]
 
 { #category : #generation }
