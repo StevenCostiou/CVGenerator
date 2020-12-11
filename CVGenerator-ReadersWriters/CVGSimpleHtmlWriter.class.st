@@ -56,6 +56,17 @@ CVGSimpleHtmlWriter >> closeMarkup [
 	self writeMarkup: '/' , markupStack pop
 ]
 
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> closeRow [
+	self closeMarkup 
+]
+
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> closeTable [
+	self closeMarkup.
+	self closeMarkup
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> div: aString [ 
 	self openMarkup: 'div' class: aString
@@ -145,6 +156,12 @@ CVGSimpleHtmlWriter >> listItem: aString [
 	
 ]
 
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> newTable [
+	self openMarkup: self table class: 'table'.
+	self openMarkup: self tableBody
+]
+
 { #category : #lists }
 CVGSimpleHtmlWriter >> openItem [
 	self openMarkup: self listItem
@@ -218,6 +235,45 @@ CVGSimpleHtmlWriter >> subSection: aString [
 	self title: aString h: 'h5' class: nil
 ]
 
+{ #category : #markup }
+CVGSimpleHtmlWriter >> table [
+	^'table'
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> tableBody [
+	^'tbody'
+]
+
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> tableColumn: contents [
+	self openMarkup: self td.
+	stream << contents.
+	self closeMarkup 
+]
+
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> tableHeader: contents [
+	self openMarkup: self th.
+	stream << contents.
+	self closeMarkup 
+]
+
+{ #category : #'html - tables' }
+CVGSimpleHtmlWriter >> tableRow [
+	self openMarkup: self tr
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> td [
+	^'td'
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> th [
+	^'th'
+]
+
 { #category : #'html - titles' }
 CVGSimpleHtmlWriter >> title: title h: level [
 	self openMarkup: level.
@@ -232,6 +288,11 @@ CVGSimpleHtmlWriter >> title: aString h: level class: class [
 		ifNotNil: [ self openMarkup: level class: class ].
 	self write: aString.
 	self closeMarkup
+]
+
+{ #category : #markup }
+CVGSimpleHtmlWriter >> tr [
+	^'tr'
 ]
 
 { #category : #markup }
