@@ -26,6 +26,11 @@ CVGSoftware class >> allDevelopedSoftwareIn: flattenedData [
 	^ flattenedData select: [ :data | data isDeveloper ]
 ]
 
+{ #category : #'as yet unclassified' }
+CVGSoftware class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateContributionSection: section with: writer
+]
+
 { #category : #accessing }
 CVGSoftware class >> htmlWriterClass [
 	^ CVGHtmlSoftwareWriter 

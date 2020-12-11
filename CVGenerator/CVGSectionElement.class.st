@@ -12,6 +12,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGSectionElement class >> generate: section with: aGenerator using: writer [
+	
+]
+
 { #category : #accessing }
 CVGSectionElement class >> htmlWriterClass [
 	^ CVGSimpleHtmlWriter 

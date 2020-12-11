@@ -46,6 +46,11 @@ CVGPublication class >> allWorkshopsIn: flattenedData [
 	^ flattenedData select: [ :pub | pub isWorkshop ]
 ]
 
+{ #category : #'as yet unclassified' }
+CVGPublication class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateContributionSection: section with: writer
+]
+
 { #category : #accessing }
 CVGPublication class >> htmlWriterClass [
 	^ CVGHtmlPublicationWriter 

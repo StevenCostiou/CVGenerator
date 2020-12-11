@@ -38,6 +38,11 @@ CVGSection >> dataPathFilename [
 	^dataPath, '.ston'
 ]
 
+{ #category : #'as yet unclassified' }
+CVGSection >> generateWith: aGenerator using: writer [
+	^type generate: self with: aGenerator using: writer
+]
+
 { #category : #printing }
 CVGSection >> printOn: aStream [
 	aStream << title

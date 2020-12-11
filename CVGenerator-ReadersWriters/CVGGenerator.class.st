@@ -110,6 +110,23 @@ CVGGenerator >> generateCap: aCVGCap [
 ]
 
 { #category : #generation }
+CVGGenerator >> generateContributionSection: aSection with: writer [
+
+	writer writeContributionNumbers: aSection data size.
+	aSection sortedElements
+		do: [ :typedElement | 
+			| type elements |
+			type := typedElement key.
+			elements := typedElement value.
+			elements isEmpty
+				ifFalse: [ writer subSection: type typeName.
+					writer openItemList.
+					elements do: [ :e | e acceptGenerator: self ].
+					writer closeItemList ] ].
+	outputDic at: aSection put: stream contents
+]
+
+{ #category : #generation }
 CVGGenerator >> generateCordee: aCVGCordee [ 
 	
 ]
@@ -218,19 +235,7 @@ CVGGenerator >> generateSection: aSection [
 	| writer |
 	self resetStream.
 	writer := self newWriterFor: aSection type.
-	"writer section: aSection title."
-	writer writeContributionNumbers: aSection data size.
-	aSection sortedElements
-		do: [ :typedElement | 
-			| type elements |
-			type := typedElement key.
-			elements := typedElement value.
-			elements isEmpty
-				ifFalse: [ writer subSection: type typeName.
-					writer openItemList.
-					elements do: [ :e | e acceptGenerator: self ].
-					writer closeItemList ] ].
-	outputDic at: aSection put: stream contents
+	aSection generateWith: self using: writer
 ]
 
 { #category : #generation }
@@ -270,6 +275,32 @@ CVGGenerator >> generateTalk: t [
 	writer writeDotSpace.
 	writer writeURL: t link.
 	writer closeItem
+]
+
+{ #category : #generation }
+CVGGenerator >> generateTeachingsSection: aSection with: writer [
+
+	writer newTable.
+	writer tableRow.
+	writer tableHeader: (self translated: #('Période' 'Period')).
+	writer tableHeader: (self translated: #('Cours' 'Title')).
+	writer tableHeader: (self translated: #('Niveau' 'Level')).
+	writer tableHeader: (self translated: #('Institution' 'Institution')).
+	writer tableHeader: (self translated: #('Durée' 'Lab time')).
+	writer closeRow.
+	
+	(aSection data asOrderedCollection sort:[:e1 :e2| (e1 year) > (e2 year)])
+		do: [ :teaching | 
+			writer tableRow.		
+			writer tableColumn: teaching yearLabel.
+			writer tableColumn: (self translated: teaching title).
+			writer tableColumn: (self translated: teaching level).
+			writer tableColumn: (self translated: teaching institute).
+			writer tableColumn: (teaching totalEquivalentTD printString, 'h').
+			writer closeRow
+			 ].
+	writer closeTable.
+	outputDic at: aSection put: stream contents
 ]
 
 { #category : #generation }

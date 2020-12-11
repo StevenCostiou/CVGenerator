@@ -94,6 +94,11 @@ CVGTalk class >> allVulgarizationsIn: flattenedData [
 		^flattenedData select: [ :e | e isVulgarization]
 ]
 
+{ #category : #'as yet unclassified' }
+CVGTalk class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateContributionSection: section with: writer
+]
+
 { #category : #accessing }
 CVGTalk class >> htmlWriterClass [
 	^ CVGHtmlTalkWriter 
