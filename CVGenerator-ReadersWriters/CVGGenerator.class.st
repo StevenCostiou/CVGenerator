@@ -111,7 +111,7 @@ CVGGenerator >> generateCap: aCVGCap [
 	
 ]
 
-{ #category : #generation }
+{ #category : #'generation - sections' }
 CVGGenerator >> generateContributionSection: aSection with: writer [
 
 	writer writeContributionNumbers: aSection data size.
@@ -280,9 +280,14 @@ CVGGenerator >> generateTalk: t [
 	writer closeItem
 ]
 
-{ #category : #generation }
+{ #category : #'generation - sections' }
 CVGGenerator >> generateTeachingsSection: aSection with: writer [
 
+	writer subSection: (self translated: #('Modules enseignés' 'Current courses')).
+	writer writeNewLine.
+	writer text: (self translated: #('En bleu, les modules dont je suis ou ai été responsable.' 'In blue, the courses I am or was responsible for.')).
+	writer writeNewLine.
+	
 	writer newTable.
 	writer tableRow.
 	writer tableHeader: (self translated: #('Période' 'Period')).

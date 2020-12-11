@@ -232,7 +232,7 @@ CVGSimpleHtmlWriter >> stopUnorderedList [
 
 { #category : #sections }
 CVGSimpleHtmlWriter >> subSection: aString [
-	self title: aString h: 'h5' class: nil
+	self title: aString h: 'h5' class: 'blue-title'
 ]
 
 { #category : #markup }
@@ -267,6 +267,11 @@ CVGSimpleHtmlWriter >> tableRow [
 { #category : #markup }
 CVGSimpleHtmlWriter >> td [
 	^'td'
+]
+
+{ #category : #helpers }
+CVGSimpleHtmlWriter >> text: aString [
+	 stream << aString
 ]
 
 { #category : #markup }
@@ -336,7 +341,7 @@ CVGSimpleHtmlWriter >> writeMarkup: aMarkup class: aClass [
 
 { #category : #helpers }
 CVGSimpleHtmlWriter >> writeNewLine [
-	 stream << '<br>'
+	 stream << '</br>'
 ]
 
 { #category : #links }
