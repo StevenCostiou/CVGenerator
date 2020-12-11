@@ -282,12 +282,15 @@ CVGGenerator >> generateTalk: t [
 
 { #category : #'generation - sections' }
 CVGGenerator >> generateTeachingsSection: aSection with: writer [
-
-	writer subSection: (self translated: #('Modules enseignés' 'Current courses')).
+	writer
+		subSection: (self translated: #('Modules enseignés' 'Current courses')).
 	writer writeNewLine.
-	writer text: (self translated: #('En bleu, les modules dont je suis ou ai été responsable.' 'In blue, the courses I am or was responsible for.')).
+	writer
+		text:
+			(self
+				translated:
+					#('En bleu, les modules dont je suis ou ai été responsable.' 'In blue, the courses I am or was responsible for.')).
 	writer writeNewLine.
-	
 	writer newTable.
 	writer tableRow.
 	writer tableHeader: (self translated: #('Période' 'Period')).
@@ -296,17 +299,20 @@ CVGGenerator >> generateTeachingsSection: aSection with: writer [
 	writer tableHeader: (self translated: #('Institution' 'Institution')).
 	writer tableHeader: (self translated: #('Durée' 'Lab time')).
 	writer closeRow.
-	
-	(aSection data asOrderedCollection sort:[:e1 :e2| (e1 year) > (e2 year)])
+	(aSection data asOrderedCollection
+		sort: [ :e1 :e2 | e1 year > e2 year ])
 		do: [ :teaching | 
-			writer tableRow.		
+			writer tableRow.
 			writer tableColumn: teaching yearLabel.
-			writer tableColumn: (self translated: teaching title).
+			teaching responsible
+				ifTrue: [ writer
+						tableColumn: (self translated: teaching title)
+						class: 'table-blue-column' ]
+				ifFalse: [ writer tableColumn: (self translated: teaching title) ].
 			writer tableColumn: (self translated: teaching level).
 			writer tableColumn: (self translated: teaching institute).
-			writer tableColumn: (teaching totalEquivalentTD printString, 'h').
-			writer closeRow
-			 ].
+			writer tableColumn: teaching totalEquivalentTD printString , 'h'.
+			writer closeRow ].
 	writer closeTable.
 	outputDic at: aSection put: stream contents
 ]

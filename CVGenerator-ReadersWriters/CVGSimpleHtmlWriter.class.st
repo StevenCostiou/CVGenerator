@@ -253,6 +253,13 @@ CVGSimpleHtmlWriter >> tableColumn: contents [
 ]
 
 { #category : #'html - tables' }
+CVGSimpleHtmlWriter >> tableColumn: contents class: aStyle [
+	self openMarkup: self td class: aStyle.
+	stream << contents.
+	self closeMarkup 
+]
+
+{ #category : #'html - tables' }
 CVGSimpleHtmlWriter >> tableHeader: contents [
 	self openMarkup: self th.
 	stream << contents.
