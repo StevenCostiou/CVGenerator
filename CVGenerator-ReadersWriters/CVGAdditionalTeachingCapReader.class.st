@@ -12,7 +12,7 @@ CVGAdditionalTeachingCapReader class >> readFromDictionary: dic [
 	cap type: (CVGAdditionalTeachingType type: (self readSymbolProperty: #type in: dic)).
 	cap title: (self readStringProperty: #title in: dic).
 	cap text: (dic at: #text).
-	cap sectionType: (dic at: #section).
+	cap sectionType: (CVGAdditionalTeachingType type: (dic at: #section)).
 	cap over: (dic at: #over ifAbsent: [false]).	
 	^cap
 ]

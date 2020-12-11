@@ -21,7 +21,7 @@ CVGAdditionalTeachingType class >> cordees [
 
 { #category : #'as yet unclassified' }
 CVGAdditionalTeachingType class >> vulga [
-	^CVGAtelierType new
+	^CVGVulgaType new
 ]
 
 { #category : #testing }
