@@ -46,8 +46,8 @@ CVGGenerator >> buildPagesDescriptions [
 	"Teaching"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Teachings').
-	description add: (self generatedSection: 'Past teaching activities').
-	pages at: self pageTitles sixth put: description.
+"	description add: (self generatedSection: 'Past teaching activities')."
+	pages at: self pageTitles fifth put: description.
 	
 	^pages	
 	
@@ -65,21 +65,23 @@ CVGGenerator >> exportDirectory [
 
 { #category : #generation }
 CVGGenerator >> generate [
+	| oldHeaderKey |
 	outputDic := Dictionary new.
-	generatorWriter := writerClass on: self stream.
-	self generateCV
+	generatorWriter := writerClass on: self stream.	
+	
+	translated := false.
+	self generateCV.
+	self generateAndExportHtml.
+	
+	translated := true. 
+	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'].
+	oldHeaderKey ifNotNil: [ outputDic removeKey: oldHeaderKey ].
+	self generateCV.
+	self generateAndExportHtml.
 ]
 
 { #category : #export }
 CVGGenerator >> generateAndExportHtml [
-	|oldHeaderKey|
-	translated := false.
-	self regenerateHeader.
-	self generateHTMLPages.
-	self writePages. 
-	translated := true. 
-	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'].
-	oldHeaderKey ifNotNil: [ outputDic removeKey: oldHeaderKey ].
 	self regenerateHeader.
 	self generateHTMLPages.
 	self writePages
@@ -248,7 +250,8 @@ CVGGenerator >> generateSoftware: s [
 	writer write: '(', s yearStart printString, ' - '.
 	writer write: (s yearStop = 0 ifTrue:['...'] ifFalse:[s yearStop printString]), ')'.
 	writer writeDotSpace.
-	writer write: s description.
+	writer write: (self translated: s description).
+	"self halt."
 	writer writeDotSpace.
 	writer writeURL: s link.
 	writer closeItem
@@ -418,8 +421,11 @@ CVGGenerator >> translated [
 
 { #category : #generation }
 CVGGenerator >> translated: anArray [
-	self translated ifTrue:[^anArray second].
-	^anArray first
+	| translatedString |
+	translatedString := self translated
+		ifTrue: [ anArray second ]
+		ifFalse: [ anArray first ].
+	^ (translatedString reject: [ :e | e = $$ ]) replaceAll: $` with: $'
 ]
 
 { #category : #export }

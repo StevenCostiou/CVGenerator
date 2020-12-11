@@ -47,7 +47,7 @@ CVGCourse >> cm: anObject [
 
 { #category : #accessing }
 CVGCourse >> institute [
-	^ institute first
+	^ institute
 ]
 
 { #category : #accessing }
@@ -62,7 +62,7 @@ CVGCourse >> instituteEnglish [
 
 { #category : #accessing }
 CVGCourse >> level [
-	^ level first
+	^ level
 ]
 
 { #category : #accessing }

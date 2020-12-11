@@ -50,7 +50,7 @@ CVGSoftware class >> sortedElements: flattenedData [
 
 { #category : #accessing }
 CVGSoftware >> description [
-	^ description first
+	^ description
 ]
 
 { #category : #accessing }
