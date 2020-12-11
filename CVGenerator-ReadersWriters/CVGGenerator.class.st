@@ -138,7 +138,7 @@ CVGGenerator >> generateCourse: aCVGCourse [
 	
 ]
 
-{ #category : #generation }
+{ #category : #'generation - pages' }
 CVGGenerator >> generateHTMLPage: pageDescription [
 	| str |
 	str := self newStream.
@@ -150,7 +150,7 @@ CVGGenerator >> generateHTMLPage: pageDescription [
 	generatedPages at: pageDescription key fourth put: str contents
 ]
 
-{ #category : #generation }
+{ #category : #'generation - pages' }
 CVGGenerator >> generateHTMLPages [
 	generatedPages := Dictionary new.
 	self buildPagesDescriptions
@@ -178,7 +178,7 @@ CVGGenerator >> generateHeader: aCVGHeader [
 
 ]
 
-{ #category : #generation }
+{ #category : #'generation - pages' }
 CVGGenerator >> generateMenuFor: pageTitle [
 
 	|sortedTitles writer|
@@ -188,6 +188,7 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	writer := CVGSimpleHtmlWriter new.
 	writer div: 'topmargin-10 menu'.
 	writer write: '<hr class="blue-hr">'.
+	self generateTranslateURL: pageTitle fourth on: writer.
 	sortedTitles do:[:title|
 		|titleTranslated pageTitleTranslated|
 		titleTranslated := (self translated: title).
@@ -311,10 +312,32 @@ CVGGenerator >> generateTeachingsSection: aSection with: writer [
 				ifFalse: [ writer tableColumn: (self translated: teaching title) ].
 			writer tableColumn: (self translated: teaching level).
 			writer tableColumn: (self translated: teaching institute).
-			writer tableColumn: teaching totalEquivalentTD printString , 'h'.
+			writer tableColumn: teaching totalHours printString , 'h'.
 			writer closeRow ].
 	writer closeTable.
 	outputDic at: aSection put: stream contents
+]
+
+{ #category : #'generation - pages' }
+CVGGenerator >> generateTranslateURL: translateUrl on: writer [
+	writer div: 'menu-item'.
+	self translated
+		ifTrue: [ writer
+				simpleBlue:
+					(writer
+						url: (self translated: #('../en/' '../fr/')) , translateUrl
+						labeled: 'FR').
+			writer write: '|'.
+			writer simpleRed: (writer url: '#' labeled: 'EN').
+			^ writer closeDiv ].
+	writer simpleRed: (writer url: '#' labeled: 'FR').
+	writer write: '|'.
+	writer
+		simpleBlue:
+			(writer
+				url: (self translated: #('../en/' '../fr/')) , translateUrl
+				labeled: 'EN').
+	writer closeDiv
 ]
 
 { #category : #generation }
@@ -338,12 +361,12 @@ CVGGenerator >> htmlHeader [
 	^ self generatedSection: 'Header-formatted'
 ]
 
-{ #category : #generation }
+{ #category : #'generation - pages' }
 CVGGenerator >> htmlPagePostface [
 	^'</div></body></html>'
 ]
 
-{ #category : #generation }
+{ #category : #'generation - pages' }
 CVGGenerator >> htmlPagePreamble [
 	^'<!DOCTYPE html>
 	<html>

@@ -194,6 +194,26 @@ CVGSimpleHtmlWriter >> section: aString [
 	self title: aString h: 'h4' class: nil
 ]
 
+{ #category : #'html - emphasis' }
+CVGSimpleHtmlWriter >> simpleBlue: aString [
+	|str|
+	str := WriteStream on: String new.
+	str << '<span class="blue-font-2">'.
+	str << aString.
+	str << '</span>'.
+	stream << str contents
+]
+
+{ #category : #'html - emphasis' }
+CVGSimpleHtmlWriter >> simpleRed: aString [
+	|str|
+	str := WriteStream on: String new.
+	str << '<span class="red-font">'.
+	str << aString.
+	str << '</span>'.
+	stream << str contents
+]
+
 { #category : #beacons }
 CVGSimpleHtmlWriter >> span: aString class: aClass [
 	stream << '<span'.

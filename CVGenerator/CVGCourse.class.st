@@ -122,7 +122,7 @@ CVGCourse >> td: anObject [
 
 { #category : #accessing }
 CVGCourse >> totalEquivalentTD [
-	^ (cm * 1.5 + td + (tp * 3 / 2)) rounded
+	^ (cm * 1.5 + td + (tp * 2 / 3)) rounded
 ]
 
 { #category : #computing }
