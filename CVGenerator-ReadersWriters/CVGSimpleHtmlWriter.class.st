@@ -140,6 +140,20 @@ CVGSimpleHtmlWriter >> image: aString [
 	
 ]
 
+{ #category : #markup }
+CVGSimpleHtmlWriter >> image: aString class: cssClass border: border alt: url [
+	stream << '<img '.
+	stream << 'class="'.
+	stream << cssClass.
+	stream << '" '.
+	stream << 'src="'.
+	stream << aString.
+	stream << '" border="'.
+	stream << border printString.
+	stream << '" alt="">'
+	
+]
+
 { #category : #initialization }
 CVGSimpleHtmlWriter >> initialize [
 	super initialize.
