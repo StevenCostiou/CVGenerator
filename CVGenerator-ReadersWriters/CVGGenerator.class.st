@@ -491,13 +491,13 @@ CVGGenerator >> pageDirectory [
 { #category : #pages }
 CVGGenerator >> pageTitles [
 	^ #(
-	#('Recherche' 'Research' 2 'research.html' 'school') 
-	#('Publications' 'Publications' 3 'publications.html' 'school') 
+	#('Recherche' 'Research' 2 'research.html' 'science') 
+	#('Publications' 'Publications' 3 'publications.html' 'article') 
 	#('Logiciels' 'Software' 4 'software.html' 'save') 
 	#('Communications' 'Talks' 5 'talks.html' 'mic') 
 	#('Enseignement' 'Teaching' 6 'teaching.html' 'school')
-	#('Administration' 'Administration' 7 'admin.html' 'school')
-	#('CV' 'CV' 8 'cv.html' 'school') 
+	#('Administration' 'Administration' 7 'admin.html' 'account_balance')
+	#('CV' 'CV' 8 'cv.html' 'work') 
 	
 	
 	)
