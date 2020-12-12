@@ -11,3 +11,8 @@ Class {
 ManifestCVGeneratorReadersWriters class >> ruleReModifiesCollectionRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#CVGHtmlWriter #writePublication: #false)) #'2020-03-29T19:30:56.352861+02:00') #(#(#RGClassDefinition #(#CVGAbstractWriter)) #'2020-03-29T19:35:53.63034+02:00') )
 ]
+
+{ #category : #'code-critics' }
+ManifestCVGeneratorReadersWriters class >> ruleStringConcatenationRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateCordeesFrom:with: #false)) #'2020-12-12T12:40:22.104893+01:00') )
+]
