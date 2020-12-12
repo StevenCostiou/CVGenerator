@@ -46,7 +46,7 @@ CVGGenerator >> buildPagesDescriptions [
 	"Teaching"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Teachings').
-"	description add: (self generatedSection: 'Past teaching activities')."
+	description add: (self generatedSection: 'Past teaching activities').
 	pages at: self pageTitles fifth put: description.
 	
 	^pages	
@@ -133,6 +133,65 @@ CVGGenerator >> generateCordee: aCVGCordee [
 	
 ]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateCordeesFrom: aSection with: writer [
+	| cordees cap |
+	cordees := aSection data
+		select: [ :e | e type class = CVGAdditionalTeachingType cordees class ].
+	cordees := cordees sort: [ :a :b | a year < b year ].
+	cap := aSection data
+		detect: [ :e | 
+			e type class = CVGAdditionalTeachingType cap class
+				and: [ e sectionType class = CVGAdditionalTeachingType cordees class ] ].
+
+	"Cap generation"
+	writer h6: (self translated: cap title).
+	writer writeNewLine.
+	writer text: (self translated: cap text).
+
+	"cordees generation"
+	cordees
+		do: [ :c | 
+			writer div: 'row topmargin-10'.
+			writer div: 'seven columns bottom-10px'.
+			writer div: 'cordees-text'.
+			c award > 0
+				ifTrue: [ | award |
+					award := c award = 1
+						ifTrue: [ {('Premier prix du jury ' , c year printString).
+							('First prize award, ' , c year printString)} ]
+						ifFalse: [{('Second prix du jury ' , c year printString).
+							('Second prize award, ' , c year printString)} ].
+					writer div: 'first-prize'.
+					writer div: 'award'.
+					writer text: (self translated: award).
+					writer closeDiv.
+					writer closeDiv ].
+			writer bold: c students.
+			writer text: ', '.
+			writer text: c school.
+			c award = 0 ifTrue:[writer text: ' (', c year printString, ')' ].
+			writer writeNewLine.
+			writer bold: (self translated: c title).
+			writer writeNewLine.
+			writer text: (self translated: c text).
+			writer text: '. '.
+			c images do:[:img|
+				writer writeUrl: ('../images/', img) labeled: 'Photo. '.
+				].			
+			writer writeUrl: ('../pdf/', c poster) labeled: 'Poster. '.					
+			c press do:[:url|
+				writer writeUrl: url labeled: 'Presse.'.
+				].		
+			writer closeDiv.
+			writer closeDiv.
+			writer div: 'four columns align-center bottom-10px'.
+			c thumb isEmpty ifFalse:[
+			writer image: ('../images/cordees/', c thumb) class: 'photo-cordees mdl-shadow--4dp' border: 0 alt: ''.	].
+			writer closeDiv.
+			writer closeDiv ]
+]
+
 { #category : #generation }
 CVGGenerator >> generateCourse: aCVGCourse [ 
 	
@@ -207,6 +266,19 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	^writer contents
 
 	
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generatePastTeachingsSection: aSection with: writer [
+	"select cordees, order, get cap then generates"
+	writer
+		subSection: (self translated: #('Activités passées' 'Past activities')).
+	writer writeNewLine.
+	self generateCordeesFrom: aSection with: writer.
+	"select ateliers, get cap then generates"
+
+	"select vulgas, get cap then generates"
+	outputDic at: aSection put: stream contents
 ]
 
 { #category : #generation }

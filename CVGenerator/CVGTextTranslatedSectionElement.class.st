@@ -7,6 +7,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGTextTranslatedSectionElement class >> generate: section with: aGenerator using: writer [
+	^aGenerator generatePastTeachingsSection: section with: writer
+]
+
 { #category : #accessing }
 CVGTextTranslatedSectionElement class >> readerClass [
 	^ CVGAdditionalTeachingReader 

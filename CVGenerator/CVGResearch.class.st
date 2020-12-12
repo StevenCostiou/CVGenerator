@@ -7,6 +7,10 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGResearch class >> generate: section with: aGenerator using: writer [
+]
+
 { #category : #accessing }
 CVGResearch class >> readerClass [
 	^ CVGResearchReader 
