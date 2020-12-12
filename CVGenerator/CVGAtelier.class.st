@@ -14,7 +14,7 @@ CVGAtelier >> acceptGenerator: aCVGGenerator [
 
 { #category : #accessing }
 CVGAtelier >> dateString [
-	^ dateString first
+	^ dateString
 ]
 
 { #category : #accessing }

@@ -92,6 +92,34 @@ CVGGenerator >> generateAtelier: aCVGAtelier [
 	
 ]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateAteliersFrom: aSection with: writer [
+	| ateliers cap |
+	ateliers := aSection data
+		select: [ :e | e type class = CVGAdditionalTeachingType ateliers class ].
+	cap := aSection data
+		detect: [ :e | 
+			e type class = CVGAdditionalTeachingType cap class
+				and: [ e sectionType class = CVGAdditionalTeachingType ateliers class ] ].
+
+	"Cap generation"
+	writer h6: (self translated: cap title).
+	writer writeNewLine.
+	writer text: (self translated: cap text).
+	writer startUnorderedList.
+	"atelier generation"
+	ateliers
+		do: [ :a | 
+			writer openListItem.
+			writer bold: (self translated: a title).
+			writer text: ', '.
+			writer text: (self translated: a dateString).
+			writer text: '. '.
+			writer text: (self translated: a text).
+			writer closeListItem ].
+	writer stopUnorderedList
+]
+
 { #category : #generation }
 CVGGenerator >> generateAuthor: author [
 	| writer |
@@ -275,10 +303,10 @@ CVGGenerator >> generatePastTeachingsSection: aSection with: writer [
 		subSection: (self translated: #('Activités passées' 'Past activities')).
 	writer writeNewLine.
 	self generateCordeesFrom: aSection with: writer.
-	"select ateliers, get cap then generates"
-
-	"select vulgas, get cap then generates"
+	self generateAteliersFrom: aSection with: writer.
+	self generateVulgaFrom: aSection with: writer.
 	outputDic at: aSection put: stream contents
+	
 ]
 
 { #category : #generation }
@@ -410,6 +438,34 @@ CVGGenerator >> generateTranslateURL: translateUrl on: writer [
 				url: (self translated: #('../en/' '../fr/')) , translateUrl
 				labeled: 'EN').
 	writer closeDiv
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generateVulgaFrom: aSection with: writer [
+	| vulga cap |
+	vulga := aSection data
+		select: [ :e | e type class = CVGAdditionalTeachingType vulga class ].
+	cap := aSection data
+		detect: [ :e | 
+			e type class = CVGAdditionalTeachingType cap class
+				and: [ e sectionType class = CVGAdditionalTeachingType vulga class ] ].
+
+	"Cap generation"
+	writer h6: (self translated: cap title).
+	writer writeNewLine.
+	"writer text: (self translated: cap text)."
+	writer startUnorderedList.
+	"atelier generation"
+	vulga
+		do: [ :a | 
+			writer openListItem.
+			writer bold: (self translated: a title).
+			writer text: ', '.
+			writer text: (self translated: a dateString).
+			writer text: '. '.
+			writer text: (self translated: a text).
+			writer closeListItem ].
+	writer stopUnorderedList
 ]
 
 { #category : #generation }
