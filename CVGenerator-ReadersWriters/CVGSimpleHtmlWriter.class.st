@@ -123,6 +123,16 @@ CVGSimpleHtmlWriter >> h5: title [
 ]
 
 { #category : #markup }
+CVGSimpleHtmlWriter >> h6 [
+	^'h6'
+]
+
+{ #category : #'html - titles' }
+CVGSimpleHtmlWriter >> h6: title [
+	self title: title h: self h6
+]
+
+{ #category : #markup }
 CVGSimpleHtmlWriter >> image: aString [ 
 	stream << '<img src="'.
 	stream << aString.
