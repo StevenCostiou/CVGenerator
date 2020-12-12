@@ -14,7 +14,7 @@ CVGTextTranslatedSectionElement class >> readerClass [
 
 { #category : #accessing }
 CVGTextTranslatedSectionElement >> text [
-	^ text first
+	^ text
 ]
 
 { #category : #accessing }
@@ -29,7 +29,7 @@ CVGTextTranslatedSectionElement >> textEnglish [
 
 { #category : #accessing }
 CVGTextTranslatedSectionElement >> title [ 
-	^title first 
+	^title 
 ]
 
 { #category : #accessing }
