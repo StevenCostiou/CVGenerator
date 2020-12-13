@@ -87,6 +87,41 @@ CVGGenerator >> generateAdmin: admin [
 	
 ]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateAdminSection: section with: writer [
+	| mandats membres contributions service |
+	mandats := section data
+		select: [ :e | e type class == CVGMandateType ].
+	writer
+		subSection: (self translated: CVGMandateType new typeName).
+	writer writeNewLine.
+	mandats do:[:m| m acceptGenerator: self].
+	
+	membres := section data
+		select: [ :e | e type class == CVGMemberType ].
+	writer
+		subSection: (self translated: CVGMemberType new typeName).
+	writer writeNewLine.
+	membres do:[:m| m acceptGenerator: self].
+		
+	contributions := section data
+		detect: [ :e | e type class == CVGContributionType ].
+	writer
+		subSection: (self translated: contributions title).
+	writer writeNewLine.
+	contributions acceptGenerator: self.
+		
+	service := section data
+		select: [ :e | e type class == CVGAdminServiceType ].
+	writer
+		subSection: (self translated: #('Service académique' 'Academic service')).
+	writer writeNewLine.
+	service do:[:s| s acceptGenerator: self].
+	
+	outputDic at: section put: stream contents
+	
+]
+
 { #category : #export }
 CVGGenerator >> generateAndExportHtml [
 	self regenerateHeader.

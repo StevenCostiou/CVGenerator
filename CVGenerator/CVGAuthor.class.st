@@ -12,6 +12,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGAuthor class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateAdminSection: section with: writer
+]
+
 { #category : #accessing }
 CVGAuthor class >> readerClass [
 	^ CVGAuthorReader
