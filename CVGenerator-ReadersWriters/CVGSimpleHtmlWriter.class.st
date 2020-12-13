@@ -290,6 +290,11 @@ CVGSimpleHtmlWriter >> subSection: aString [
 	self title: aString h: 'h5' class: 'blue-title'
 ]
 
+{ #category : #sections }
+CVGSimpleHtmlWriter >> subsubSection: aString [
+	self title: aString h: 'h6' class: 'blue-title'
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> table [
 	^'table'
