@@ -4,11 +4,15 @@ Class {
 	#instVars : [
 		'institute',
 		'election',
-		'years',
-		'name'
+		'years'
 	],
 	#category : #'CVGenerator-elements'
 }
+
+{ #category : #accessing }
+CVGAdmin class >> readerClass [
+	^ CVGAdminReader 
+]
 
 { #category : #visiting }
 CVGAdmin >> acceptGenerator: aCVGGenerator [
@@ -33,16 +37,6 @@ CVGAdmin >> institute [
 { #category : #accessing }
 CVGAdmin >> institute: anObject [
 	institute := anObject
-]
-
-{ #category : #accessing }
-CVGAdmin >> name [
-	^ name
-]
-
-{ #category : #accessing }
-CVGAdmin >> name: anObject [
-	name := anObject
 ]
 
 { #category : #accessing }
