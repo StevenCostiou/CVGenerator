@@ -10,6 +10,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #visiting }
+CVGAdmin >> acceptGenerator: aCVGGenerator [
+	aCVGGenerator generateAdmin: self 
+]
+
 { #category : #accessing }
 CVGAdmin >> election [
 	^ election
