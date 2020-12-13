@@ -4,6 +4,11 @@ Class {
 	#category : #'CVGenerator-elements - types'
 }
 
+{ #category : #visiting }
+CVGContributionType >> acceptGenerator: aCVGGenerator for: aCVGAdmin [
+	aCVGGenerator generateContribution: aCVGAdmin
+]
+
 { #category : #'as yet unclassified' }
 CVGContributionType >> isContribution [ ^true
 ]

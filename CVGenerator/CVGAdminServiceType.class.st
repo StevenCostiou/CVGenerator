@@ -4,6 +4,11 @@ Class {
 	#category : #'CVGenerator-elements - types'
 }
 
+{ #category : #visiting }
+CVGAdminServiceType >> acceptGenerator: aCVGGenerator for: aCVGAdmin [
+	aCVGGenerator generateAdmin: aCVGAdmin
+]
+
 { #category : #'as yet unclassified' }
 CVGAdminServiceType >> isAdminService [ ^true
 ]

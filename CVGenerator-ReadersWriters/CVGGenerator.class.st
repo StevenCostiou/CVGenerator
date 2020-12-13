@@ -49,6 +49,11 @@ CVGGenerator >> buildPagesDescriptions [
 	description add: (self generatedSection: 'Past teaching activities').
 	pages at: self pageTitles fifth put: description.
 	
+	"Administration"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Administration').
+	pages at: self pageTitles sixth put: description.
+	
 	^pages	
 	
 ]
@@ -81,10 +86,18 @@ CVGGenerator >> generate [
 ]
 
 { #category : #generation }
-CVGGenerator >> generateAdmin: admin [
+CVGGenerator >> generateAdmin: aCVGAdmin [
 	| writer |
-	writer := self newWriterFor: admin.
-	
+	writer := self newWriterFor: aCVGAdmin.
+	writer bold: (self translated: aCVGAdmin title).
+	writer openItemList.
+	aCVGAdmin items
+		do: [ :c | 
+			writer openItem.
+			writer text: (self translated: c).
+			writer text: '. '.
+			writer closeItem ].
+	writer closeItemList
 ]
 
 { #category : #'generation - sections' }
@@ -95,14 +108,18 @@ CVGGenerator >> generateAdminSection: section with: writer [
 	writer
 		subSection: (self translated: CVGMandateType new typeName).
 	writer writeNewLine.
+	writer openItemList.
 	mandats do:[:m| m acceptGenerator: self].
+	writer closeItemList.
 	
 	membres := section data
 		select: [ :e | e type class == CVGMemberType ].
 	writer
 		subSection: (self translated: CVGMemberType new typeName).
 	writer writeNewLine.
+	writer openItemList.
 	membres do:[:m| m acceptGenerator: self].
+	writer closeItemList.
 		
 	contributions := section data
 		detect: [ :e | e type class == CVGContributionType ].
@@ -117,7 +134,7 @@ CVGGenerator >> generateAdminSection: section with: writer [
 		subSection: (self translated: #('Service académique' 'Academic service')).
 	writer writeNewLine.
 	service do:[:s| s acceptGenerator: self].
-	
+
 	outputDic at: section put: stream contents
 	
 ]
@@ -179,6 +196,20 @@ CVGGenerator >> generateCV [
 { #category : #generation }
 CVGGenerator >> generateCap: aCVGCap [ 
 	
+]
+
+{ #category : #generation }
+CVGGenerator >> generateContribution: aCVGAdmin [
+	| writer |
+	writer := self newWriterFor: aCVGAdmin.
+	writer openItemList.
+	aCVGAdmin items
+		do: [ :c | 
+			writer openItem.
+			writer text: (self translated: c).
+			writer text: '. '.
+			writer closeItem ].
+	writer closeItemList
 ]
 
 { #category : #'generation - sections' }
@@ -305,6 +336,21 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer closeDiv.
 	writer closeDiv
 
+]
+
+{ #category : #generation }
+CVGGenerator >> generateMandate: aCVGAdmin [
+	| writer |
+	writer := self newWriterFor: aCVGAdmin.
+	writer openItem.	
+	writer bold: (self translated: aCVGAdmin title).
+	writer text: ', '.
+	writer text: (aCVGAdmin institute).
+	writer text: '. '.
+	writer text: aCVGAdmin years first.
+	writer text: '. '.
+	writer closeItem
+	
 ]
 
 { #category : #'generation - pages' }

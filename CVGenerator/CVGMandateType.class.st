@@ -4,6 +4,11 @@ Class {
 	#category : #'CVGenerator-elements - types'
 }
 
+{ #category : #visiting }
+CVGMandateType >> acceptGenerator: aCVGGenerator for: aCVGAdmin [
+	aCVGGenerator generateMandate: aCVGAdmin
+]
+
 { #category : #'as yet unclassified' }
 CVGMandateType >> isMandate [ ^true
 ]

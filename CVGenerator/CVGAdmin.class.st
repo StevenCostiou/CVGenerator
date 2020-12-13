@@ -10,6 +10,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGAdmin class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateAdminSection: section with: writer
+]
+
 { #category : #accessing }
 CVGAdmin class >> readerClass [
 	^ CVGAdminReader 
@@ -17,7 +22,7 @@ CVGAdmin class >> readerClass [
 
 { #category : #visiting }
 CVGAdmin >> acceptGenerator: aCVGGenerator [
-	aCVGGenerator generateAdmin: self 
+	type acceptGenerator: aCVGGenerator for: self 
 ]
 
 { #category : #accessing }
