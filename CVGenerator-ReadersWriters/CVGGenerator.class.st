@@ -80,6 +80,13 @@ CVGGenerator >> generate [
 	self generateAndExportHtml.
 ]
 
+{ #category : #generation }
+CVGGenerator >> generateAdmin: admin [
+	| writer |
+	writer := self newWriterFor: admin.
+	
+]
+
 { #category : #export }
 CVGGenerator >> generateAndExportHtml [
 	self regenerateHeader.

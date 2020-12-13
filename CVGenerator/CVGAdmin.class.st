@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'institute',
 		'election',
-		'years'
+		'years',
+		'items'
 	],
 	#category : #'CVGenerator-elements'
 }
@@ -37,6 +38,16 @@ CVGAdmin >> institute [
 { #category : #accessing }
 CVGAdmin >> institute: anObject [
 	institute := anObject
+]
+
+{ #category : #accessing }
+CVGAdmin >> items [
+	^ items
+]
+
+{ #category : #accessing }
+CVGAdmin >> items: anObject [
+	items := anObject
 ]
 
 { #category : #accessing }
