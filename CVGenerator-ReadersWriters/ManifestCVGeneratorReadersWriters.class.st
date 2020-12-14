@@ -9,7 +9,7 @@ Class {
 
 { #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleLongMethodsRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #buildPagesDescriptions #false)) #'2020-12-14T11:07:49.321077+01:00') )
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #buildPagesDescriptions #false)) #'2020-12-14T11:07:49.321077+01:00') #(#(#RGMethodDefinition #(#CVGGenerator #generateStudent: #false)) #'2020-12-14T12:36:21.280158+01:00') )
 ]
 
 { #category : #'code-critics' }
