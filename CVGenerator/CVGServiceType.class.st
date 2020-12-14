@@ -17,7 +17,7 @@ CVGServiceType class >> reviewer [ ^CVGReviewerType new
 ]
 
 { #category : #'as yet unclassified' }
-CVGServiceType class >> sessionchair [ ^CVGSessionChairType new
+CVGServiceType class >> sessionChair [ ^CVGSessionChairType new
 ]
 
 { #category : #'as yet unclassified' }

@@ -9,7 +9,7 @@ CVGSessionChairType >> isSessionChair [ ^true
 ]
 
 { #category : #'as yet unclassified' }
-CVGSessionChairType >> typeKey [ ^#sessionchair
+CVGSessionChairType >> typeKey [ ^#sessionChair
 ]
 
 { #category : #'as yet unclassified' }
