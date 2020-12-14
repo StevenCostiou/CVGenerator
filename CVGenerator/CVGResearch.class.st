@@ -9,6 +9,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 CVGResearch class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateResearchSection: section with: writer
 ]
 
 { #category : #accessing }

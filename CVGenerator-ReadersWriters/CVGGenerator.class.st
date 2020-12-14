@@ -32,6 +32,7 @@ CVGGenerator >> buildPagesDescriptions [
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Students').
 	description add: (self generatedSection: 'Service').
+	description add: (self generatedSection: 'Research').
 	pages at: self pageTitles first put: description.
 	
 	"Publications"
@@ -454,7 +455,43 @@ CVGGenerator >> generatePublication: pub [
 
 { #category : #generation }
 CVGGenerator >> generateResearch: aCVGResearch [ 
+	| writer |
+	writer := self newWriterFor: aCVGResearch.
+	writer openListItem.
+	writer bold: (self translated: aCVGResearch title).
+	writer writeSpace.
+	writer text: '('.
+	writer text: aCVGResearch dateString.
+	writer text: ').'.
+	writer writeSpace.
+	writer text:(self translated: aCVGResearch text).
+	writer text: '.'.	
+	writer closeListItem
+]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateResearchSection: section with: writer [
+	|research|
+	writer subSection: (self translated: #('Groupes de travail' 'Working groups')).
+	writer writeNewLine.
+	
+	"Working groups"
+	research := section data
+		select: [ :e | e type class = CVGResearchType ].
+	writer startUnorderedList.
+	research do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"Collaborations"
+	writer subSection: (self translated: #('Collaborations' 'Collaborations')).
+	writer writeNewLine.
+	research := section data
+		select: [ :e | e type class = CVGCollaborationType ].
+	writer startUnorderedList.
+	research do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	outputDic at: section put: stream contents
 ]
 
 { #category : #'generation - sections' }
