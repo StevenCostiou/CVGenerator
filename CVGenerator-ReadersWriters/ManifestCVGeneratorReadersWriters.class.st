@@ -8,6 +8,11 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestCVGeneratorReadersWriters class >> ruleLongMethodsRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #buildPagesDescriptions #false)) #'2020-12-14T11:07:49.321077+01:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleReModifiesCollectionRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#CVGHtmlWriter #writePublication: #false)) #'2020-03-29T19:30:56.352861+02:00') #(#(#RGClassDefinition #(#CVGAbstractWriter)) #'2020-03-29T19:35:53.63034+02:00') )
 ]
