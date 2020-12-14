@@ -30,6 +30,7 @@ CVGGenerator >> buildPagesDescriptions [
 	
 	"Publications"
 	description := OrderedCollection new.
+	description add: (self generatedSection: 'Students').
 	description add: (self generatedSection: 'Service').
 	pages at: self pageTitles first put: description.
 	
@@ -566,8 +567,86 @@ CVGGenerator >> generateSoftware: s [
 ]
 
 { #category : #generation }
-CVGGenerator >> generateStudent: aCVGStudent [ 
+CVGGenerator >> generateStudent: aCVGStudent [
+	| writer |
+	writer := self newWriterFor: aCVGStudent.
+	writer openListItem.
+	writer bold: aCVGStudent name.
+	aCVGStudent level = #phd
+		ifTrue: [ writer text: ':'.
+			writer writeSpace.
+			writer text: (self translated: aCVGStudent title).
+			writer text: '.'.
+			writer writeSpace.
+			writer text: (self translated: #('Financement: ' 'Funding: ')).
+			writer text: aCVGStudent funding.
+			writer text: '.'.
+			writer writeSpace.
+			writer text: (self translated: aCVGStudent supervision).
+			writer text: ','.
+			writer writeSpace.
+			writer
+				text:
+					aCVGStudent yearStart printString , ' - '
+						, aCVGStudent yearStop printString , '.' ]
+		ifFalse: [ writer writeSpace.
+			writer
+				text:
+					(aCVGStudent academic
+						ifTrue: [ self translated: #('(recherche)' '(research)') ]
+						ifFalse: [ self translated: #('(industrie)' '(industry)') ]).
+			writer text: '.'.
+			writer writeSpace.
+			writer text: (self translated: aCVGStudent description).
+			writer writeSpace.
+			writer text: (self translated: #('Établissement: ' 'School: ')).
+			writer text: aCVGStudent school.
+			writer text: '.'.
+			writer writeSpace.
+			writer text: aCVGStudent yearStart printString.
+			writer text: ','.
+			writer writeSpace.
+			writer text: aCVGStudent duration printString.
+			writer writeSpace.
+			writer text: (self translated: #('mois' 'months')).
+			writer text: '.' ].
+	writer closeListItem
+]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateStudentSection: section with: writer [
+	|services|
+	writer subSection: (self translated: #('Étudiants' 'Students')).
+	writer writeNewLine.
+	
+	"Phd"
+	services := section data
+		select: [ :e | e level = #phd ].
+	writer subsubSection:  (self translated: #('Doctorants' 'PhD students')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"M2"
+	services := section data
+		select: [ :e | e level = #M2 ].
+	writer subsubSection:  (self translated: #('Master 2' 'Master 2')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"M1"
+	services := section data
+		select: [ :e | e level = #M1 ].
+	writer subsubSection:  (self translated: #('Master 1' 'Master 1')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.	
+	
+	outputDic at: section put: stream contents
 ]
 
 { #category : #generation }

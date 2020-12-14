@@ -16,6 +16,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGStudent class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateStudentSection: section with: writer
+]
+
 { #category : #accessing }
 CVGStudent class >> readerClass [
 	^ CVGStudentReader
