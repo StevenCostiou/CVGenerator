@@ -54,6 +54,11 @@ CVGGenerator >> buildPagesDescriptions [
 	description add: (self generatedSection: 'Administration').
 	pages at: self pageTitles sixth put: description.
 	
+	"CV"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Experience').
+	pages at: self pageTitles seventh put: description.
+	
 	^pages	
 	
 ]
@@ -191,6 +196,31 @@ CVGGenerator >> generateAuthor: author [
 { #category : #generation }
 CVGGenerator >> generateCV [
 	(model sections reject:[:s| s title = 'Header']) do: [ :sec | sec acceptGenerator: self ]  
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [ 
+	|xp studies|
+	xp := aCVGSection data select:[:e| e type class == CVGWorkType].
+	aCVGSimpleHtmlWriter subSection: (self translated: #('Expérience professionnelle' 'Professional experience')).
+	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter newTable.
+	xp do:[:e|
+		e acceptGenerator: self
+		].
+	aCVGSimpleHtmlWriter closeTable.	
+	
+	studies := aCVGSection data select:[:e| e type class == CVGStudyType].
+	aCVGSimpleHtmlWriter subSection: (self translated: #('Études' 'Studies')).
+	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter newTable.
+	studies do:[:e|
+		e acceptGenerator: self
+		].
+	aCVGSimpleHtmlWriter closeTable.
+	outputDic at: aCVGSection put: stream contents
 ]
 
 { #category : #generation }
@@ -421,7 +451,7 @@ CVGGenerator >> generateResearch: aCVGResearch [
 
 ]
 
-{ #category : #generation }
+{ #category : #'generation - sections' }
 CVGGenerator >> generateSection: aSection [
 	| writer |
 	self resetStream.
@@ -558,7 +588,13 @@ CVGGenerator >> generateVulgaFrom: aSection with: writer [
 
 { #category : #generation }
 CVGGenerator >> generateWorkStudy: aCVGWorkStudy [ 
-
+	| writer |
+	writer := self newWriterFor: aCVGWorkStudy.
+	writer tableRow.
+	writer tableColumn: (self translated: aCVGWorkStudy start), ' - ', (self translated: aCVGWorkStudy stop).
+	writer tableColumn: (self translated: aCVGWorkStudy institution).
+	writer tableColumn: (self translated: aCVGWorkStudy title).
+	writer closeRow
 ]
 
 { #category : #accessing }

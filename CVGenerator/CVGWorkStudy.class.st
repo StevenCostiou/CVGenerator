@@ -10,6 +10,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGWorkStudy class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateCVSection: section with: writer
+]
+
 { #category : #accessing }
 CVGWorkStudy class >> readerClass [
 	^ CVGWorkAndStudiesReader
