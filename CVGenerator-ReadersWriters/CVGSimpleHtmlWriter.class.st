@@ -411,6 +411,11 @@ CVGSimpleHtmlWriter >> writeNewLine [
 	 stream << '</br>'
 ]
 
+{ #category : #helpers }
+CVGSimpleHtmlWriter >> writeSpace [
+	 stream << ' '
+]
+
 { #category : #links }
 CVGSimpleHtmlWriter >> writeUrl: aString labeled: aName [
 	stream << (self url: aString labeled: aName )
