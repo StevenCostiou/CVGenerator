@@ -10,6 +10,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGService class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateServiceSection: section with: writer
+]
+
 { #category : #accessing }
 CVGService class >> readerClass [
 	^ CVGServiceReader

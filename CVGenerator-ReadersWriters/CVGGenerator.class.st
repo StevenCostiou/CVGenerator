@@ -30,6 +30,11 @@ CVGGenerator >> buildPagesDescriptions [
 	
 	"Publications"
 	description := OrderedCollection new.
+	description add: (self generatedSection: 'Service').
+	pages at: self pageTitles first put: description.
+	
+	"Publications"
+	description := OrderedCollection new.
 	description add: (self generatedSection: 'Publications').
 	pages at: self pageTitles second put: description.
 	
@@ -457,6 +462,90 @@ CVGGenerator >> generateSection: aSection [
 	self resetStream.
 	writer := self newWriterFor: aSection type.
 	aSection generateWith: self using: writer
+]
+
+{ #category : #generation }
+CVGGenerator >> generateService: aCVGService [
+	| writer |
+	writer := self newWriterFor: aCVGService.
+	writer openListItem.
+	writer bold: aCVGService title.
+	writer text: ':'.
+	writer writeSpace.
+	"writer text: '('.
+	writer text: aCVGService acronym.
+	writer text: ').'."
+	writer writeSpace.
+	writer text: aCVGService acronym.
+	writer writeSpace.
+	aCVGService years
+		do: [ :y | 
+			writer text: y.
+			y = aCVGService years last
+				ifFalse: [ writer text: ','.
+					writer writeSpace ] ].
+	writer text: '.'.
+	(#(nil '') includes: aCVGService url)
+		ifFalse: [ writer writeNewLine.
+			writer writeUrl: aCVGService url labeled: aCVGService url.
+			writer text: '.' ].
+	writer closeListItem
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generateServiceSection: section with: writer [
+	|services|
+	writer subSection: 'Service'.
+	writer writeNewLine.
+	
+	"Program committees"
+	services := section data
+		select: [ :e | e type class = CVGPCType ].
+	writer subsubSection:  (self translated: #('Comités de programmes' 'Program commitees')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"Reviewing"
+	services := section data
+		select: [ :e | e type class = CVGReviewerType ].
+	writer subsubSection:  (self translated: #('Comités de relecture' 'Reviewer')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"Session Chair"
+	services := section data
+		select: [ :e | e type class = CVGSessionChairType ].
+	writer subsubSection:  (self translated: #('Session chair' 'Session chair')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"Local committees"
+	services := section data
+		select: [ :e | e type class = CVGLCType ].
+	writer subsubSection:  (self translated: #('Comités d''organisation locale' 'Local organisation committee')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	"Student Volunteer"
+	services := section data
+		select: [ :e | e type class = CVGVolunteerType ].
+	writer subsubSection:  (self translated: #('Étudiant volontaire' 'Student volunteer')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	services do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	
+	
+	
+	outputDic at: section put: stream contents
 ]
 
 { #category : #generation }
