@@ -19,5 +19,6 @@ CVGStudentReader class >> readFromDictionary: dic [
 	student school: (dic at: #school ifAbsent: [ nil ]).
 	student type:(CVGStudentType type: (dic at: #type ifAbsent: [ nil ])).
 	student academic: (dic at: #academic ifAbsent: [ nil ]).
+	student supervision: (dic at: #supervision ifAbsent: [ nil ]).
 	^ student
 ]

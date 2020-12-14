@@ -10,7 +10,8 @@ Class {
 		'duration',
 		'yearStop',
 		'school',
-		'academic'
+		'academic',
+		'supervision'
 	],
 	#category : #'CVGenerator-elements'
 }
@@ -88,6 +89,16 @@ CVGStudent >> school [
 { #category : #accessing }
 CVGStudent >> school: anObject [
 	school := anObject
+]
+
+{ #category : #accessing }
+CVGStudent >> supervision [
+	^ supervision
+]
+
+{ #category : #accessing }
+CVGStudent >> supervision: anObject [
+	supervision := anObject
 ]
 
 { #category : #accessing }
