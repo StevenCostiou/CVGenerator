@@ -876,7 +876,7 @@ CVGGenerator >> pageDirectory [
 { #category : #pages }
 CVGGenerator >> pageTitles [
 	^ #(
-	#('Recherche' 'Research' 2 'research.html' 'science') 
+	#('Recherche' 'Research' 2 'index.html' 'science') 
 	#('Publications' 'Publications' 3 'publications.html' 'article') 
 	#('Logiciels' 'Software' 4 'software.html' 'save') 
 	#('Communications' 'Talks' 5 'talks.html' 'mic') 
