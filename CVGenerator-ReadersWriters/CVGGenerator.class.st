@@ -615,35 +615,35 @@ CVGGenerator >> generateStudent: aCVGStudent [
 
 { #category : #'generation - sections' }
 CVGGenerator >> generateStudentSection: section with: writer [
-	|services|
+	|students|
 	writer subSection: (self translated: #('Étudiants' 'Students')).
 	writer writeNewLine.
 	
 	"Phd"
-	services := section data
+	students := section data
 		select: [ :e | e level = #phd ].
 	writer subsubSection:  (self translated: #('Doctorants' 'PhD students')).
 	writer writeNewLine.
 	writer startUnorderedList.
-	services do:[:s| s acceptGenerator: self].
+	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
 	
 	"M2"
-	services := section data
+	students := section data
 		select: [ :e | e level = #M2 ].
 	writer subsubSection:  (self translated: #('Master 2' 'Master 2')).
 	writer writeNewLine.
 	writer startUnorderedList.
-	services do:[:s| s acceptGenerator: self].
+	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
 	
 	"M1"
-	services := section data
+	students := section data
 		select: [ :e | e level = #M1 ].
 	writer subsubSection:  (self translated: #('Master 1' 'Master 1')).
 	writer writeNewLine.
 	writer startUnorderedList.
-	services do:[:s| s acceptGenerator: self].
+	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.	
 	
 	outputDic at: section put: stream contents
