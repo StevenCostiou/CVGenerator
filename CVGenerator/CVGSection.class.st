@@ -40,7 +40,7 @@ CVGSection >> dataPathFilename [
 
 { #category : #'as yet unclassified' }
 CVGSection >> generateWith: aGenerator using: writer [
-	^type generate: self with: aGenerator using: writer
+	^ type generate: self with: aGenerator using: writer
 ]
 
 { #category : #printing }

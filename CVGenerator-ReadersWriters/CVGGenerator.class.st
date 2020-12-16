@@ -378,26 +378,32 @@ CVGGenerator >> generateHeader: aCVGHeader [
 
 { #category : #generation }
 CVGGenerator >> generateIntro: aCVGIntro [
-	| writer |
-	writer := self newWriterFor: aCVGIntro.
-	writer bold: (self translated: aCVGIntro title).
+	| writer intro |
+	intro := aCVGIntro.
+	writer := self newWriterFor: intro.
+	writer bold: (self translated: intro title).
 	writer writeNewLine.
 	writer bold: (self translated: #('Mots clés : ' 'Keywords: ')).
-	aCVGIntro keywords
+	intro keywords
 		do: [ :k | 
 			writer text: k.
 			writer
 				text:
-					(k = aCVGIntro keywords
+					(k = intro keywords last
 						ifTrue: [ '.' ]
 						ifFalse: [ ', ' ]) ].
 	writer writeNewLine.
-	writer text: (self translated: aCVGIntro text)
+	writer subSection: (self translated: #('Recherche' 'Research')).
+	writer writeNewLine.
+	writer text: (self translated: intro text).
+	writer writeNewLine.
+	writer writeNewLine
 ]
 
 { #category : #'generation - sections' }
 CVGGenerator >> generateIntroSection: section with: writer [
-	section acceptGenerator: self
+	section data first acceptGenerator: self.
+	outputDic at: section put: stream contents
 ]
 
 { #category : #generation }
