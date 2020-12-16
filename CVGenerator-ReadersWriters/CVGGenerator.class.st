@@ -882,9 +882,7 @@ CVGGenerator >> pageTitles [
 	#('Communications' 'Talks' 5 'talks.html' 'mic') 
 	#('Enseignement' 'Teaching' 6 'teaching.html' 'school')
 	#('Administration' 'Administration' 7 'admin.html' 'account_balance')
-	#('CV' 'CV' 8 'cv.html' 'work') 
-	
-	
+	#('CV' 'CV' 8 'cv.html' 'work')
 	)
 ]
 
