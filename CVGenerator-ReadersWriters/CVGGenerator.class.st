@@ -405,6 +405,8 @@ CVGGenerator >> generateIntro: aCVGIntro [
 						ifTrue: [ '.' ]
 						ifFalse: [ ', ' ]) ].
 	writer writeNewLine.
+	writer text: self generateSocialNetworks.
+	writer writeNewLine.
 	writer subSection: (self translated: #('Recherche' 'Research')).
 	writer writeNewLine.
 	writer text: (self translated: intro text).
@@ -627,6 +629,22 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	
 	
 	outputDic at: section put: stream contents
+]
+
+{ #category : #'generation - pages' }
+CVGGenerator >> generateSocialNetworks [
+
+	|writer|
+	writer := CVGSimpleHtmlWriter new.
+	writer div: 'brands-logos'.
+	writer writeUrl: 'https://scholar.google.fr/citations?user=KLPmm0gAAAAJ&hl=fr' image: '../logos/google-scholar-logo.png'.
+	writer writeUrl: 'https://github.com/StevenCostiou' image: '../logos/Octocat.jpg'.
+	writer writeUrl: 'https://www.linkedin.com/in/steven-costiou-7bb633a9/' image: '../logos/In-Blue-128.png'.
+	writer writeUrl: 'https://rmod.inria.fr' image: 'https://rmod.inria.fr/web/resources/logo'.
+	writer writeUrl: 'https://www.researchgate.net/profile/Steven_Costiou?cp=shp' image: 'https://www.researchgate.net/images/public/profile_share_badge.png'.
+	^writer contents
+
+	
 ]
 
 { #category : #generation }
