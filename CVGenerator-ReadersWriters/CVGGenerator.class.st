@@ -376,6 +376,30 @@ CVGGenerator >> generateHeader: aCVGHeader [
 ]
 
 { #category : #generation }
+CVGGenerator >> generateIntro: aCVGIntro [
+	| writer |
+	writer := self newWriterFor: aCVGIntro.
+	writer bold: (self translated: aCVGIntro title).
+	writer writeNewLine.
+	writer bold: (self translated: #('Mots clés : ' 'Keywords: ')).
+	aCVGIntro keywords
+		do: [ :k | 
+			writer text: k.
+			writer
+				text:
+					(k = aCVGIntro keywords
+						ifTrue: [ '.' ]
+						ifFalse: [ ', ' ]) ].
+	writer writeNewLine.
+	writer text: (self translated: aCVGIntro text)
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generateIntroSection: section with: writer [
+	section acceptGenerator: self
+]
+
+{ #category : #generation }
 CVGGenerator >> generateMandate: aCVGAdmin [
 	| writer |
 	writer := self newWriterFor: aCVGAdmin.
