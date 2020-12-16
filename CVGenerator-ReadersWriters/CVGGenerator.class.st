@@ -209,7 +209,7 @@ CVGGenerator >> generateCV [
 { #category : #'generation - sections' }
 CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [ 
 	|xp studies|
-	xp := aCVGSection data select:[:e| e type class == CVGWorkType].
+	xp := aCVGSection data select:[:e| e type isWorkExperience].
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Expérience professionnelle' 'Professional experience')).
 	aCVGSimpleHtmlWriter writeNewLine.
 	aCVGSimpleHtmlWriter writeNewLine.
@@ -218,8 +218,20 @@ CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [
 		e acceptGenerator: self
 		].
 	aCVGSimpleHtmlWriter closeTable.	
+	xp := aCVGSection data select:[:e| e type isAdditionalWorkDetail].
+	aCVGSimpleHtmlWriter bold: (self translated:  #('Quelques détails :' 'Some details:')).
+	aCVGSimpleHtmlWriter writeNewLine.
+	xp do:[:e|
+		aCVGSimpleHtmlWriter bold: ((self translated: (e start)), ' - ', (self translated: (e stop))).
+		aCVGSimpleHtmlWriter writeSpace.
+		aCVGSimpleHtmlWriter text: (self translated: (e title)).
+		aCVGSimpleHtmlWriter text: ', '.
+		aCVGSimpleHtmlWriter text: (self translated: (e institution)).
+		aCVGSimpleHtmlWriter text: '.'.
+		aCVGSimpleHtmlWriter writeNewLine].
+	aCVGSimpleHtmlWriter writeNewLine.
 	
-	studies := aCVGSection data select:[:e| e type class == CVGStudyType].
+	studies := aCVGSection data select:[:e| e type isStudy].
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Études' 'Studies')).
 	aCVGSimpleHtmlWriter writeNewLine.
 	aCVGSimpleHtmlWriter writeNewLine.
@@ -830,7 +842,7 @@ CVGGenerator >> generateWorkStudy: aCVGWorkStudy [
 	writer tableColumn: (self translated: aCVGWorkStudy start), ' - ', (self translated: aCVGWorkStudy stop).
 	writer tableColumn: (self translated: aCVGWorkStudy institution).
 	writer tableColumn: (self translated: aCVGWorkStudy title).
-	writer closeRow
+	writer closeRow 
 ]
 
 { #category : #accessing }

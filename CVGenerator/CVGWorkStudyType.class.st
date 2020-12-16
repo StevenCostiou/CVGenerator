@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+CVGWorkStudyType class >> additionalWork [
+	^ CVGAdditionalWorkDetailType  new
+]
+
+{ #category : #'as yet unclassified' }
 CVGWorkStudyType class >> studies [
 	^ CVGStudyType new
 ]
@@ -12,6 +17,11 @@ CVGWorkStudyType class >> studies [
 { #category : #'as yet unclassified' }
 CVGWorkStudyType class >> work [
 	^ CVGWorkType new
+]
+
+{ #category : #testing }
+CVGWorkStudyType >> isAdditionalWorkDetail [
+	^false
 ]
 
 { #category : #testing }
