@@ -373,12 +373,28 @@ CVGSimpleHtmlWriter >> unorderedList [
 ]
 
 { #category : #links }
+CVGSimpleHtmlWriter >> url: url image: imageUrl [
+	|str|
+	str := WriteStream on: String new.
+	str << '<a href="'.
+	str << url.
+	str << '" target=_blank>'.
+	str << '<img src="'.
+	str << imageUrl.
+	str << '">'.
+	str << '</a>'.
+	^str contents
+	
+	
+]
+
+{ #category : #links }
 CVGSimpleHtmlWriter >> url: aString labeled: aName [
 	|str|
 	str := WriteStream on: String new.
 	str << '<a href="'.
 	str << aString.
-	str << '" target=_blank>'.
+	str << '">'.
 	str << (aName ifNil:[aString]).
 	str << '</a>'.
 	^str contents
@@ -414,6 +430,13 @@ CVGSimpleHtmlWriter >> writeNewLine [
 { #category : #helpers }
 CVGSimpleHtmlWriter >> writeSpace [
 	 stream << ' '
+]
+
+{ #category : #links }
+CVGSimpleHtmlWriter >> writeUrl: url image: imageUrl [
+	stream << (self url: url image: imageUrl)
+	
+	
 ]
 
 { #category : #links }
