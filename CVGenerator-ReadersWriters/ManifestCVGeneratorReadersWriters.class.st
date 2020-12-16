@@ -13,6 +13,11 @@ ManifestCVGeneratorReadersWriters class >> ruleLongMethodsRuleV1FalsePositive [
 ]
 
 { #category : #'code-critics' }
+ManifestCVGeneratorReadersWriters class >> ruleModifiesCollectionRuleV1FalsePositive [
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateIntro: #false)) #'2020-12-16T10:02:17.494983+01:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleReModifiesCollectionRuleV1FalsePositive [
 	^ #(#(#(#RGMethodDefinition #(#CVGHtmlWriter #writePublication: #false)) #'2020-03-29T19:30:56.352861+02:00') #(#(#RGClassDefinition #(#CVGAbstractWriter)) #'2020-03-29T19:35:53.63034+02:00') )
 ]
