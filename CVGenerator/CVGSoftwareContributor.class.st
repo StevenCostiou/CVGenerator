@@ -19,5 +19,5 @@ CVGSoftwareContributor >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGSoftwareContributor >> typeName [ 	
-	^'Contributor'
+	^#('Contributeur' 'Contributor')
 ]

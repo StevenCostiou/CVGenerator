@@ -19,5 +19,5 @@ CVGOther >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGOther >> typeName [
-	^'Other'
+	^#('Blogs' 'Blogs posts')
 ]

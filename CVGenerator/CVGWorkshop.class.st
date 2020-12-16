@@ -19,5 +19,5 @@ CVGWorkshop >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGWorkshop >> typeName [
-	^'Workshops'
+	^#('Workshops' 'Workshops')
 ]

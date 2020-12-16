@@ -16,5 +16,5 @@ CVGTalkKeynote >> typeKey [ ^#keynote
 ]
 
 { #category : #accessing }
-CVGTalkKeynote >> typeName [ ^'Keynotes'
+CVGTalkKeynote >> typeName [ ^#('Keynotes' 'Keynotes')
 ]

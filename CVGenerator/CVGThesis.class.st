@@ -19,5 +19,5 @@ CVGThesis >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGThesis >> typeName [
-	^'Theses'
+	^#('Thèses' 'Theses')
 ]

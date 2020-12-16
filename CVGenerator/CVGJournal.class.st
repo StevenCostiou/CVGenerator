@@ -19,5 +19,5 @@ CVGJournal >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGJournal >> typeName [
-	^'Journals'
+	^#('Journaux internationaux' 'Journals')
 ]

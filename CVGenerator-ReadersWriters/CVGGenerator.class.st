@@ -272,7 +272,7 @@ CVGGenerator >> generateContributionSection: aSection with: writer [
 			type := typedElement key.
 			elements := typedElement value.
 			elements isEmpty
-				ifFalse: [ writer subSection: type typeName.
+				ifFalse: [ writer subSection: (self translated: type typeName).
 					writer openItemList.
 					elements do: [ :e | e acceptGenerator: self ].
 					writer closeItemList ] ].

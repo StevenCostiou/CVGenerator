@@ -19,5 +19,5 @@ CVGSoftwareDeveloper >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGSoftwareDeveloper >> typeName [ 	
-	^'Developer'
+	^#('Développeur' 'Developer')
 ]

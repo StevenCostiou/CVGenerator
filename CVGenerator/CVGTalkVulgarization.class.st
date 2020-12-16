@@ -16,5 +16,5 @@ CVGTalkVulgarization >> typeKey [ ^#vulgarization
 ]
 
 { #category : #accessing }
-CVGTalkVulgarization >> typeName [ ^'Vulgarization'
+CVGTalkVulgarization >> typeName [ ^#('Vulgarisation' 'Vulgarization')
 ]

@@ -19,5 +19,5 @@ CVGConference >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGConference >> typeName [
-	^'Conferences'
+	^#('Conférences internationales' 'Conferences')
 ]

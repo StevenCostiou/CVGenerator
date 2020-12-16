@@ -16,5 +16,5 @@ CVGTalkConference >> typeKey [ ^#conference
 ]
 
 { #category : #accessing }
-CVGTalkConference >> typeName [ ^'International conferences'
+CVGTalkConference >> typeName [ ^#('Conférences internationales' 'International conferences')
 ]

@@ -16,5 +16,5 @@ CVGTalkTool >> typeKey [ ^#tool
 ]
 
 { #category : #accessing }
-CVGTalkTool >> typeName [ ^'Tool presentations'
+CVGTalkTool >> typeName [ ^#('Présentation d''outils' 'Tool presentations')
 ]

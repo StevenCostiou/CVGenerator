@@ -16,5 +16,5 @@ CVGTalkSeminar >> typeKey [ ^#seminar
 ]
 
 { #category : #accessing }
-CVGTalkSeminar >> typeName [ ^'Academic and industrial seminars'
+CVGTalkSeminar >> typeName [ ^#('Séminaires académiques et industriels' 'Academic and industrial seminars')
 ]

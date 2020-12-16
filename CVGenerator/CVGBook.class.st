@@ -19,5 +19,5 @@ CVGBook >> typeKey [
 
 { #category : #'accessing - defaults' }
 CVGBook >> typeName [
-	^'Books'
+	^#('Livres' 'Books')
 ]
