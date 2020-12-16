@@ -30,6 +30,7 @@ CVGGenerator >> buildPagesDescriptions [
 	
 	"Publications"
 	description := OrderedCollection new.
+	description add: (self generatedSection: 'Intro').
 	description add: (self generatedSection: 'Students').
 	description add: (self generatedSection: 'Service').
 	description add: (self generatedSection: 'Research').
