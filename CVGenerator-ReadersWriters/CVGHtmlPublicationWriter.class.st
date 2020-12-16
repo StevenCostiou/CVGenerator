@@ -40,7 +40,7 @@ CVGHtmlPublicationWriter >> url: aString labeled: aName [
 	str << '<a href="'.
 	str << aString.
 	str << '" target=_blank>'.
-	str << '<i class="material-icons md-18">picture_as_pdf</i>'.
+	str << '<i class="material-icons md-18">link</i>'.
 	str << '</a>'.
 	self span: str contents class: 'paper-pdf'
 	

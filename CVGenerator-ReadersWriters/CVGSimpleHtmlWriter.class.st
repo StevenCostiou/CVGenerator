@@ -141,7 +141,7 @@ CVGSimpleHtmlWriter >> h6: title [
 CVGSimpleHtmlWriter >> image: aString [ 
 	stream << '<img src="'.
 	stream << aString.
-	stream << '">'
+	stream << '" alt="">'
 	
 ]
 
@@ -381,7 +381,7 @@ CVGSimpleHtmlWriter >> url: url image: imageUrl [
 	str << '" target=_blank>'.
 	str << '<img src="'.
 	str << imageUrl.
-	str << '">'.
+	str << '" alt="">'.
 	str << '</a>'.
 	^str contents
 	
