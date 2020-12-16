@@ -378,7 +378,7 @@ CVGSimpleHtmlWriter >> url: aString labeled: aName [
 	str := WriteStream on: String new.
 	str << '<a href="'.
 	str << aString.
-	str << '">'.
+	str << '" target=_blank>'.
 	str << (aName ifNil:[aString]).
 	str << '</a>'.
 	^str contents
