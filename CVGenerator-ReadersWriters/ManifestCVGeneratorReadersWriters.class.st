@@ -14,7 +14,7 @@ ManifestCVGeneratorReadersWriters class >> ruleLongMethodsRuleV1FalsePositive [
 
 { #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleModifiesCollectionRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateIntro: #false)) #'2020-12-16T10:02:17.494983+01:00') )
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateIntro: #false)) #'2020-12-16T10:02:17.494983+01:00') #(#(#RGMethodDefinition #(#CVGGenerator #generatePublication: #false)) #'2021-03-11T21:32:45.189891+01:00') #(#(#RGPackageDefinition #(#'CVGenerator-ReadersWriters')) #'2021-03-11T21:32:49.379805+01:00') )
 ]
 
 { #category : #'code-critics' }

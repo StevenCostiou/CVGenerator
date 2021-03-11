@@ -258,8 +258,8 @@ CVGSimpleHtmlWriter >> span: aString class: aClass [
 			stream << aClass.
 			stream << '"' ].
 	stream << '>'.
-	stream << aString.
-	stream << '</span>'
+	stream << aString. 
+	self closeMarkup
 ]
 
 { #category : #'html - lists' }
