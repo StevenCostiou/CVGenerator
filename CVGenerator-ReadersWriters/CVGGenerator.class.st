@@ -22,6 +22,11 @@ CVGGenerator class >> generateHTML: aCVGModel [
 	^self new html; model: aCVGModel; generate
 ]
 
+{ #category : #'instance creation' }
+CVGGenerator class >> generateLatex: aCVGModel [
+	^self new latex; model: aCVGModel; generate
+]
+
 { #category : #pages }
 CVGGenerator >> buildPagesDescriptions [
 
@@ -175,7 +180,7 @@ CVGGenerator >> generateAteliersFrom: aSection with: writer [
 				and: [ e sectionType class = CVGAdditionalTeachingType ateliers class ] ].
 
 	"Cap generation"
-	writer h6: (self translated: cap title).
+	writer title: (self translated: cap title) h: 'h6'.
 	writer writeNewLine.
 	writer text: (self translated: cap text).
 	writer startUnorderedList.
@@ -213,9 +218,9 @@ CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Expérience professionnelle' 'Professional experience')).
 	aCVGSimpleHtmlWriter writeNewLine.
 	aCVGSimpleHtmlWriter writeNewLine.
-	aCVGSimpleHtmlWriter newTable.
+	aCVGSimpleHtmlWriter newTableOfSize: 3.
 	xp do:[:e|
-		e acceptGenerator: self
+	self generateWorkStudy: e with: aCVGSimpleHtmlWriter
 		].
 	aCVGSimpleHtmlWriter closeTable.	
 	xp := aCVGSection data select:[:e| e type isAdditionalWorkDetail].
@@ -235,9 +240,9 @@ CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Études' 'Studies')).
 	aCVGSimpleHtmlWriter writeNewLine.
 	aCVGSimpleHtmlWriter writeNewLine.
-	aCVGSimpleHtmlWriter newTable.
+	aCVGSimpleHtmlWriter newTableOfSize: 2.
 	studies do:[:e|
-		e acceptGenerator: self
+		self generateWorkStudy: e with: aCVGSimpleHtmlWriter
 		].
 	aCVGSimpleHtmlWriter closeTable.
 	outputDic at: aCVGSection put: stream contents
@@ -296,7 +301,7 @@ CVGGenerator >> generateCordeesFrom: aSection with: writer [
 				and: [ e sectionType class = CVGAdditionalTeachingType cordees class ] ].
 
 	"Cap generation"
-	writer h6: (self translated: cap title).
+	writer title: (self translated: cap title) h: 'h6'.
 	writer writeNewLine.
 	writer text: (self translated: cap text).
 
@@ -316,8 +321,8 @@ CVGGenerator >> generateCordeesFrom: aSection with: writer [
 					writer div: 'first-prize'.
 					writer div: 'award'.
 					writer text: (self translated: award).
-					writer closeDiv.
-					writer closeDiv ].
+					writer closeMarkup.
+					writer closeMarkup ].
 			writer bold: c students.
 			writer text: ', '.
 			writer text: c school.
@@ -334,13 +339,13 @@ CVGGenerator >> generateCordeesFrom: aSection with: writer [
 			c press do:[:url|
 				writer writeUrl: url labeled: 'Presse.'.
 				].		
-			writer closeDiv.
-			writer closeDiv.
+			writer closeMarkup.
+			writer closeMarkup.
 			writer div: 'four columns align-center bottom-10px'.
 			c thumb isEmpty ifFalse:[
 			writer image: ('../images/cordees/', c thumb) class: 'photo-cordees mdl-shadow--4dp' border: 0 alt: ''.	].
-			writer closeDiv.
-			writer closeDiv ]
+			writer closeMarkup.
+			writer closeMarkup ]
 ]
 
 { #category : #generation }
@@ -374,7 +379,7 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer div: 'profile'.
 	writer div: 'profile-picture'.
 	writer image: (self imageDirectory, aCVGHeader photo).
-	writer closeDiv.
+	writer closeMarkup.
 	writer div: 'profile-info'.
 	writer title: (self translated: aCVGHeader title) h: 'h5' class: 'title-name'.
 	writer writeNewLine.
@@ -383,8 +388,8 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
 	writer writeNewLine.
 	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. "
-	writer closeDiv.
-	writer closeDiv
+	writer closeMarkup.
+	writer closeMarkup
 
 ]
 
@@ -453,14 +458,14 @@ CVGGenerator >> generateMenuFor: pageTitle [
 		writer div: 'menu-item'.
 		writer div: 'menu-item-logo'.	
 		writer write: '<i class="material-icons" style="color:#1565c0">', title fifth, '</i>'.	
-		writer closeDiv.
+		writer closeMarkup.
 		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
 		writer write: (writer url: title fourth labeled: titleTranslated).
-		titleTranslated =  pageTitleTranslated ifTrue:[writer closeDiv].
-		writer closeDiv.
+		titleTranslated =  pageTitleTranslated ifTrue:[writer closeMarkup].
+		writer closeMarkup.
 		].
 	writer write: '<hr class="blue-hr">'.
-	writer closeDiv.
+	writer closeMarkup.
 	^writer contents
 
 	
@@ -643,7 +648,7 @@ CVGGenerator >> generateSocialNetworks [
 	writer writeUrl: 'https://www.linkedin.com/in/steven-costiou-7bb633a9/' image: '../logos/In-Blue-128.png'.
 	writer writeUrl: 'https://rmod.inria.fr' image: 'https://rmod.inria.fr/web/resources/logo'.
 	writer writeUrl: 'https://www.researchgate.net/profile/Steven_Costiou?cp=shp' image: 'https://www.researchgate.net/images/public/profile_share_badge.png'.
-	writer closeDiv.
+	writer closeMarkup.
 	^writer contents
 
 	
@@ -778,7 +783,7 @@ CVGGenerator >> generateTeachingsSection: aSection with: writer [
 				translated:
 					#('En bleu, les modules dont je suis ou ai été responsable.' 'In blue, the courses I am or was responsible for.')).
 	writer writeNewLine.
-	writer newTable.
+	writer newTableOfSize: 5.
 	writer tableRow.
 	writer tableHeader: (self translated: #('Période' 'Period')).
 	writer tableHeader: (self translated: #('Cours' 'Title')).
@@ -815,7 +820,7 @@ CVGGenerator >> generateTranslateURL: translateUrl on: writer [
 						labeled: 'FR').
 			writer write: '|'.
 			writer simpleRed: (writer url: '#' labeled: 'EN').
-			^ writer closeDiv ].
+			^ writer closeMarkup ].
 	writer simpleRed: (writer url: '#' labeled: 'FR').
 	writer write: '|'.
 	writer
@@ -823,7 +828,7 @@ CVGGenerator >> generateTranslateURL: translateUrl on: writer [
 			(writer
 				url: (self translated: #('../en/' '../fr/')) , translateUrl
 				labeled: 'EN').
-	writer closeDiv
+	writer closeMarkup
 ]
 
 { #category : #'generation - sections' }
@@ -837,7 +842,7 @@ CVGGenerator >> generateVulgaFrom: aSection with: writer [
 				and: [ e sectionType class = CVGAdditionalTeachingType vulga class ] ].
 
 	"Cap generation"
-	writer h6: (self translated: cap title).
+	writer title: (self translated: cap title)  h: 'h6'.
 	writer writeNewLine.
 	"writer text: (self translated: cap text)."
 	writer startUnorderedList.
@@ -858,6 +863,16 @@ CVGGenerator >> generateVulgaFrom: aSection with: writer [
 CVGGenerator >> generateWorkStudy: aCVGWorkStudy [ 
 	| writer |
 	writer := self newWriterFor: aCVGWorkStudy.
+	writer tableRow.
+	writer tableColumn: (self translated: aCVGWorkStudy start), ' - ', (self translated: aCVGWorkStudy stop).
+	writer tableColumn: (self translated: aCVGWorkStudy institution).
+	writer tableColumn: (self translated: aCVGWorkStudy title).
+	writer closeRow 
+]
+
+{ #category : #generation }
+CVGGenerator >> generateWorkStudy: aCVGWorkStudy with: writer [
+
 	writer tableRow.
 	writer tableColumn: (self translated: aCVGWorkStudy start), ' - ', (self translated: aCVGWorkStudy stop).
 	writer tableColumn: (self translated: aCVGWorkStudy institution).
@@ -913,6 +928,11 @@ CVGGenerator >> imageDirectory [
 { #category : #initialization }
 CVGGenerator >> initialize [
 	outputDic := Dictionary new
+]
+
+{ #category : #initialization }
+CVGGenerator >> latex [
+	writerClass := CVGLatexWriter
 ]
 
 { #category : #initialization }

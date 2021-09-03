@@ -21,11 +21,6 @@ CVGAbstractWriter >> bold: aString [
 	self subclassResponsibility 
 ]
 
-{ #category : #emphasis }
-CVGAbstractWriter >> boldBlue: aString [
-	self subclassResponsibility 
-]
-
 { #category : #lists }
 CVGAbstractWriter >> closeItem [
 	self subclassResponsibility 
@@ -64,7 +59,7 @@ CVGAbstractWriter >> openItem [
 
 { #category : #lists }
 CVGAbstractWriter >> openItemList [
-	self subclassResponsibility 
+	self startUnorderedList  
 ]
 
 { #category : #sections }
@@ -74,6 +69,16 @@ CVGAbstractWriter >> section: aString [
 
 { #category : #sections }
 CVGAbstractWriter >> subSection: aString [
+	self subclassResponsibility 
+]
+
+{ #category : #sections }
+CVGAbstractWriter >> subsubSection: aString [
+	self subclassResponsibility 
+]
+
+{ #category : #urls }
+CVGAbstractWriter >> url: url image: imageUrl [
 	self subclassResponsibility 
 ]
 

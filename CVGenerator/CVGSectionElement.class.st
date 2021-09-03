@@ -23,6 +23,11 @@ CVGSectionElement class >> htmlWriterClass [
 ]
 
 { #category : #accessing }
+CVGSectionElement class >> latexWriterClass [
+	^ CVGLatexWriter 
+]
+
+{ #category : #accessing }
 CVGSectionElement class >> readerClass [
 	^ self subclassResponsibility
 ]
@@ -39,6 +44,11 @@ CVGSectionElement class >> sortedElements: flattenedData [
 { #category : #accessing }
 CVGSectionElement >> htmlWriterClass [
 	^ self class htmlWriterClass
+]
+
+{ #category : #accessing }
+CVGSectionElement >> latexWriterClass [
+	^self class latexWriterClass 
 ]
 
 { #category : #accessing }

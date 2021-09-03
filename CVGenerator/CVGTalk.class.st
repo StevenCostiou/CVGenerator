@@ -105,6 +105,11 @@ CVGTalk class >> htmlWriterClass [
 ]
 
 { #category : #accessing }
+CVGTalk class >> latexWriterClass [
+	 ^CVGLatexContributionWriter 
+]
+
+{ #category : #accessing }
 CVGTalk class >> readerClass [
 	^ CVGTalkReader
 ]

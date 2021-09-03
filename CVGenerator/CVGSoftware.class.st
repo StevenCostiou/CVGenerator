@@ -33,7 +33,13 @@ CVGSoftware class >> generate: section with: aGenerator using: writer [
 
 { #category : #accessing }
 CVGSoftware class >> htmlWriterClass [
-	^ CVGHtmlSoftwareWriter 
+
+	^ CVGLatexContributionWriter
+]
+
+{ #category : #accessing }
+CVGSoftware class >> latexWriterClass [
+	 ^CVGLatexContributionWriter 
 ]
 
 { #category : #accessing }

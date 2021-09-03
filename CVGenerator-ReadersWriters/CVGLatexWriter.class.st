@@ -1,0 +1,176 @@
+Class {
+	#name : #CVGLatexWriter,
+	#superclass : #CVGMarkupWriter,
+	#instVars : [
+		'columnCounter',
+		'tableSize'
+	],
+	#category : #'CVGenerator-ReadersWriters-Writers'
+}
+
+{ #category : #'instance creation' }
+CVGLatexWriter class >> for: aCVGElement [ 
+	^aCVGElement latexWriterClass 
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> bold: aString [
+	self writeText: aString inMarkup: CVGLatexMarkupElement bold
+]
+
+{ #category : #markup }
+CVGLatexWriter >> closeMarkup [ 
+	self writeMarkup: markupStack pop closingMarkup 
+]
+
+{ #category : #tables }
+CVGLatexWriter >> closeRow [
+	columnCounter := 0.
+	stream << '\\'.
+	stream cr
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> closeTable [
+	self closeMarkup 
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> italic: aString [
+	self writeText: aString inMarkup: CVGLatexMarkupElement italic
+]
+
+{ #category : #lists }
+CVGLatexWriter >> listItem [
+	^CVGLatexMarkupElement item 
+]
+
+{ #category : #tables }
+CVGLatexWriter >> newTable [
+	self openMarkup: self tabular
+]
+
+{ #category : #tables }
+CVGLatexWriter >> newTableOfSize: anInteger [
+	tableSize := anInteger.
+	super newTableOfSize: anInteger
+]
+
+{ #category : #markup }
+CVGLatexWriter >> openMarkup: aMarkup [
+	self writeMarkup: aMarkup openingMarkup.
+	markupStack push: aMarkup
+]
+
+{ #category : #lists }
+CVGLatexWriter >> orderedList [
+	^CVGLatexMarkupElement enumerate
+]
+
+{ #category : #sections }
+CVGLatexWriter >> section: aString [
+	stream cr.
+	self writeSection: aString markup: CVGLatexMarkupElement section
+]
+
+{ #category : #sections }
+CVGLatexWriter >> subSection: aString [
+
+	stream cr.
+	self writeSection: aString markup: CVGLatexMarkupElement subsection
+]
+
+{ #category : #sections }
+CVGLatexWriter >> subsubSection: aString [
+
+	stream cr.
+	self
+		writeSection: aString
+		markup: CVGLatexMarkupElement subsubsection
+]
+
+{ #category : #tables }
+CVGLatexWriter >> table [
+	^CVGLatexMarkupElement table 
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> tableBody [
+	^CVGLatexMarkupElement tabular
+]
+
+{ #category : #tables }
+CVGLatexWriter >> tableColumn: aString [
+
+	columnCounter := columnCounter + 1.
+	stream << aString.
+	stream space.
+	columnCounter < tableSize ifTrue: [ stream << '&' ].
+	stream space
+]
+
+{ #category : #tables }
+CVGLatexWriter >> tableHeader: aString [
+
+	columnCounter := columnCounter + 1.
+	self bold: aString.
+	stream space.
+	columnCounter < tableSize ifTrue: [ stream << '&' ].
+	stream space
+]
+
+{ #category : #tables }
+CVGLatexWriter >> tableRow [
+	columnCounter := 0
+]
+
+{ #category : #tables }
+CVGLatexWriter >> tabular [
+	^CVGLatexMarkupElement tabular: tableSize 
+]
+
+{ #category : #lists }
+CVGLatexWriter >> unorderedList [ 
+	^CVGLatexMarkupElement itemize
+]
+
+{ #category : #urls }
+CVGLatexWriter >> url: url image: imageUrl [
+	self writeText: url inMarkup: CVGLatexMarkupElement url
+]
+
+{ #category : #urls }
+CVGLatexWriter >> url: aString labeled: aName [
+	self writeText: aString inMarkup: CVGLatexMarkupElement url
+]
+
+{ #category : #markup }
+CVGLatexWriter >> writeMarkup: aMarkupString [
+
+	stream << aMarkupString
+]
+
+{ #category : #writing }
+CVGLatexWriter >> writeNewLine [
+	stream << CVGLatexMarkupElement newLine openingMarkup 
+]
+
+{ #category : #sections }
+CVGLatexWriter >> writeSection: aString markup: aMarkup [
+
+	stream cr.
+	self writeText: aString inMarkup: aMarkup.
+	stream cr
+]
+
+{ #category : #writing }
+CVGLatexWriter >> writeSpace [
+	stream << CVGLatexMarkupElement space openingMarkup 
+]
+
+{ #category : #markup }
+CVGLatexWriter >> writeText: aString inMarkup: aMarkup [
+	self openMarkup: aMarkup.
+	stream << aString.
+	self closeMarkup
+]

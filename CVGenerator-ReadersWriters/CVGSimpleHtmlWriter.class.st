@@ -4,10 +4,7 @@ I use a stack to push and pop markup and a stream to write on it.
 "
 Class {
 	#name : #CVGSimpleHtmlWriter,
-	#superclass : #CVGAbstractWriter,
-	#instVars : [
-		'markupStack'
-	],
+	#superclass : #CVGMarkupWriter,
 	#category : #'CVGenerator-ReadersWriters-Writers'
 }
 
@@ -37,104 +34,13 @@ CVGSimpleHtmlWriter >> boldBlue: aString [
 ]
 
 { #category : #markup }
-CVGSimpleHtmlWriter >> closeDiv [
-	self closeMarkup
-]
-
-{ #category : #lists }
-CVGSimpleHtmlWriter >> closeItem [
-	self closeMarkup 
-]
-
-{ #category : #lists }
-CVGSimpleHtmlWriter >> closeItemList [
-	self stopUnorderedList 
-]
-
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> closeListItem [
-	self closeMarkup
-]
-
-{ #category : #markup }
 CVGSimpleHtmlWriter >> closeMarkup [
 	self writeMarkup: '/' , markupStack pop
-]
-
-{ #category : #'html - tables' }
-CVGSimpleHtmlWriter >> closeRow [
-	self closeMarkup 
-]
-
-{ #category : #'html - tables' }
-CVGSimpleHtmlWriter >> closeTable [
-	self closeMarkup.
-	self closeMarkup
 ]
 
 { #category : #markup }
 CVGSimpleHtmlWriter >> div: aString [ 
 	self openMarkup: 'div' class: aString
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h1 [
-	^'h1'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h1: title [
-	self title: title h: self h1
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h2 [
-	^'h2'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h2: title [
-	self title: title h: self h2
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h3 [
-	^'h3'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h3: title [
-	self title: title h: self h3
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h4 [
-	^'h4'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h4: title [
-	self title: title h: self h4
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h5 [
-	^'h5'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h5: title [
-	self title: title h: self h5
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> h6 [
-	^'h6'
-]
-
-{ #category : #'html - titles' }
-CVGSimpleHtmlWriter >> h6: title [
-	self title: title h: self h6
 ]
 
 { #category : #markup }
@@ -159,12 +65,6 @@ CVGSimpleHtmlWriter >> image: aString class: cssClass border: border alt: url [
 	
 ]
 
-{ #category : #initialization }
-CVGSimpleHtmlWriter >> initialize [
-	super initialize.
-	markupStack := Stack new
-]
-
 { #category : #'html - emphasis' }
 CVGSimpleHtmlWriter >> italic: aString [
 	stream << '<i>'.
@@ -177,40 +77,10 @@ CVGSimpleHtmlWriter >> listItem [
 	^'li'
 ]
 
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> listItem: aString [
-	self openMarkup: self listItem.
-	stream << aString.
-	self closeMarkup 
-	
-]
-
 { #category : #'html - tables' }
 CVGSimpleHtmlWriter >> newTable [
 	self openMarkup: self table class: 'table'.
 	self openMarkup: self tableBody
-]
-
-{ #category : #lists }
-CVGSimpleHtmlWriter >> openItem [
-	self openMarkup: self listItem
-]
-
-{ #category : #lists }
-CVGSimpleHtmlWriter >> openItemList [
-	self startUnorderedList 
-]
-
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> openListItem [
-	self openMarkup: self listItem
-	
-]
-
-{ #category : #markup }
-CVGSimpleHtmlWriter >> openMarkup: aMarkup [
-	self writeMarkup: aMarkup.
-	markupStack push: aMarkup
 ]
 
 { #category : #markup }
@@ -262,29 +132,6 @@ CVGSimpleHtmlWriter >> span: aString class: aClass [
 	stream << '</span>'
 ]
 
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> startOrderedList [
-	self openMarkup: self orderedList 
-	
-]
-
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> startUnorderedList [
-	self openMarkup: self unorderedList 
-	
-]
-
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> stopOrderedList [
-	self closeMarkup
-]
-
-{ #category : #'html - lists' }
-CVGSimpleHtmlWriter >> stopUnorderedList [
-	self closeMarkup
-	
-]
-
 { #category : #sections }
 CVGSimpleHtmlWriter >> subSection: aString [
 	self title: aString h: 'h5' class: 'blue-title'
@@ -334,11 +181,6 @@ CVGSimpleHtmlWriter >> tableRow [
 { #category : #markup }
 CVGSimpleHtmlWriter >> td [
 	^'td'
-]
-
-{ #category : #helpers }
-CVGSimpleHtmlWriter >> text: aString [
-	 stream << aString
 ]
 
 { #category : #markup }
@@ -430,18 +272,4 @@ CVGSimpleHtmlWriter >> writeNewLine [
 { #category : #helpers }
 CVGSimpleHtmlWriter >> writeSpace [
 	 stream << ' '
-]
-
-{ #category : #links }
-CVGSimpleHtmlWriter >> writeUrl: url image: imageUrl [
-	stream << (self url: url image: imageUrl)
-	
-	
-]
-
-{ #category : #links }
-CVGSimpleHtmlWriter >> writeUrl: aString labeled: aName [
-	stream << (self url: aString labeled: aName )
-	
-	
 ]

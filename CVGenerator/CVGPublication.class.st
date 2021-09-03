@@ -57,6 +57,11 @@ CVGPublication class >> htmlWriterClass [
 ]
 
 { #category : #accessing }
+CVGPublication class >> latexWriterClass [
+	 ^CVGLatexContributionWriter 
+]
+
+{ #category : #accessing }
 CVGPublication class >> readerClass [
 	^ CVGPublicationReader
 ]
