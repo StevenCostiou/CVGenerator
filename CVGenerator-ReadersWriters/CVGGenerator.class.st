@@ -750,6 +750,15 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	writer startUnorderedList.
 	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.	
+		
+	"Licence"
+	students := section data
+		select: [ :e | e level = #Licence ].
+	writer subsubSection:  (self translated: #('Licence' 'Bachelor')).
+	writer writeNewLine.
+	writer startUnorderedList.
+	students do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.	
 	
 	outputDic at: section put: stream contents
 ]
