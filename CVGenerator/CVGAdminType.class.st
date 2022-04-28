@@ -21,6 +21,10 @@ CVGAdminType class >> member [ ^CVGMemberType new
 ]
 
 { #category : #'as yet unclassified' }
+CVGAdminType class >> mission [ ^CVGMissionType new
+]
+
+{ #category : #'as yet unclassified' }
 CVGAdminType class >> pc [ ^CVGPCType new
 ]
 
@@ -54,6 +58,10 @@ CVGAdminType >> isMandate [ ^false
 
 { #category : #'as yet unclassified' }
 CVGAdminType >> isMember [ ^false
+]
+
+{ #category : #testing }
+CVGAdminType >> isMission [ ^false
 ]
 
 { #category : #'as yet unclassified' }

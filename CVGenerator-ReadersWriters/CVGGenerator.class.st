@@ -120,7 +120,16 @@ CVGGenerator >> generateAdmin: aCVGAdmin [
 
 { #category : #'generation - sections' }
 CVGGenerator >> generateAdminSection: section with: writer [
-	| mandats membres contributions service |
+	| missions mandats membres contributions service |
+	missions := section data
+		select: [ :e | e type class == CVGMissionType ].
+	writer
+		subSection: (self translated: CVGMissionType new typeName).
+	writer writeNewLine.
+	writer openItemList.
+	missions do:[:m| m acceptGenerator: self].
+	writer closeItemList.
+	
 	mandats := section data
 		select: [ :e | e type class == CVGMandateType ].
 	writer
@@ -792,6 +801,8 @@ CVGGenerator >> generateTeachingsSection: aSection with: writer [
 				translated:
 					#('En bleu, les modules dont je suis ou ai été responsable.' 'In blue, the courses I am or was responsible for.')).
 	writer writeNewLine.
+	self writeTeachingHoursFrom: aSection with: writer.
+	writer writeNewLine.
 	writer newTableOfSize: 5.
 	writer tableRow.
 	writer tableHeader: (self translated: #('Période' 'Period')).
@@ -1020,4 +1031,28 @@ CVGGenerator >> writePages [
 			file writeStream
 				nextPutAll: page;
 				close ]
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> writeTeachingHoursFrom: aSection with: writer [
+	|str cm td tp totEqTD|
+	
+	writer bold: (self translated: {'Total : '.  'Total:'}).
+	str := WriteStream on: String new.
+	cm := aSection data inject: 0 into:[:sum :t|  sum + t cm].
+	td := aSection data inject: 0 into:[:sum :t|  sum + t td].
+	tp := aSection data inject: 0 into:[:sum :t|  sum + t tp].
+	totEqTD := (cm * 1.5) + td + (tp * 2 / 3).
+	str nextPutAll: cm printString.
+	str nextPutAll: (self translated: {'h CM'. 'h lectures'}).
+	str nextPutAll: ','.
+	str space.
+	str nextPutAll: td printString.
+	str nextPutAll: (self translated: {'h TD'. 'h supervised work'}).
+	str nextPutAll: ','.
+	str space.
+	str nextPutAll: tp printString.
+	str nextPutAll: (self translated: {'h TP'. 'h practical work'}).
+	writer text: str contents.
+	writer italic: ' (', totEqTD printString, ' eq. TD)'
 ]
