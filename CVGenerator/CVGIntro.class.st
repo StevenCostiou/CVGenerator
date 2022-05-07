@@ -3,7 +3,8 @@ Class {
 	#superclass : #CVGSectionElement,
 	#instVars : [
 		'keywords',
-		'text'
+		'text',
+		'fundings'
 	],
 	#category : #'CVGenerator-elements'
 }
@@ -16,6 +17,18 @@ CVGIntro class >> generate: section with: aGenerator using: writer [
 { #category : #accessing }
 CVGIntro class >> readerClass [
 	^ CVGIntroReader
+]
+
+{ #category : #accessing }
+CVGIntro >> fundings [
+
+	^ fundings
+]
+
+{ #category : #accessing }
+CVGIntro >> fundings: anObject [
+
+	fundings := anObject
 ]
 
 { #category : #accessing }
