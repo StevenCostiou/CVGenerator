@@ -703,7 +703,8 @@ CVGGenerator >> generateStudent: aCVGStudent [
 				text:
 					aCVGStudent yearStart printString , ' - '
 						, aCVGStudent yearStop printString , '.' ]
-		ifFalse: [ writer writeSpace.
+		ifFalse: [ |description|
+			writer writeSpace.
 			writer
 				text:
 					(aCVGStudent academic
@@ -711,9 +712,11 @@ CVGGenerator >> generateStudent: aCVGStudent [
 						ifFalse: [ self translated: #('(industrie)' '(industry)') ]).
 			writer text: '.'.
 			writer writeSpace.
-			writer text: (self translated: aCVGStudent description).
+			description := self translated: aCVGStudent description.			
+			writer text: description.
+			description ifNotEmpty: [ 	writer text: '.'. ].
 			writer writeSpace.
-			writer text: (self translated: #('Établissement: ' 'School: ')).
+			"writer text: (self translated: #('Établissement: ' 'School: '))."
 			writer text: aCVGStudent school.
 			writer text: '.'.
 			writer writeSpace.
