@@ -244,6 +244,12 @@ CVGSimpleHtmlWriter >> url: aString labeled: aName [
 	
 ]
 
+{ #category : #export }
+CVGSimpleHtmlWriter >> writeAndExport: aGenerator [
+
+	aGenerator generateAndExportHtml
+]
+
 { #category : #sections }
 CVGSimpleHtmlWriter >> writeContributionNumbers: anInteger [
 ]

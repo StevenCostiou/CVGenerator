@@ -578,6 +578,33 @@ CVGGenerator >> generateResearchSection: section with: writer [
 	outputDic at: section put: stream contents
 ]
 
+{ #category : #'generation - summaries' }
+CVGGenerator >> generateResearchSummary [
+	
+	|writer|
+	writer := CVGLatexWriter new.
+	writer subSectionX: 'Activités de recherche'.
+	writer cr.
+	writer text: '\hrule'.
+	writer cr.
+	writer text: '\vspace{-2em}'.
+	writer cr.
+	writer newSummaryTable.	
+	writer tableSize: 2.
+	
+	writer tableRow.
+	writer writeNewLine.
+	writer red: '2.1 Recherche'.
+	writer tableColumn: ' '.
+	writer text: 'Langages dynamiques et leurs infrastructures pour le debugging, équipe'.
+	writer writeSpace.
+	writer red: 'RMoD'. 
+	writer tableColumn: ' '.
+	writer closeRow. 
+	writer closeSummaryTable.
+	writer inspect
+]
+
 { #category : #'generation - sections' }
 CVGGenerator >> generateSection: aSection [
 	| writer |

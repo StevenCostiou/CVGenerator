@@ -14,6 +14,11 @@ CVGLatexMarkupElement class >> bold [
 	^self markup: 'textbf'
 ]
 
+{ #category : #'as yet unclassified' }
+CVGLatexMarkupElement class >> emptyMarkup [
+	^(self markup: '') closingMarkup: Character cr
+]
+
 { #category : #API }
 CVGLatexMarkupElement class >> enumerate [
 	^(self markup: 'enumerate') beginEndMarkup 
@@ -66,6 +71,35 @@ CVGLatexMarkupElement class >> space [
 CVGLatexMarkupElement class >> subsection [
 
 	^ self markup: 'subsection'
+]
+
+{ #category : #API }
+CVGLatexMarkupElement class >> subsectionX [
+
+	^ self markup: 'subsection*'
+]
+
+{ #category : #'as yet unclassified' }
+CVGLatexMarkupElement class >> subsubsection [
+	^ self markup: 'subsubsection'
+]
+
+{ #category : #API }
+CVGLatexMarkupElement class >> summaryTable [
+
+	| markup |
+	markup := (self markup: 'table') beginEndMarkup.
+	markup openingMarkup: (markup openingMarkup), '[h]'.	
+	^ markup
+]
+
+{ #category : #API }
+CVGLatexMarkupElement class >> summaryTabular [
+
+	| markup |
+	markup := (self markup: 'tabularx') beginEndMarkup.
+	markup openingMarkup: (markup openingMarkup), '{\textwidth}{lX}'.	
+	^ markup
 ]
 
 { #category : #API }

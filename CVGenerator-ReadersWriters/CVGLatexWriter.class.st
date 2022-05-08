@@ -30,9 +30,29 @@ CVGLatexWriter >> closeRow [
 	stream cr
 ]
 
+{ #category : #tables }
+CVGLatexWriter >> closeSummaryTable [
+	self closeMarkup.
+	self closeMarkup 
+]
+
 { #category : #emphasis }
 CVGLatexWriter >> closeTable [
 	self closeMarkup 
+]
+
+{ #category : #writing }
+CVGLatexWriter >> cr [
+	stream cr
+]
+
+{ #category : #markup }
+CVGLatexWriter >> div: aString [
+	self openMarkup: CVGLatexMarkupElement emptyMarkup
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> image: aString [ 
 ]
 
 { #category : #emphasis }
@@ -43,6 +63,12 @@ CVGLatexWriter >> italic: aString [
 { #category : #lists }
 CVGLatexWriter >> listItem [
 	^CVGLatexMarkupElement item 
+]
+
+{ #category : #tables }
+CVGLatexWriter >> newSummaryTable [
+	self openMarkup: CVGLatexMarkupElement summaryTable.
+	self openMarkup: CVGLatexMarkupElement summaryTabular
 ]
 
 { #category : #tables }
@@ -67,6 +93,11 @@ CVGLatexWriter >> orderedList [
 	^CVGLatexMarkupElement enumerate
 ]
 
+{ #category : #emphasis }
+CVGLatexWriter >> red: aString [
+	self writeText: aString inMarkup: CVGLatexMarkupElement red
+]
+
 { #category : #sections }
 CVGLatexWriter >> section: aString [
 	stream cr.
@@ -78,6 +109,13 @@ CVGLatexWriter >> subSection: aString [
 
 	stream cr.
 	self writeSection: aString markup: CVGLatexMarkupElement subsection
+]
+
+{ #category : #sections }
+CVGLatexWriter >> subSectionX: aString [
+
+	stream cr.
+	self writeSection: aString markup: CVGLatexMarkupElement subsectionX 
 ]
 
 { #category : #sections }
@@ -124,9 +162,21 @@ CVGLatexWriter >> tableRow [
 	columnCounter := 0
 ]
 
+{ #category : #accessing }
+CVGLatexWriter >> tableSize: anObject [
+
+	tableSize := anObject
+]
+
 { #category : #tables }
 CVGLatexWriter >> tabular [
 	^CVGLatexMarkupElement tabular: tableSize 
+]
+
+{ #category : #emphasis }
+CVGLatexWriter >> title: title h: level [
+	self bold: title.
+	self writeNewLine.
 ]
 
 { #category : #lists }
@@ -144,6 +194,12 @@ CVGLatexWriter >> url: aString labeled: aName [
 	self writeText: aString inMarkup: CVGLatexMarkupElement url
 ]
 
+{ #category : #export }
+CVGLatexWriter >> writeAndExport: aGenerator [
+
+	aGenerator generateAndExportLatex
+]
+
 { #category : #markup }
 CVGLatexWriter >> writeMarkup: aMarkupString [
 
@@ -152,7 +208,8 @@ CVGLatexWriter >> writeMarkup: aMarkupString [
 
 { #category : #writing }
 CVGLatexWriter >> writeNewLine [
-	stream << CVGLatexMarkupElement newLine openingMarkup 
+	stream << CVGLatexMarkupElement newLine openingMarkup .
+	stream cr
 ]
 
 { #category : #sections }
@@ -173,4 +230,10 @@ CVGLatexWriter >> writeText: aString inMarkup: aMarkup [
 	self openMarkup: aMarkup.
 	stream << aString.
 	self closeMarkup
+]
+
+{ #category : #writing }
+CVGLatexWriter >> writeUrl: aString labeled: aName [
+
+	self url: aString labeled: aName
 ]
