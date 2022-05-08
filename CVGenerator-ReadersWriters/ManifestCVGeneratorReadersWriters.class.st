@@ -8,13 +8,18 @@ Class {
 }
 
 { #category : #'code-critics' }
+ManifestCVGeneratorReadersWriters class >> ruleCollectionProtocolRuleV1FalsePositive [
+	^ #(#(#(#RGClassDefinition #(#CVGLatexPreambleGenerator)) #'2022-05-08T15:42:56.98284+02:00') )
+]
+
+{ #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleLongMethodsRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #buildPagesDescriptions #false)) #'2020-12-14T11:07:49.321077+01:00') #(#(#RGMethodDefinition #(#CVGGenerator #generateStudent: #false)) #'2020-12-14T12:36:21.280158+01:00') )
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #buildPagesDescriptions #false)) #'2020-12-14T11:07:49.321077+01:00') #(#(#RGMethodDefinition #(#CVGGenerator #generateStudent: #false)) #'2020-12-14T12:36:21.280158+01:00') #(#(#RGClassDefinition #(#CVGLatexPreambleGenerator)) #'2022-05-08T16:06:49.736695+02:00') )
 ]
 
 { #category : #'code-critics' }
 ManifestCVGeneratorReadersWriters class >> ruleModifiesCollectionRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateIntro: #false)) #'2020-12-16T10:02:17.494983+01:00') )
+	^ #(#(#(#RGMethodDefinition #(#CVGGenerator #generateIntro: #false)) #'2020-12-16T10:02:17.494983+01:00') #(#(#RGClassDefinition #(#CVGLatexPreambleGenerator)) #'2022-05-08T16:06:47.534005+02:00') )
 ]
 
 { #category : #'code-critics' }
