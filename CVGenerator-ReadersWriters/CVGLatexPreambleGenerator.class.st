@@ -9,6 +9,93 @@ Class {
 }
 
 { #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> generateContributionsSummary [
+
+	| writer title rows cols publications pubs|
+	title := '3. Liste complète des contributions'.
+	rows := OrderedCollection new.
+
+	publications := (model sections detect:[:s| s type = CVGPublication]) data.
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: '3.1 Publications (', publications size printString, ')'; contents).
+	pubs := publications select:[:p| p type class = CVGJournal].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' articles de journaux'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: ' '.
+	pubs := publications select:[:p| p type class = CVGConference].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' conférences internationales'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: ' '.
+	pubs := publications select:[:p| p type class = CVGWorkshop].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' workshops internationaux à comité de lecture'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: ' '.
+	pubs := publications select:[:p| p type class = CVGOther].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' articles de blog (\url{thepharo.dev})'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: ' '.
+	pubs := publications select:[:p| p type class = CVGThesis].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' thèse de doctorat (soutenue en 2018)'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	publications := (model sections detect:[:s| s type = CVGTalk]) data.
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: '3.2 Présentations (', publications size printString, ')'; contents).
+	pubs := publications select:[:p| p type class = CVGTalkKeynote or:[p type class = CVGTalkConference] ].				
+	writer := CVGLatexWriter new.
+	writer red: pubs size printString.
+	writer text: ' présentations à des conférences internationales, '.
+	pubs := publications select:[:p| p type class = CVGTalkTool].
+	writer red: pubs size printString.
+	writer text: ' démonstrations d''outils à des conférences ou à des industriels, '.
+	pubs := publications select:[:p| p type class = CVGTalkVulgarization].
+	writer red: pubs size printString.
+	writer text: ' présentation de vulgarisation à Inria, '.
+	pubs := publications select:[:p| p type class = CVGTalkSeminar].
+	writer red: pubs size printString.
+	writer text: ' séminaires nationaux ou internationaux'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	publications := (model sections detect:[:s| s type = CVGSoftware]) data.
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: '3.3 Développement technologiques'; contents).			
+	writer := CVGLatexWriter new.
+	writer red: publications size printString.
+	writer text: ' logiciels et bibliothèques open-source'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	
+	^self generatePreambleNamed: title size: 2 rows: rows  	
+			
+	
+]
+
+{ #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: rows [
 
 	| writer |
@@ -37,7 +124,7 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 { #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generateResearchSummary [
 
-	| writer title rows cols animations collaborations service pcs|
+	| writer title rows cols animations collaborations service pcs students|
 	title := '2. Activités de recherche'.
 	rows := OrderedCollection new.
 
@@ -126,6 +213,24 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 		pc = pcs last ifFalse:[writer text: ', ']].	
 	writer text: ')'.
 	
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.	
+	cols add: (CVGLatexWriter new
+				 red: '2.5 Encadrement';
+				 contents).
+				
+	writer := CVGLatexWriter new.
+	students := (model sections detect:[:s| s type = CVGStudent]) data.
+	writer red: (students select:[:s| s level = 'phd']) size printString.
+	writer text: ' doctorants, '.
+	writer red: (students select:[:s| s level = 'M2']) size printString.
+	writer text: ' M2/3$^{\`{e}me}$ année d''école d''ingénieur, '.
+	writer red: (students select:[:s| s level = 'M1']) size printString.
+	writer text: ' M1/2$^{ \`{e}me}$ année d''école d''ingénieur, '.
+	writer red: (students select:[:s| s level = 'Licence']) size printString.
+	writer text: ' Licence'.
 	cols add: writer contents.
 	rows add: cols.
 	
