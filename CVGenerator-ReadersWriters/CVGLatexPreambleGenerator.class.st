@@ -13,7 +13,7 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 
 	| writer |
 	writer := CVGLatexWriter new.
-	writer subSectionX: title.
+	writer subsubSectionX: title. 
 	writer cr.
 	writer text: '\hrule'.
 	writer cr.
@@ -38,7 +38,7 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 CVGLatexPreambleGenerator >> generateResearchSummary [
 
 	| writer title rows cols animations collaborations service pcs|
-	title := 'Activités de recherche'.
+	title := '2. Activités de recherche'.
 	rows := OrderedCollection new.
 
 	rows add: { 
@@ -47,9 +47,18 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 				 contents).
 			(CVGLatexWriter new
 				 text:
-					 'Langages dynamiques et leurs infrastructures pour le debugging, équipe';
-				 writeSpace;
+					 'Langages dynamiques et leurs infrastructures pour le debugging, équipe ';
 				 red: 'RMoD';
+				 contents) }.
+	rows add: { 
+			(CVGLatexWriter new
+				 red: ' ';
+				 contents).
+			(CVGLatexWriter new				
+				text:
+					 'ANR JCJC ';
+				 red: 'OCRE';
+				text: ': Object-Centric debugging REloaded (173k euros, 2022 - 2024)';
 				 contents) }.
 				
 	animations := ((model sections detect:[:s| s type = CVGResearch]) data select:[:d| d type class = CVGResearchType ]) asOrderedCollection.

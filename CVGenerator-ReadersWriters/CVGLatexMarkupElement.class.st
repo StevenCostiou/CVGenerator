@@ -85,6 +85,12 @@ CVGLatexMarkupElement class >> subsubsection [
 ]
 
 { #category : #API }
+CVGLatexMarkupElement class >> subsubsectionX [
+
+	^ self markup: 'subsubsection*'
+]
+
+{ #category : #API }
 CVGLatexMarkupElement class >> summaryTable [
 
 	| markup |

@@ -127,6 +127,13 @@ CVGLatexWriter >> subsubSection: aString [
 		markup: CVGLatexMarkupElement subsubsection
 ]
 
+{ #category : #sections }
+CVGLatexWriter >> subsubSectionX: aString [
+
+	stream cr.
+	self writeSection: aString markup: CVGLatexMarkupElement subsubsectionX 
+]
+
 { #category : #tables }
 CVGLatexWriter >> table [
 	^CVGLatexMarkupElement table 
