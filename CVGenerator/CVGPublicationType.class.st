@@ -13,6 +13,11 @@ CVGPublicationType class >> book [
 ]
 
 { #category : #'instance creation' }
+CVGPublicationType class >> book2 [
+	^CVGBook new
+]
+
+{ #category : #'instance creation' }
 CVGPublicationType class >> conference [
 	^CVGConference new
 ]

@@ -14,10 +14,11 @@ CVGBook >> isBook [
 
 { #category : #'accessing - defaults' }
 CVGBook >> typeKey [
-	^#book
+	^#book2
 ]
 
 { #category : #'accessing - defaults' }
 CVGBook >> typeName [
-	^#('Livres' 'Books')
+	"^#('Livres' 'Books')"
+	^#('Conférences nationales' 'French national conferences')
 ]

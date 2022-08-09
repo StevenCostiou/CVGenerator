@@ -71,8 +71,8 @@ CVGPublication class >> sortedElements: flattenedData [
 
 	^ {(CVGPublicationType journal -> (self allJournalsIn: flattenedData)).
 	(CVGPublicationType conference -> (self allConferencesIn: flattenedData)).
+	(CVGPublicationType book2 -> (self allBooksIn: flattenedData)).
 	(CVGPublicationType workshop -> (self allWorkshopsIn: flattenedData)).
-	"(CVGPublicationType book -> (self allBooksIn: flattenedData))."
 	(CVGPublicationType other -> (self allOtherPublicationsIn: flattenedData)).
 	(CVGPublicationType thesis -> (self allThesesIn: flattenedData))}
 ]
