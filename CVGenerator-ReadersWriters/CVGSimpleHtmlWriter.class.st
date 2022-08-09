@@ -13,6 +13,11 @@ CVGSimpleHtmlWriter class >> for: aCVGElement [
 	^aCVGElement htmlWriterClass 
 ]
 
+{ #category : #testing }
+CVGSimpleHtmlWriter class >> isHTML [
+	^true
+]
+
 { #category : #'html - emphasis' }
 CVGSimpleHtmlWriter >> bold: aString [
 	|str|

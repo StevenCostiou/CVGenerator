@@ -49,6 +49,7 @@ CVGGenerator >> buildPagesDescriptions [
 	"Software"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Software').
+	writerClass isHTML ifTrue:[description addAll: (self staticAppendicesFor: 'Software')].
 	pages at: self pageTitles third put: description.
 	
 	"Talks"
@@ -1055,6 +1056,24 @@ CVGGenerator >> regenerateHeader [
 { #category : #streams }
 CVGGenerator >> resetStream [
 	stream := self newStream
+]
+
+{ #category : #pages }
+CVGGenerator >> staticAppendicesFor: sectionName [
+
+	| data |
+	data := OrderedCollection new.
+	sectionName = 'Software' ifTrue: [ 
+		| dataStream fr en |
+		dataStream := '/Users/steven/Documents/projets/website/site/data/static/games'
+			              asFileReference readStream.
+		dataStream match: '::FR::'.
+		fr := dataStream upToAll: '::EN::'.
+		en := dataStream upToEnd.
+		data add: (self translated
+				 ifTrue: [ en ]
+				 ifFalse: [ fr ]) ].
+	^ data
 ]
 
 { #category : #streams }

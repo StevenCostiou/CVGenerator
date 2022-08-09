@@ -11,6 +11,11 @@ Class {
 	#category : #'CVGenerator-ReadersWriters-Writers'
 }
 
+{ #category : #testing }
+CVGAbstractWriter class >> isHTML [
+	^false
+]
+
 { #category : #'instance creation' }
 CVGAbstractWriter class >> on: aStream [
 	^self new on: aStream
