@@ -95,13 +95,15 @@ CVGGenerator >> generate [
 	
 	translated := false.
 	self generateCV.
-	self generateAndExportHtml.
+"	outputDic inspect.
+	self halt."
+	generatorWriter writeAndExport: self.
 	
 	translated := true. 
-	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'].
+	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'] ifNone:[nil].
 	oldHeaderKey ifNotNil: [ outputDic removeKey: oldHeaderKey ].
 	self generateCV.
-	self generateAndExportHtml.
+	generatorWriter writeAndExport: self
 ]
 
 { #category : #generation }
@@ -172,6 +174,13 @@ CVGGenerator >> generateAndExportHtml [
 	self regenerateHeader.
 	self generateHTMLPages.
 	self writePages
+]
+
+{ #category : #export }
+CVGGenerator >> generateAndExportLatex [
+"	self regenerateLatexHeader."
+	self generateLatexPages.
+"	self writePages"
 ]
 
 { #category : #generation }
@@ -458,6 +467,19 @@ CVGGenerator >> generateIntro: aCVGIntro [
 CVGGenerator >> generateIntroSection: section with: writer [
 	section data first acceptGenerator: self.
 	outputDic at: section put: stream contents
+]
+
+{ #category : #'as yet unclassified' }
+CVGGenerator >> generateLatexPage: anAssociation [ 
+	self shouldBeImplemented.
+]
+
+{ #category : #'as yet unclassified' }
+CVGGenerator >> generateLatexPages [
+
+	generatedPages := Dictionary new.
+	self buildPagesDescriptions associationsDo: [ :pageDescription | 
+		self generateLatexPage: pageDescription ]
 ]
 
 { #category : #generation }

@@ -17,7 +17,7 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 
 	publications := (model sections detect:[:s| s type = CVGPublication]) data.
 	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: '3.1 Publications (', publications size printString, ')'; contents).
+	cols add: (CVGLatexWriter new red: '3.1 Publications (', (publications reject:[:p| p type class = CVGBook]) size printString, ')'; contents).
 	pubs := publications select:[:p| p type class = CVGJournal].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
@@ -239,9 +239,107 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	
 ]
 
+{ #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> generateTeachingSummary [
+
+	| writer title rows cols teachings total cm td tp L2 L3 M1 M2 |
+	title := '5. Enseignement'.
+	rows := OrderedCollection new.
+
+	teachings := (model sections detect:[:s| s type = CVGCourse]) data.
+	total := teachings inject: 0 into:[:sum :next| sum + next totalEquivalentTD].
+	L2 := (teachings select:[:c| c level first = 'L2']).
+	L3 := (teachings select:[:c| c level first = 'L3']).
+	M1 := (teachings select:[:c| c level first = 'M1']).
+	M2 := (teachings select:[:c| c level first = 'M2']).
+	
+	
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: ('5.1 Service effectué ', total printString, 'h'); text: 'éq. TD';contents).	
+	cols add: (self latexTeachingCount: L2 named: 'Licence 2 $\rightarrow$ ').	
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cm := teachings inject: 0 into:[:sum :next| sum + next cm].
+	td  := teachings inject: 0 into:[:sum :next| sum + next td].
+	tp := teachings inject: 0 into:[:sum :next| sum + next tp].
+	writer := CVGLatexWriter new.
+	writer red: cm printString, 'h'.
+	writer text: 'CM '.
+	writer red: td printString, 'h'.
+	writer text: 'TD '.
+	writer red: tp printString, 'h'.
+	writer text: 'TP'.
+	cols add: writer contents.
+	cols add: (self latexTeachingCount: L3 named: 'Licence 3 $\rightarrow$ ').	
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: ' '.
+	cols add: (self latexTeachingCount: M1 named: 'Master 1 $\rightarrow$ ').	
+	rows add: cols.
+	cols := OrderedCollection new.
+	cols add: ' '.
+	cols add: (self latexTeachingCount: M2 named: 'Master 2 $\rightarrow$ ').	
+	rows add: cols.
+	
+	cols := OrderedCollection new.	
+	cols add: '\textcolor{red}{5.2 Ateliers scientifiques pour enfants}'.
+	cols add: '\textcolor{red}{6} ateliers de vulgarisation pour enfants (\textcolor{red}{6h}), collégiens (\textcolor{red}{5h}), lycéens (\textcolor{red}{1h})'.
+	rows add: cols.
+	
+	cols := OrderedCollection new.	
+	cols add: '\textcolor{red}{5.3 Vulgarisation scientifique }'.
+	cols add: 'Missions de vulgarisation \& animations scientifique'.
+	rows add: cols.
+	
+	cols := OrderedCollection new.	
+	cols add: '\textcolor{red}{5.4 Les cordées de la réussite}'.
+	cols add: '\textcolor{red}{100} heures d''encadrement d''élèves en première scientifique (3 prix de concours)                                                                       '.
+	rows add: cols.
+	
+	^self generatePreambleNamed: title size: 2 rows: rows  	
+			
+	
+]
+
 { #category : #initialization }
 CVGLatexPreambleGenerator >> initialize [ 
 	preambles := Dictionary new
+]
+
+{ #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> latexTeachingCount: teachings named: aString [
+
+	|writer cm td tp|
+	cm := teachings inject: 0 into:[:sum :t| sum + t cm].
+	td  := teachings inject: 0 into:[:sum :t| sum + t td ].
+	tp := teachings inject: 0 into:[:sum :t| sum + t tp].
+	
+	writer := CVGLatexWriter new.
+	writer text: aString.
+	
+	cm > 0 ifTrue:[
+	writer red: cm printString.
+	writer red: 'h'.
+	writer text: 'CM '
+	].
+
+	td > 0 ifTrue:[
+	writer red: td printString.
+	writer red: 'h'.
+	writer text: 'TD '
+	].
+	tp > 0 ifTrue:[
+	writer red: tp printString.
+	writer red: 'h'.
+	writer text: 'TP'
+	].
+
+	 ^ writer contents.
+	
+				
+	
 ]
 
 { #category : #accessing }
