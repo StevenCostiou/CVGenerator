@@ -92,6 +92,11 @@ CVGAbstractWriter >> write: aString [
 	stream << aString
 ]
 
+{ #category : #export }
+CVGAbstractWriter >> writeAndExport: aGenerator [
+	self subclassResponsibility 
+]
+
 { #category : #helpers }
 CVGAbstractWriter >> writeComma [
 	stream << $,

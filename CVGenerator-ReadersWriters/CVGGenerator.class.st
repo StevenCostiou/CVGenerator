@@ -1110,5 +1110,5 @@ CVGGenerator >> writeTeachingHoursFrom: aSection with: writer [
 	str nextPutAll: tp printString.
 	str nextPutAll: (self translated: {'h TP'. 'h practical work'}).
 	writer text: str contents.
-	writer italic: ' (', totEqTD printString, ' eq. TD)'
+	writer italic: ' (', totEqTD rounded printString, 'h eq. TD)'
 ]
