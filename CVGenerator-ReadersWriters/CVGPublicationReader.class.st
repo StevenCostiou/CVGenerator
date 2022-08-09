@@ -20,5 +20,6 @@ CVGPublicationReader class >> readFromDictionary: dic [
 	publication publisher: (self readStringProperty: #publisher in: dic).
 	publication doi: (self readStringProperty: #doi in: dic).
 	publication link: (self readStringProperty: #link in: dic).
+	publication highlight: (self readStringProperty: #highlight in: dic).
 	^publication
 ]

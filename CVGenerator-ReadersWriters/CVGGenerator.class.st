@@ -534,6 +534,7 @@ CVGGenerator >> generatePublication: pub [
 	writer writeDotSpace: pub publisher.
 	writer writeDotSpace: pub year printString.
 	writer writeURL: pub link.
+	pub highlight ifNotEmpty:[:txt| writer highlight: txt].
 	writer closeItem
 ]
 

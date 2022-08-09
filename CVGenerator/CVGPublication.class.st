@@ -11,7 +11,8 @@ Class {
 		'publisher',
 		'year',
 		'doi',
-		'link'
+		'link',
+		'highlight'
 	],
 	#category : #'CVGenerator-elements'
 }
@@ -95,6 +96,18 @@ CVGPublication >> doi [
 { #category : #accessing }
 CVGPublication >> doi: anObject [
 	doi := anObject
+]
+
+{ #category : #accessing }
+CVGPublication >> highlight [
+
+	^ highlight
+]
+
+{ #category : #accessing }
+CVGPublication >> highlight: anObject [
+
+	highlight := anObject
 ]
 
 { #category : #testing }

@@ -42,6 +42,10 @@ CVGMarkupWriter >> closeTable [
 CVGMarkupWriter >> div: aString [ 
 ]
 
+{ #category : #public }
+CVGMarkupWriter >> highlight: aString [
+]
+
 { #category : #emphasis }
 CVGMarkupWriter >> image: aString [ 
 	self subclassResponsibility 

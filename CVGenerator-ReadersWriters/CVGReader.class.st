@@ -19,6 +19,11 @@ Class {
 }
 
 { #category : #reading }
+CVGReader class >> readBooleanProperty: aPropertyName in: aDictionary [
+	^aDictionary at: aPropertyName ifAbsent:[false]
+]
+
+{ #category : #reading }
 CVGReader class >> readFromDictionary: dic [
 	^ self subclassResponsibility
 ]

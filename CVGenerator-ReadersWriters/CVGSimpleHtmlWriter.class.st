@@ -43,6 +43,17 @@ CVGSimpleHtmlWriter >> div: aString [
 	self openMarkup: 'div' class: aString
 ]
 
+{ #category : #public }
+CVGSimpleHtmlWriter >> highlight: aString [
+	
+	stream << '<i class="material-icons md-18">military_tech</i>'.
+	self bold: aString.
+	stream << '<i class="material-icons md-18">military_tech</i>'.
+	
+	
+	
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> image: aString [ 
 	stream << '<img src="'.
