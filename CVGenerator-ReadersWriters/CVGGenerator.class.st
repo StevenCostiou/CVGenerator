@@ -36,42 +36,51 @@ CVGGenerator >> buildPagesDescriptions [
 	"Publications"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Intro').
-	description add: (self generatedSection: 'Students').
 	description add: (self generatedSection: 'Research').
-	description add: (self generatedSection: 'Service').	
 	pages at: self pageTitles first put: description.
 	
 	"Publications"
 	description := OrderedCollection new.
+	description add: (self generatedSection: 'Students').
+	pages at: self pageTitles third put: description.
+	
+	
+	"Publications"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Service').	
+	pages at: (self pageTitles eighth) put: description.
+	
+	"Publications"
+	description := OrderedCollection new.
 	description add: (self generatedSection: 'Publications').
-	pages at: self pageTitles second put: description.
+	pages at: self pageTitles fourth put: description.
 	
 	"Software"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Software').
 	writerClass isHTML ifTrue:[description addAll: (self staticAppendicesFor: 'Software')].
-	pages at: self pageTitles third put: description.
+	pages at: self pageTitles fifth put: description.
 	
 	"Talks"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Talks').
-	pages at: self pageTitles fourth put: description.
+	pages at: self pageTitles sixth put: description.
 
 	"Teaching"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Teachings').
 	description add: (self generatedSection: 'Past teaching activities').
-	pages at: self pageTitles fifth put: description.
+	pages at: self pageTitles seventh put: description.
 	
 	"Administration"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Administration').
-	pages at: self pageTitles sixth put: description.
+	pages at: self pageTitles ninth put: description.
 	
 	"CV"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Experience').
-	pages at: self pageTitles seventh put: description.
+	pages at: (self pageTitles at: 10) put: description.
 	
 	^pages	
 	
@@ -128,7 +137,7 @@ CVGGenerator >> generateAdminSection: section with: writer [
 		select: [ :e | e type class == CVGMissionType ].
 	writer
 		subSection: (self translated: CVGMissionType new typeName).
-	writer writeNewLine.
+	
 	writer openItemList.
 	missions do:[:m| m acceptGenerator: self].
 	writer closeItemList.
@@ -137,7 +146,7 @@ CVGGenerator >> generateAdminSection: section with: writer [
 		select: [ :e | e type class == CVGMandateType ].
 	writer
 		subSection: (self translated: CVGMandateType new typeName).
-	writer writeNewLine.
+
 	writer openItemList.
 	mandats do:[:m| m acceptGenerator: self].
 	writer closeItemList.
@@ -146,7 +155,7 @@ CVGGenerator >> generateAdminSection: section with: writer [
 		select: [ :e | e type class == CVGMemberType ].
 	writer
 		subSection: (self translated: CVGMemberType new typeName).
-	writer writeNewLine.
+
 	writer openItemList.
 	membres do:[:m| m acceptGenerator: self].
 	writer closeItemList.
@@ -155,14 +164,14 @@ CVGGenerator >> generateAdminSection: section with: writer [
 		detect: [ :e | e type class == CVGContributionType ].
 	writer
 		subSection: (self translated: contributions title).
-	writer writeNewLine.
+	
 	contributions acceptGenerator: self.
 		
 	service := section data
 		select: [ :e | e type class == CVGAdminServiceType ].
 	writer
 		subSection: (self translated: #('Service académique' 'Academic service')).
-	writer writeNewLine.
+	
 	service do:[:s| s acceptGenerator: self].
 
 	outputDic at: section put: stream contents
@@ -200,7 +209,6 @@ CVGGenerator >> generateAteliersFrom: aSection with: writer [
 
 	"Cap generation"
 	writer title: (self translated: cap title) h: 'h6'.
-	writer writeNewLine.
 	writer text: (self translated: cap text).
 	writer startUnorderedList.
 	"atelier generation"
@@ -321,7 +329,6 @@ CVGGenerator >> generateCordeesFrom: aSection with: writer [
 
 	"Cap generation"
 	writer title: (self translated: cap title) h: 'h6'.
-	writer writeNewLine.
 	writer text: (self translated: cap text).
 
 	"cordees generation"
@@ -374,11 +381,18 @@ CVGGenerator >> generateCourse: aCVGCourse [
 
 { #category : #'generation - pages' }
 CVGGenerator >> generateHTMLPage: pageDescription [
+
 	| str |
 	str := self newStream.
-	str << self htmlPagePreamble.
-	str << self htmlHeader.
+	str << self htmlPagePreamble.	
+	str << '<div class="row">'.
+	str << '<div class="three columns">'.
 	str << (self generateMenuFor: pageDescription key).
+	str << '</div>'.
+	str << '<div class="nine columns">'.
+	str << '<div class="header">'.
+	str << self htmlHeader.
+	str << '</div>'.
 	pageDescription value do: [ :html | str << html ].
 	str << self htmlPagePostface.
 	generatedPages at: pageDescription key fourth put: str contents
@@ -400,13 +414,13 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer image: (self imageDirectory, aCVGHeader photo).
 	writer closeMarkup.
 	writer div: 'profile-info'.
-	writer title: (self translated: aCVGHeader title) h: 'h5' class: 'title-name'.
+	writer title: (self translated: aCVGHeader title) h: 'h6' class: 'title-name'.
 	writer writeNewLine.
-	writer title: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution) h: 'h5' class: 'title-name'.
-	"writer writeNewLine.
+	writer title: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution) h: 'h6' class: 'title-name'.
+	writer writeNewLine.
 	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
 	writer writeNewLine.
-	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. "
+	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. 
 	writer closeMarkup.
 	writer closeMarkup
 
@@ -506,8 +520,7 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	sortedTitles addAll: self pageTitles.
 	writer := CVGSimpleHtmlWriter new.
 	writer div: 'topmargin-10 menu'.
-	writer write: '<hr class="blue-hr">'.
-	self generateTranslateURL: pageTitle fourth on: writer.
+	"writer write: '<hr class=""blue-hr"">'."
 	sortedTitles do:[:title|
 		|titleTranslated pageTitleTranslated|
 		titleTranslated := (self translated: title).
@@ -518,10 +531,14 @@ CVGGenerator >> generateMenuFor: pageTitle [
 		writer closeMarkup.
 		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
 		writer write: (writer url: title fourth labeled: titleTranslated).
+		writer writeNewLine.
 		titleTranslated =  pageTitleTranslated ifTrue:[writer closeMarkup].
+		
 		writer closeMarkup.
 		].
 	writer write: '<hr class="blue-hr">'.
+	
+	self generateTranslateURL: pageTitle fourth on: writer.
 	writer closeMarkup.
 	^writer contents
 
@@ -533,12 +550,42 @@ CVGGenerator >> generatePastTeachingsSection: aSection with: writer [
 	"select cordees, order, get cap then generates"
 	writer
 		subSection: (self translated: #('Activités passées' 'Past activities')).
-	writer writeNewLine.
 	self generateCordeesFrom: aSection with: writer.
 	self generateAteliersFrom: aSection with: writer.
 	self generateVulgaFrom: aSection with: writer.
 	outputDic at: aSection put: stream contents
 	
+]
+
+{ #category : #generation }
+CVGGenerator >> generateProject: aCVGProject [
+	| writer intro |
+	intro := aCVGProject.
+	writer := self newWriterFor: intro.
+	intro fundings ifEmpty: [ ^self ]. 
+	writer subSection: (self translated: #('Projets' 'Projects')).	
+	writer startUnorderedList.	
+	intro fundings do:[:fun|		
+		writer openListItem.		
+		writer writeUrl: fun url labeled: fun name.
+		writer text: ':'.
+		writer writeSpace.		
+		writer bold: fun title.
+		writer writeSpace.	
+		writer text: '('.
+		writer text: fun years.
+		writer text: ').'.
+		writer writeNewLine.
+		writer text: (self translated: fun description).
+		writer text: '.'.
+		writer writeNewLine.
+		writer text: (self translated: #('Financement :' 'Funding:')).
+		writer writeSpace.
+		writer text: fun money.
+		writer text: ' euros.'.
+		writer closeListItem.	
+	].
+	writer stopUnorderedList
 ]
 
 { #category : #generation }
@@ -600,33 +647,6 @@ CVGGenerator >> generateResearchSection: section with: writer [
 	writer stopUnorderedList.
 	
 	outputDic at: section put: stream contents
-]
-
-{ #category : #'generation - summaries' }
-CVGGenerator >> generateResearchSummary [
-	
-	|writer|
-	writer := CVGLatexWriter new.
-	writer subSectionX: 'Activités de recherche'.
-	writer cr.
-	writer text: '\hrule'.
-	writer cr.
-	writer text: '\vspace{-2em}'.
-	writer cr.
-	writer newSummaryTable.	
-	writer tableSize: 2.
-	
-	writer tableRow.
-	writer writeNewLine.
-	writer red: '2.1 Recherche'.
-	writer tableColumn: ' '.
-	writer text: 'Langages dynamiques et leurs infrastructures pour le debugging, équipe'.
-	writer writeSpace.
-	writer red: 'RMoD'. 
-	writer tableColumn: ' '.
-	writer closeRow. 
-	writer closeSummaryTable.
-	writer inspect
 ]
 
 { #category : #'generation - sections' }
@@ -809,14 +829,14 @@ CVGGenerator >> generateStudent: aCVGStudent [
 { #category : #'generation - sections' }
 CVGGenerator >> generateStudentSection: section with: writer [
 	|students|
-	writer subSection: (self translated: #('Étudiants' 'Students')).
-	writer writeNewLine.
+	"writer subSection: (self translated: #('Étudiants' 'Students'))."
+	
 	
 	"Phd"
 	students := section data
 		select: [ :e | e level = #phd ].
 	writer subsubSection:  (self translated: #('Doctorants' 'PhD students')).
-	writer writeNewLine.
+	
 	writer startUnorderedList.
 	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -825,7 +845,7 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	students := section data
 		select: [ :e | e level = #M2 ].
 	writer subsubSection:  (self translated: #('Master 2' 'Master 2')).
-	writer writeNewLine.
+
 	writer startUnorderedList.
 	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -834,7 +854,7 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	students := section data
 		select: [ :e | e level = #M1 ].
 	writer subsubSection:  (self translated: #('Master 1' 'Master 1')).
-	writer writeNewLine.
+
 	writer startUnorderedList.
 	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.	
@@ -843,7 +863,7 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	students := section data
 		select: [ :e | e level = #Licence ].
 	writer subsubSection:  (self translated: #('Licence' 'Bachelor')).
-	writer writeNewLine.
+	
 	writer startUnorderedList.
 	students do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.	
@@ -873,7 +893,7 @@ CVGGenerator >> generateTalk: t [
 CVGGenerator >> generateTeachingsSection: aSection with: writer [
 	writer
 		subSection: (self translated: #('Modules enseignés' 'Current courses')).
-	writer writeNewLine.
+	
 	writer
 		text:
 			(self
@@ -942,7 +962,7 @@ CVGGenerator >> generateVulgaFrom: aSection with: writer [
 
 	"Cap generation"
 	writer title: (self translated: cap title)  h: 'h6'.
-	writer writeNewLine.
+
 	"writer text: (self translated: cap text)."
 	writer startUnorderedList.
 	"atelier generation"
@@ -997,7 +1017,7 @@ CVGGenerator >> htmlHeader [
 
 { #category : #'generation - pages' }
 CVGGenerator >> htmlPagePostface [
-	^'</div></body></html>'
+	^'</div></div></div></body></html>'
 ]
 
 { #category : #'generation - pages' }
@@ -1057,15 +1077,29 @@ CVGGenerator >> pageDirectory [
 
 { #category : #pages }
 CVGGenerator >> pageTitles [
-	^ #(
-	#('Recherche' 'Research' 2 'index.html' 'science') 
-	#('Publications' 'Publications' 3 'publications.html' 'article') 
-	#('Logiciels' 'Software' 4 'software.html' 'save') 
-	#('Communications' 'Talks' 5 'talks.html' 'mic') 
-	#('Enseignement' 'Teaching' 6 'teaching.html' 'school')
-	#('Administration' 'Administration' 7 'admin.html' 'account_balance')
-	#('CV' 'CV' 8 'cv.html' 'work')
-	)
+	|titles i|
+	titles := #(
+	#('Recherche' 'Research' 'index.html' 'science')
+	#('Projets' 'Projects' 'projects.html' 'dvr')  
+	#('Étudiants' 'Students' 'students.html' 'book')
+	#('Publications' 'Publications' 'publications.html' 'article') 
+	#('Logiciels' 'Software' 'software.html' 'save') 
+	#('Communications' 'Talks' 'talks.html' 'mic') 
+	#('Enseignement' 'Teaching'  'teaching.html' 'school')
+	#('Service' 'Service'  'service.html' 'history_edu')
+	#('Administration' 'Administration'  'admin.html' 'account_balance')
+	#('CV' 'CV'  'cv.html' 'work')
+	
+		).
+	i := 2.
+	^titles collect:[:array|
+		|col |
+		col := array asOrderedCollection.		
+		col add: i afterIndex: 2.
+		i := i+1.
+		col
+
+	]
 ]
 
 { #category : #generation }
@@ -1089,6 +1123,7 @@ CVGGenerator >> staticAppendicesFor: sectionName [
 		| dataStream fr en |
 		dataStream := '/Users/steven/Documents/projets/website/site/data/static/games'
 			              asFileReference readStream.
+		
 		dataStream match: '::FR::'.
 		fr := dataStream upToAll: '::EN::'.
 		en := dataStream upToEnd.
