@@ -633,7 +633,7 @@ CVGGenerator >> generateResearch: aCVGResearch [
 CVGGenerator >> generateResearchSection: section with: writer [
 	|research|
 	writer subSection: (self translated: #('Groupes de travail' 'Working groups')).
-	writer writeNewLine.
+	"writer writeNewLine."
 	
 	"Working groups"
 	research := section data
@@ -644,7 +644,7 @@ CVGGenerator >> generateResearchSection: section with: writer [
 	
 	"Collaborations"
 	writer subSection: (self translated: #('Collaborations' 'Collaborations')).
-	writer writeNewLine.
+	"writer writeNewLine."
 	research := section data
 		select: [ :e | e type class = CVGCollaborationType ].
 	writer startUnorderedList.
