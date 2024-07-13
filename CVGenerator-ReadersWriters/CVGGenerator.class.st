@@ -726,7 +726,7 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	"Local committees"
 	services := section data
 		select: [ :e | e type class = CVGLCType ].
-	writer subsubSection:  (self translated: #('Comités d''organisation locale' 'Local organisation committee')).
+	writer subsubSection:  (self translated: #('Organisation de conférences' 'Conference organisation')).
 	"writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
