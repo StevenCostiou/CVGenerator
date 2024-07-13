@@ -421,7 +421,7 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer div: 'profile-info'.
 	writer write: (self translated: aCVGHeader title).
 	writer writeNewLine.
-	writer write: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution).
+	writer write: (self translated: aCVGHeader rank).
 	"writer writeNewLine.
 	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
 	writer writeNewLine.
