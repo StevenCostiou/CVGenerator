@@ -447,8 +447,9 @@ CVGGenerator >> generateIntro: aCVGIntro [
 					(k = intro keywords last
 						ifTrue: [ '.' ]
 						ifFalse: [ ', ' ]) ].
+"	writer writeNewLine.
+	writer subSection: (self translated: #('Recherche' 'Research'))."
 	writer writeNewLine.
-	writer subSection: (self translated: #('Recherche' 'Research')).
 	writer writeNewLine.
 	writer text: (self translated: intro text).
 	writer writeNewLine.
