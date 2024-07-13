@@ -693,14 +693,12 @@ CVGGenerator >> generateService: aCVGService [
 { #category : #'generation - sections' }
 CVGGenerator >> generateServiceSection: section with: writer [
 	|services|
-	writer subSection: 'Service'.
-	writer writeNewLine.
 	
 	"Program committees"
 	services := section data
 		select: [ :e | e type class = CVGPCType ].
 	writer subsubSection:  (self translated: #('Comités de programmes' 'Program commitees')).
-	writer writeNewLine.
+"	writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -709,7 +707,7 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	services := section data
 		select: [ :e | e type class = CVGReviewerType ].
 	writer subsubSection:  (self translated: #('Comités de relecture' 'Reviewer')).
-	writer writeNewLine.
+"	writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -718,7 +716,7 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	services := section data
 		select: [ :e | e type class = CVGSessionChairType ].
 	writer subsubSection:  (self translated: #('Session chair' 'Session chair')).
-	writer writeNewLine.
+	"writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -727,7 +725,7 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	services := section data
 		select: [ :e | e type class = CVGLCType ].
 	writer subsubSection:  (self translated: #('Comités d''organisation locale' 'Local organisation committee')).
-	writer writeNewLine.
+	"writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
@@ -736,7 +734,7 @@ CVGGenerator >> generateServiceSection: section with: writer [
 	services := section data
 		select: [ :e | e type class = CVGVolunteerType ].
 	writer subsubSection:  (self translated: #('Étudiant volontaire' 'Student volunteer')).
-	writer writeNewLine.
+	"writer writeNewLine."
 	writer startUnorderedList.
 	services do:[:s| s acceptGenerator: self].
 	writer stopUnorderedList.
