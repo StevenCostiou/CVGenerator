@@ -419,13 +419,13 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer image: (self imageDirectory, aCVGHeader photo).
 	writer closeMarkup.
 	writer div: 'profile-info'.
-	writer title: (self translated: aCVGHeader title) h: 'h6' class: 'title-name'.
+	writer write: (self translated: aCVGHeader title).
 	writer writeNewLine.
-	writer title: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution) h: 'h6' class: 'title-name'.
-	writer writeNewLine.
+	writer write: ((self translated: aCVGHeader rank), ' ', aCVGHeader institution).
+	"writer writeNewLine.
 	writer writeUrl: aCVGHeader team second labeled: aCVGHeader team first. 
 	writer writeNewLine.
-	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first. 
+	writer writeUrl: aCVGHeader lab second labeled: aCVGHeader lab first." 
 	writer closeMarkup.
 	writer closeMarkup
 
@@ -523,6 +523,8 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	sortedTitles addAll: self pageTitles.
 	writer := CVGSimpleHtmlWriter new.
 	writer div: 'topmargin-10 menu'.
+	writer write: self htmlHeader.
+	writer write: '<hr class="blue-hr">'.
 	"writer write: '<hr class=""blue-hr"">'."
 	sortedTitles do:[:title|
 		|titleTranslated pageTitleTranslated|
