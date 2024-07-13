@@ -391,7 +391,12 @@ CVGGenerator >> generateHTMLPage: pageDescription [
 	str << '</div>'.
 	str << '<div class="nine columns">'.
 	str << '<div class="header">'.
-	str << self htmlHeader.
+"	str << self htmlHeader."
+	str << '<br>'.
+	str << '<h5>'.
+	str << (self translated: pageDescription key).
+	str << '</h5>'.
+	str << '<hr>'.
 	str << '</div>'.
 	pageDescription value do: [ :html | str << html ].
 	str << self htmlPagePostface.
