@@ -243,8 +243,8 @@ CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [
 	|xp studies|
 	xp := aCVGSection data select:[:e| e type isWorkExperience].
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Expérience professionnelle' 'Professional experience')).
-	aCVGSimpleHtmlWriter writeNewLine.
-	aCVGSimpleHtmlWriter writeNewLine.
+"	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter writeNewLine."
 	aCVGSimpleHtmlWriter newTableOfSize: 3.
 	xp do:[:e|
 	self generateWorkStudy: e with: aCVGSimpleHtmlWriter
@@ -265,8 +265,8 @@ CVGGenerator >> generateCVSection: aCVGSection with: aCVGSimpleHtmlWriter [
 	
 	studies := aCVGSection data select:[:e| e type isStudy].
 	aCVGSimpleHtmlWriter subSection: (self translated: #('Études' 'Studies')).
-	aCVGSimpleHtmlWriter writeNewLine.
-	aCVGSimpleHtmlWriter writeNewLine.
+"	aCVGSimpleHtmlWriter writeNewLine.
+	aCVGSimpleHtmlWriter writeNewLine."
 	aCVGSimpleHtmlWriter newTableOfSize: 2.
 	studies do:[:e|
 		self generateWorkStudy: e with: aCVGSimpleHtmlWriter
