@@ -45,7 +45,7 @@ CVGGenerator >> buildPagesDescriptions [
 	pages at: self pageTitles third put: description.
 	
 	
-	"Publications"
+	"Service"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Service').	
 	pages at: (self pageTitles eighth) put: description.
@@ -521,7 +521,7 @@ CVGGenerator >> generateMenuFor: pageTitle [
 	|sortedTitles writer|
 	sortedTitles := SortedCollection new.
 	sortedTitles sortBlock: [:a :b| a third < b third ].
-	sortedTitles addAll: self pageTitles.
+	sortedTitles addAll: (self pageTitles reject:[:e| e first = 'Projets']).
 	writer := CVGSimpleHtmlWriter new.
 	writer div: 'topmargin-10 menu'.
 	writer write: self htmlHeader.
