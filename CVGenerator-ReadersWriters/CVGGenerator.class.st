@@ -793,9 +793,12 @@ CVGGenerator >> generateSocialNetworks [
 	|writer|
 	writer := CVGSimpleHtmlWriter new.
 	writer div: 'brands-logos'.
-	writer writeUrl: 'https://scholar.google.fr/citations?user=KLPmm0gAAAAJ&hl=fr' image: '../logos/google-scholar-logo.png'.
-	writer writeUrl: 'https://github.com/StevenCostiou' image: '../logos/Octocat.jpg'.
-	writer writeUrl: 'https://www.linkedin.com/in/steven-costiou-7bb633a9/' image: '../logos/In-Blue-128.png'.
+	writer writeUrl: 'https://scholar.google.fr/citations?user=KLPmm0gAAAAJ&hl=fr' image: '../logos/google-scholar.png'.
+	writer writeUrl: 'https://github.com/StevenCostiou' image: '../logos/github-mark-white.png'.
+	writer writeUrl: 'https://www.pharo.org/' image: '../logos/pharo_noLabel.png'.
+	writer writeUrl: 'https://rmod.inria.fr' image: '../logos/evref.png'.
+	
+	"writer writeUrl: 'https://www.linkedin.com/in/steven-costiou-7bb633a9/' image: '../logos/In-Blue-128.png'."
 "	writer writeUrl: 'https://rmod.inria.fr' image: 'https://rmod.inria.fr/web/resources/logo'.
 	writer writeUrl: 'https://www.researchgate.net/profile/Steven_Costiou?cp=shp' image: 'https://www.researchgate.net/images/public/profile_share_badge.png'."
 	writer closeMarkup.
