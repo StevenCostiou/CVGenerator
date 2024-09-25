@@ -574,7 +574,7 @@ CVGGenerator >> generateMenuFor: pageTitle [
 		pageTitleTranslated := (self translated: pageTitle).
 		writer div: 'menu-item'.
 		writer div: 'menu-item-logo'.	
-		writer write: '<i class="material-icons" style="color:#840000">', title fifth, '</i>'.	
+		writer write: '<i class="material-icons" style="color:#84be6a">', title fifth, '</i>'.	
 		writer closeMarkup.
 		titleTranslated =  pageTitleTranslated ifTrue:[writer div: 'active-bg'].
 		writer write: (writer url: title fourth labeled: titleTranslated).
