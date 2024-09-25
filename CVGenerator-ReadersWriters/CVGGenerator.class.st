@@ -710,7 +710,7 @@ CVGGenerator >> generateService: aCVGService [
 	| writer |
 	writer := self newWriterFor: aCVGService.
 	writer openListItem.
-	writer bold: aCVGService title.
+	writer text: aCVGService title.
 	writer text: ':'.
 	writer writeSpace.
 	"writer text: '('.
