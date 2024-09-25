@@ -10,6 +10,11 @@ Class {
 	#category : #'CVGenerator-elements'
 }
 
+{ #category : #'as yet unclassified' }
+CVGAward class >> generate: section with: aGenerator using: writer [
+	^aGenerator generateAwardsSection: section with: writer
+]
+
 { #category : #accessing }
 CVGAward class >> readerClass [
 	^ CVGAwardReader

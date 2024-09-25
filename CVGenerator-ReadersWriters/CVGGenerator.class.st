@@ -33,9 +33,10 @@ CVGGenerator >> buildPagesDescriptions [
 	|pages description|
 	pages := Dictionary new.
 	
-	"Publications"
+	"Research"
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Intro').
+	description add: (self generatedSection: 'Awards').
 	description add: (self generatedSection: 'Research').
 	pages at: self pageTitles first put: description.
 	
@@ -43,7 +44,6 @@ CVGGenerator >> buildPagesDescriptions [
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Students').
 	pages at: self pageTitles third put: description.
-	
 	
 	"Service"
 	description := OrderedCollection new.
@@ -231,6 +231,42 @@ CVGGenerator >> generateAuthor: author [
 	author isSelf
 		ifTrue: [ writer italic: author fullName ]
 		ifFalse: [ writer write: author fullName ]
+]
+
+{ #category : #generation }
+CVGGenerator >> generateAward: aCVGAward [ 
+	| writer |
+	writer := self newWriterFor: aCVGAward.
+	writer openListItem.
+	writer bold: aCVGAward awardName.
+	writer text: '.'.
+	writer writeSpace.
+	writer text: aCVGAward title.
+	writer text: ','.
+	writer writeSpace.
+	writer text: aCVGAward authorsList.
+	writer text: '.'.
+	writer writeSpace.
+	writer text: aCVGAward conference.
+	writer text: ','.
+	writer writeSpace.
+	writer text: aCVGAward year.
+	writer text: '.'.
+	writer closeListItem
+]
+
+{ #category : #'generation - sections' }
+CVGGenerator >> generateAwardsSection: section with: writer [
+	|awards|
+	writer subSection: (self translated: #('Récompenses' 'Awards')).
+	awards := section data asOrderedCollection sort: [:a :b| a year asNumber >= b year asNumber].
+	
+	writer div: 'awards'.
+	writer startUnorderedList.
+	awards do:[:s| s acceptGenerator: self].
+	writer stopUnorderedList.
+	writer closeMarkup.
+	outputDic at: section put: stream contents
 ]
 
 { #category : #generation }
