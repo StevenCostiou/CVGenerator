@@ -1075,7 +1075,11 @@ CVGGenerator >> htmlPagePreamble [
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+		
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	
 	<link rel="stylesheet" href="../css/normalize.css"> <link rel="stylesheet" href="../css/skeleton.css"> 	<link rel="stylesheet" href="../styles/main-s.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="icon" type="image/png" href="../images/favicon.png">
