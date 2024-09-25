@@ -415,6 +415,34 @@ CVGGenerator >> generateCourse: aCVGCourse [
 	
 ]
 
+{ #category : #generation }
+CVGGenerator >> generateFundings: intro writer: writer [
+
+	intro fundings ifEmpty: [ ^ self ].
+	writer subSection: (self translated: #( 'Projets' 'Projects' )).
+	writer startUnorderedList.
+	intro fundings do: [ :fun | 
+		writer openListItem.
+		writer writeUrl: fun url labeled: fun name.
+		writer text: ':'.
+		writer writeSpace.
+		writer bold: fun title.
+		writer writeSpace.
+		writer text: '('.
+		writer text: fun years.
+		writer text: ').'.
+		writer writeNewLine.
+		writer text: (self translated: fun description).
+		writer text: '.'.
+		writer writeNewLine.
+		writer text: (self translated: #( 'Financement :' 'Funding:' )).
+		writer writeSpace.
+		writer text: fun money.
+		writer text: ' euros.'.
+		writer closeListItem ].
+	writer stopUnorderedList
+]
+
 { #category : #'generation - pages' }
 CVGGenerator >> generateHTMLPage: pageDescription [
 
@@ -491,30 +519,7 @@ CVGGenerator >> generateIntro: aCVGIntro [
 	writer writeNewLine.
 	writer writeNewLine.	
 
-	intro fundings ifEmpty: [ ^self ]. 
-	writer subSection: (self translated: #('Projets' 'Projects')).	
-	writer startUnorderedList.	
-	intro fundings do:[:fun|		
-		writer openListItem.		
-		writer writeUrl: fun url labeled: fun name.
-		writer text: ':'.
-		writer writeSpace.		
-		writer bold: fun title.
-		writer writeSpace.	
-		writer text: '('.
-		writer text: fun years.
-		writer text: ').'.
-		writer writeNewLine.
-		writer text: (self translated: fun description).
-		writer text: '.'.
-		writer writeNewLine.
-		writer text: (self translated: #('Financement :' 'Funding:')).
-		writer writeSpace.
-		writer text: fun money.
-		writer text: ' euros.'.
-		writer closeListItem.	
-	].
-	writer stopUnorderedList
+	self generateFundings: intro writer: writer
 ]
 
 { #category : #'generation - sections' }
