@@ -1078,7 +1078,7 @@ CVGGenerator >> htmlPagePreamble [
 		
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100..900&display=swap" rel="stylesheet">
 	
 	<link rel="stylesheet" href="../css/normalize.css"> <link rel="stylesheet" href="../css/skeleton.css"> 	<link rel="stylesheet" href="../styles/main-s.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
