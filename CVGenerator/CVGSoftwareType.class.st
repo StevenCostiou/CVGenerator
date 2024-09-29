@@ -17,6 +17,11 @@ CVGSoftwareType class >> developer [
 	^CVGSoftwareDeveloper new
 ]
 
+{ #category : #'as yet unclassified' }
+CVGSoftwareType class >> majorContribution [
+	^CVGSoftwareMajorContribution new
+]
+
 { #category : #testing }
 CVGSoftwareType >> isContributor [
 	^false
@@ -24,5 +29,10 @@ CVGSoftwareType >> isContributor [
 
 { #category : #testing }
 CVGSoftwareType >> isDeveloper [
+	^false
+]
+
+{ #category : #testing }
+CVGSoftwareType >> isMajorSoftwareContribution [
 	^false
 ]

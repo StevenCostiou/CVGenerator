@@ -26,6 +26,11 @@ CVGSoftware class >> allDevelopedSoftwareIn: flattenedData [
 	^ flattenedData select: [ :data | data isDeveloper ]
 ]
 
+{ #category : #'data sorting' }
+CVGSoftware class >> allMajorSoftwareIn: flattenedData [
+	^ flattenedData select: [ :data | data isMajorSoftwareContribution  ]
+]
+
 { #category : #'as yet unclassified' }
 CVGSoftware class >> generate: section with: aGenerator using: writer [
 	^aGenerator generateContributionSection: section with: writer
@@ -49,7 +54,8 @@ CVGSoftware class >> readerClass [
 { #category : #'data sorting' }
 CVGSoftware class >> sortedElements: flattenedData [
 
-	^ {(CVGSoftwareType developer -> (self allDevelopedSoftwareIn: flattenedData)).
+	^ {(CVGSoftwareType majorContribution -> (self allMajorSoftwareIn: flattenedData)).
+	(CVGSoftwareType developer -> (self allDevelopedSoftwareIn: flattenedData)).
 	(CVGSoftwareType contributor -> (self allContributedSoftwareIn: flattenedData)).}
 ]
 
@@ -84,6 +90,10 @@ CVGSoftware >> isContributor [ ^type isContributor
 
 { #category : #testing }
 CVGSoftware >> isDeveloper [ ^type isDeveloper
+]
+
+{ #category : #testing }
+CVGSoftware >> isMajorSoftwareContribution [  ^type isMajorSoftwareContribution
 ]
 
 { #category : #accessing }
