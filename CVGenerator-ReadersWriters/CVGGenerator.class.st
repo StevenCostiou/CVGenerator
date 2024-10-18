@@ -380,8 +380,10 @@ CVGGenerator >> generateCordeesFrom: aSection with: writer [
 							('First prize award, ' , c year printString)} ]
 						ifFalse: [{('Second prix du jury ' , c year printString).
 							('Second prize award, ' , c year printString)} ].
+					
 					writer div: 'first-prize'.
 					writer div: 'award'.
+					writer write: '<i class="material-icons" style="color:#84be6a">school</i>'.			
 					writer text: (self translated: award).
 					writer closeMarkup.
 					writer closeMarkup ].
@@ -585,7 +587,15 @@ CVGGenerator >> generateMenuFor: pageTitle [
 		].
 	writer write: '<hr class="blue-hr">'.
 	writer write: self generateSocialNetworks.
+	
 	writer write: '<hr class="blue-hr">'.
+	writer bold: 'Office: Inria B, room 302</br>
+	+33 (0)3 59 35 87 38</br>'.
+	writer write: (writer url: 'https://www.inria.fr/fr/centre-inria-de-luniversite-de-lille' labeled: 'Centre Inria de l''Université de Lille,
+	40, avenue Halley,
+Parc Scientifique de la Haute Borne,
+France.').
+writer write: '<hr class="blue-hr">'.
 	self generateTranslateURL: pageTitle fourth on: writer.
 	writer closeMarkup.
 	^writer contents
