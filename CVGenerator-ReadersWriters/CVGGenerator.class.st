@@ -897,7 +897,7 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	writer stopUnorderedList.
 
 	"Engineering"
-	students := section data select: #isEngineering.
+	students := (section data select: #isEngineering) sort: [:a :b| a yearStop > b yearStop].
 	writer subsubSection: (self translated: #( 'Stages' 'Internships' )).
 	writer startUnorderedList.
 	students do: [ :s | s acceptGenerator: self ].
