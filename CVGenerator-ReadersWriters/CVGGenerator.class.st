@@ -898,7 +898,7 @@ CVGGenerator >> generateStudentSection: section with: writer [
 	
 	"PhDs"
 	students := section data select: #isPhd.
-	writer subsubSection: (self translated: #( 'Doctorants' 'PhD students' )).
+	writer subsubSection: (self translated: #( 'Thèses' 'PhD theses' )).
 	writer startUnorderedList.
 	students do: [ :s | s acceptGenerator: self ].
 	writer stopUnorderedList.
