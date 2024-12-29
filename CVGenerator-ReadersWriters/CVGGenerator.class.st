@@ -860,6 +860,7 @@ CVGGenerator >> generateStudent: aCVGStudent [
 						, aCVGStudent yearStop printString , '.' ]
 		ifFalse: [ |description|
 			writer writeSpace.
+			aCVGStudent isMEM ifFalse:[
 			writer text: '('.
 			aCVGStudent isEngineering ifTrue:[
 				writer text: (self translated: (self levelsAt: aCVGStudent level asSymbol)).
@@ -872,7 +873,8 @@ CVGGenerator >> generateStudent: aCVGStudent [
 						ifFalse: [ self translated: #('industrie' 'industry') ]).
 			writer text: ')'.
 			writer text: '.'.
-			writer writeSpace.
+			writer writeSpace].
+			
 			description := (aCVGStudent parseDescription: (self translated: aCVGStudent description)).			
 			writer text: description.
 			description ifNotEmpty: [ 	writer text: '.'. ].
