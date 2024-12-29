@@ -49,7 +49,7 @@ CVGPublication class >> allWorkshopsIn: flattenedData [
 
 { #category : #'as yet unclassified' }
 CVGPublication class >> generate: section with: aGenerator using: writer [
-	^aGenerator generateContributionSection: section with: writer
+	^aGenerator generateContributionSectionBydate: section with: writer
 ]
 
 { #category : #accessing }
@@ -76,6 +76,12 @@ CVGPublication class >> sortedElements: flattenedData [
 	(CVGPublicationType workshop -> (self allWorkshopsIn: flattenedData)).
 	(CVGPublicationType other -> (self allOtherPublicationsIn: flattenedData)).
 	(CVGPublicationType thesis -> (self allThesesIn: flattenedData))}
+]
+
+{ #category : #'data - sorting' }
+CVGPublication class >> sortedElementsByDate: flattenedData [
+
+	^ flattenedData groupedBy: #year
 ]
 
 { #category : #accessing }

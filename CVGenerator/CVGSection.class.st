@@ -54,6 +54,11 @@ CVGSection >> sortedElements [
 ]
 
 { #category : #accessing }
+CVGSection >> sortedElementsByDate [
+	^type sortedElementsByDate: data
+]
+
+{ #category : #accessing }
 CVGSection >> title [
 	^ title
 ]

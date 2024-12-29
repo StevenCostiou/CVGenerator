@@ -348,6 +348,20 @@ CVGGenerator >> generateContributionSection: aSection with: writer [
 	outputDic at: aSection put: stream contents
 ]
 
+{ #category : #'generation - sections' }
+CVGGenerator >> generateContributionSectionBydate: aSection with: writer [
+
+	| sortedContributions |
+	writer writeContributionNumbers: aSection data size.
+	sortedContributions := aSection sortedElementsByDate.
+	(sortedContributions keys sort: [ :y1 :y2 | y1 > y2 ]) do: [ :date | 
+		writer subSection: date printString.
+		writer openItemList.
+		(sortedContributions at: date) do: [ :e | e acceptGenerator: self ].
+		writer closeItemList ].
+	outputDic at: aSection put: stream contents
+]
+
 { #category : #generation }
 CVGGenerator >> generateCordee: aCVGCordee [ 
 	
