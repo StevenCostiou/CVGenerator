@@ -12,7 +12,8 @@ Class {
 		'stream',
 		'generatorWriter',
 		'translated',
-		'generatedPages'
+		'generatedPages',
+		'levels'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
 }
@@ -859,11 +860,17 @@ CVGGenerator >> generateStudent: aCVGStudent [
 						, aCVGStudent yearStop printString , '.' ]
 		ifFalse: [ |description|
 			writer writeSpace.
+			writer text: '('.
+			aCVGStudent isEngineering ifTrue:[
+				writer text: (self translated: (self levelsAt: aCVGStudent level asSymbol)).
+				writer text: ','.
+				writer writeSpace].
 			writer
 				text:
 					(aCVGStudent academic
-						ifTrue: [ self translated: #('(recherche)' '(research)') ]
-						ifFalse: [ self translated: #('(industrie)' '(industry)') ]).
+						ifTrue: [ self translated: #('recherche' 'research') ]
+						ifFalse: [ self translated: #('industrie' 'industry') ]).
+			writer text: ')'.
 			writer text: '.'.
 			writer writeSpace.
 			description := (aCVGStudent parseDescription: (self translated: aCVGStudent description)).			
@@ -1107,6 +1114,23 @@ CVGGenerator >> initialize [
 { #category : #initialization }
 CVGGenerator >> latex [
 	writerClass := CVGLatexWriter
+]
+
+{ #category : #accessing }
+CVGGenerator >> levels [
+
+	^ levels ifNil: [ 
+		  levels := Dictionary new.
+		  levels at: #M2 put: #( 'M2' 'Master 2' ).
+		  levels at: #M1 put: #( 'M1' 'Master 1' ).
+		  levels at: #Licence put: #( 'L3' 'Bachelor' ).
+		  levels ]
+]
+
+{ #category : #accessing }
+CVGGenerator >> levelsAt: aLevel [
+
+	^ self levels at: aLevel
 ]
 
 { #category : #initialization }
