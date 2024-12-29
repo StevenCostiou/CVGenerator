@@ -66,6 +66,36 @@ CVGStudent >> funding: anObject [
 	funding := anObject
 ]
 
+{ #category : #testing }
+CVGStudent >> hasTag [
+
+	^ #( 'MEM' 'ALT' 'PFE' ) includes: self tag
+]
+
+{ #category : #testing }
+CVGStudent >> isEngineering [
+
+	^ self hasTag not and: [ self isPhd not ]
+]
+
+{ #category : #testing }
+CVGStudent >> isMEM [
+
+	^ self tag = 'MEM'
+]
+
+{ #category : #testing }
+CVGStudent >> isPFE [
+
+	^ self tag = 'PFE'
+]
+
+{ #category : #testing }
+CVGStudent >> isPhd [
+
+	^ self level = #phd
+]
+
 { #category : #accessing }
 CVGStudent >> level [
 	^ level
@@ -104,6 +134,12 @@ CVGStudent >> supervision [
 { #category : #accessing }
 CVGStudent >> supervision: anObject [
 	supervision := anObject
+]
+
+{ #category : #accessing }
+CVGStudent >> tag [
+	^self title first readStream upTo: $$.
+	
 ]
 
 { #category : #accessing }

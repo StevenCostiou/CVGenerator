@@ -886,46 +886,39 @@ CVGGenerator >> generateStudent: aCVGStudent [
 
 { #category : #'generation - sections' }
 CVGGenerator >> generateStudentSection: section with: writer [
-	|students|
-	"writer subSection: (self translated: #('Étudiants' 'Students'))."
+
+	| students |
 	
-	
-	"Phd"
-	students := section data
-		select: [ :e | e level = #phd ].
-	writer subsubSection:  (self translated: #('Doctorants' 'PhD students')).
-	
+	"PhDs"
+	students := section data select: #isPhd.
+	writer subsubSection: (self translated: #( 'Doctorants' 'PhD students' )).
 	writer startUnorderedList.
-	students do:[:s| s acceptGenerator: self].
+	students do: [ :s | s acceptGenerator: self ].
 	writer stopUnorderedList.
-	
-	"M2"
-	students := section data
-		select: [ :e | e level = #M2 ].
-	writer subsubSection:  (self translated: #('Master 2' 'Master 2')).
+
+	"Engineering"
+	students := section data select: #isEngineering.
+	writer subsubSection: (self translated: #( 'Stages' 'Internships' )).
+	writer startUnorderedList.
+	students do: [ :s | s acceptGenerator: self ].
+	writer stopUnorderedList.
+
+	"Master thesis"
+	students := section data select: #isMEM.
+	writer subsubSection: (self translated: #( 'Mémoire de fin d''étude' 'Master theses' )).
 
 	writer startUnorderedList.
-	students do:[:s| s acceptGenerator: self].
+	students do: [ :s | s acceptGenerator: self ].
 	writer stopUnorderedList.
-	
-	"M1"
-	students := section data
-		select: [ :e | e level = #M1 ].
-	writer subsubSection:  (self translated: #('Master 1' 'Master 1')).
+
+	"PFE"
+	students := section data select: #isPFE.
+	writer subsubSection: (self translated: #( 'Projets de fin d''étude' 'Other projects' )).
 
 	writer startUnorderedList.
-	students do:[:s| s acceptGenerator: self].
-	writer stopUnorderedList.	
-		
-	"Licence"
-	students := section data
-		select: [ :e | e level = #Licence ].
-	writer subsubSection:  (self translated: #('Licence' 'Bachelor')).
-	
-	writer startUnorderedList.
-	students do:[:s| s acceptGenerator: self].
-	writer stopUnorderedList.	
-	
+	students do: [ :s | s acceptGenerator: self ].
+	writer stopUnorderedList.
+
 	outputDic at: section put: stream contents
 ]
 
