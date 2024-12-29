@@ -68,26 +68,26 @@ CVGStudent >> funding: anObject [
 
 { #category : #testing }
 CVGStudent >> hasTag [
-
+	self isPhd ifTrue:[^false].
 	^ #( 'MEM' 'ALT' 'PFE' ) includes: self tag
 ]
 
 { #category : #testing }
 CVGStudent >> isEngineering [
 
-	^ self hasTag not and: [ self isPhd not ]
+	^ self hasTag not or: [ self tag = 'ALT' ]
 ]
 
 { #category : #testing }
 CVGStudent >> isMEM [
 
-	^ self tag = 'MEM'
+	^ self hasTag and: [self tag = 'MEM']
 ]
 
 { #category : #testing }
 CVGStudent >> isPFE [
 
-	^ self tag = 'PFE'
+	^ self hasTag and: [self tag = 'PFE']
 ]
 
 { #category : #testing }
@@ -138,7 +138,7 @@ CVGStudent >> supervision: anObject [
 
 { #category : #accessing }
 CVGStudent >> tag [
-	^self title first readStream upTo: $$.
+	^self description first readStream upTo: $$.
 	
 ]
 
