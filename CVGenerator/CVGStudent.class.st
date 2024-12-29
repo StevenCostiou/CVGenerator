@@ -117,6 +117,18 @@ CVGStudent >> name: anObject [
 	name := anObject
 ]
 
+{ #category : #parsing }
+CVGStudent >> parseDescription: aString [
+
+	| rs tag |
+	self hasTag ifFalse: [ ^ aString ].
+	rs := aString readStream.
+	tag := rs next: 3.
+
+	(#( 'MEM' 'ALT' 'PFE' ) includes: tag) ifTrue: [ ^ rs upToEnd ].
+	^ aString
+]
+
 { #category : #accessing }
 CVGStudent >> school [
 	^ school

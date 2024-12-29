@@ -866,7 +866,7 @@ CVGGenerator >> generateStudent: aCVGStudent [
 						ifFalse: [ self translated: #('(industrie)' '(industry)') ]).
 			writer text: '.'.
 			writer writeSpace.
-			description := self translated: aCVGStudent description.			
+			description := (aCVGStudent parseDescription: (self translated: aCVGStudent description)).			
 			writer text: description.
 			description ifNotEmpty: [ 	writer text: '.'. ].
 			writer writeSpace.
