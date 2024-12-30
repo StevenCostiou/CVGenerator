@@ -822,7 +822,7 @@ CVGGenerator >> generateSocialNetworks [
 	writer div: 'brands-logos'.
 	writer writeUrl: 'https://scholar.google.fr/citations?user=KLPmm0gAAAAJ&hl=fr' image: '../logos/google-scholar.png'.
 	writer writeUrl: 'https://github.com/StevenCostiou' image: '../logos/github-mark-white.png'.
-	"writer writeUrl: 'https://www.pharo.org/' image: '../logos/pharo_noLabel.png'."
+	writer writeUrl: 'https://www.pharo.org/' image: '../logos/pharo_noLabel.png'.
 	writer writeUrl: 'https://rmod.inria.fr' image: '../logos/evref.png'.
 	writer writeUrl: 'https://cv.hal.science/steven-costiou' image: '../logos/hal.png'.
 	
