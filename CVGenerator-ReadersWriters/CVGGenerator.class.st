@@ -497,7 +497,9 @@ CVGGenerator >> generateHeader: aCVGHeader [
 	writer := self newWriterFor: aCVGHeader.
 	writer div: 'profile'.
 	writer div: 'profile-picture'.
+	writer write: '<a href="', self imageDirectory, 'photo-hd.JPG" targer=_blank>'.
 	writer image: (self imageDirectory, aCVGHeader photo).
+	writer  write: '</a>'.
 	writer closeMarkup.
 	writer div: 'profile-info'.
 	writer write: (self translated: aCVGHeader title).
