@@ -21,12 +21,12 @@ Class {
 
 { #category : #'instance creation' }
 CVGGenerator class >> generateHTML: aCVGModel [
-	^self new html; model: aCVGModel; generate
+	^self new html; model: aCVGModel; generateHTMLCV
 ]
 
 { #category : #'instance creation' }
 CVGGenerator class >> generateLatex: aCVGModel [
-	^self new latex; model: aCVGModel; generate
+	^self new latex; model: aCVGModel; generateLatexCV
 ]
 
 { #category : #pages }
@@ -520,6 +520,25 @@ CVGGenerator >> generateFundings: intro writer: writer [
 	writer stopUnorderedList
 ]
 
+{ #category : #generation }
+CVGGenerator >> generateHTMLCV [
+	| oldHeaderKey |
+	outputDic := Dictionary new.
+	generatorWriter := writerClass on: self stream.	
+	
+	translated := false.
+	self generateCV.
+"	outputDic inspect.
+	self halt."
+	generatorWriter writeAndExport: self.
+	
+	translated := true. 
+	oldHeaderKey := outputDic keys detect:[:k| k title = 'Header-formatted'] ifNone:[nil].
+	oldHeaderKey ifNotNil: [ outputDic removeKey: oldHeaderKey ].
+	self generateCV.
+	generatorWriter writeAndExport: self
+]
+
 { #category : #'generation - pages' }
 CVGGenerator >> generateHTMLPage: pageDescription [
 
@@ -605,6 +624,17 @@ CVGGenerator >> generateIntro: aCVGIntro [
 CVGGenerator >> generateIntroSection: section with: writer [
 	section data first acceptGenerator: self.
 	outputDic at: section put: stream contents
+]
+
+{ #category : #generation }
+CVGGenerator >> generateLatexCV [
+
+	outputDic := Dictionary new.
+	generatorWriter := writerClass on: self stream.
+
+	translated := false.
+	self generateCV.
+	generatorWriter writeAndExport: self
 ]
 
 { #category : #export }
