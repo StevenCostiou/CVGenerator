@@ -9,6 +9,22 @@ Class {
 }
 
 { #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> generateAdminSummary [
+
+	| title |
+	title := '4. Responsabilités administratives'.
+	^ self generatePreambleNamed: title size: 2 rows: #(  )
+]
+
+{ #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> generateCVSummary [
+
+	| title |
+	title := '1. Expérience et formation'.
+	^ self generatePreambleNamed: title size: 2 rows: #(  )
+]
+
+{ #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generateContributionsSummary [
 
 	| writer title rows cols publications pubs|
