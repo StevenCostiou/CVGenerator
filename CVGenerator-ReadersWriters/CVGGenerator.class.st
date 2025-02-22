@@ -37,53 +37,37 @@ CVGGenerator >> buildLatexDescriptions [
 	
 	"Research"
 	description := OrderedCollection new.
+	description add: (CVGLatexPreambleGenerator new model: model; generateCVSummary).
+	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
+	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
+	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
+	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
+	
+
+	description add: (self generatedSection: 'Experience').
+	
+	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
 	description add: (self generatedSection: 'Intro').
 	description add: (self generatedSection: 'Awards').
 	description add: (self generatedSection: 'Research').
-	pages at: self pageTitles first put: description.
-	
-	"Publications"
-	description := OrderedCollection new.
-	description add: (self generatedSection: 'Students').
-	pages at: self pageTitles third put: description.
-	
-	"Service"
-	description := OrderedCollection new.
 	description add: (self generatedSection: 'Service').	
-	pages at: (self pageTitles eighth) put: description.
+	description add: (self generatedSection: 'Students').
 	
-	"Publications"
-	description := OrderedCollection new.
+	
+	
+	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
 	description add: (self generatedSection: 'Publications').
-	pages at: self pageTitles fourth put: description.
-	
-	"Software"
-	description := OrderedCollection new.
 	description add: (self generatedSection: 'Software').
-	writerClass isHTML ifTrue:[description addAll: (self staticAppendicesFor: 'Software')].
-	pages at: self pageTitles fifth put: description.
-	
-	"Talks"
-	description := OrderedCollection new.
 	description add: (self generatedSection: 'Talks').
-	pages at: self pageTitles sixth put: description.
-
-	"Teaching"
-	description := OrderedCollection new.
-	description add: (self generatedSection: 'Teachings').
-	description add: (self generatedSection: 'Past teaching activities').
-	pages at: self pageTitles seventh put: description.
 	
-	"Administration"
-	description := OrderedCollection new.
+	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
 	description add: (self generatedSection: 'Administration').
-	pages at: self pageTitles ninth put: description.
 	
-	"CV"
-	description := OrderedCollection new.
-	description add: (self generatedSection: 'Experience').
-	pages at: (self pageTitles at: 10) put: description.
-	
+	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
+	description add: (self generatedSection: 'Teaching').
+	description add: (self generatedSection: 'Past teaching activities').
+	pages at: 'cv' put: description.
+
 	^pages	
 	
 ]
