@@ -13,7 +13,8 @@ Class {
 		'generatorWriter',
 		'translated',
 		'generatedPages',
-		'levels'
+		'levels',
+		'latexStream'
 	],
 	#category : #'CVGenerator-ReadersWriters-Generators'
 }
@@ -26,6 +27,65 @@ CVGGenerator class >> generateHTML: aCVGModel [
 { #category : #'instance creation' }
 CVGGenerator class >> generateLatex: aCVGModel [
 	^self new latex; model: aCVGModel; generate
+]
+
+{ #category : #pages }
+CVGGenerator >> buildLatexDescriptions [
+
+	|pages description|
+	pages := Dictionary new.
+	
+	"Research"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Intro').
+	description add: (self generatedSection: 'Awards').
+	description add: (self generatedSection: 'Research').
+	pages at: self pageTitles first put: description.
+	
+	"Publications"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Students').
+	pages at: self pageTitles third put: description.
+	
+	"Service"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Service').	
+	pages at: (self pageTitles eighth) put: description.
+	
+	"Publications"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Publications').
+	pages at: self pageTitles fourth put: description.
+	
+	"Software"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Software').
+	writerClass isHTML ifTrue:[description addAll: (self staticAppendicesFor: 'Software')].
+	pages at: self pageTitles fifth put: description.
+	
+	"Talks"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Talks').
+	pages at: self pageTitles sixth put: description.
+
+	"Teaching"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Teachings').
+	description add: (self generatedSection: 'Past teaching activities').
+	pages at: self pageTitles seventh put: description.
+	
+	"Administration"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Administration').
+	pages at: self pageTitles ninth put: description.
+	
+	"CV"
+	description := OrderedCollection new.
+	description add: (self generatedSection: 'Experience').
+	pages at: (self pageTitles at: 10) put: description.
+	
+	^pages	
+	
 ]
 
 { #category : #pages }
@@ -188,9 +248,9 @@ CVGGenerator >> generateAndExportHtml [
 
 { #category : #export }
 CVGGenerator >> generateAndExportLatex [
-"	self regenerateLatexHeader."
+
 	self generateLatexPages.
-"	self writePages"
+	self writeLatex
 ]
 
 { #category : #generation }
@@ -547,16 +607,22 @@ CVGGenerator >> generateIntroSection: section with: writer [
 	outputDic at: section put: stream contents
 ]
 
-{ #category : #'as yet unclassified' }
-CVGGenerator >> generateLatexPage: anAssociation [ 
-	self shouldBeImplemented.
+{ #category : #export }
+CVGGenerator >> generateLatexPage: anAssociation [
+
+	| texCollection |
+	texCollection := anAssociation value.
+	self latexStream cr.
+	texCollection do: [ :tex | 
+		self latexStream cr.
+		self latexStream nextPutAll: tex ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #export }
 CVGGenerator >> generateLatexPages [
 
 	generatedPages := Dictionary new.
-	self buildPagesDescriptions associationsDo: [ :pageDescription | 
+	self buildLatexDescriptions associationsDo: [ :pageDescription | 
 		self generateLatexPage: pageDescription ]
 ]
 
@@ -1135,6 +1201,61 @@ CVGGenerator >> latex [
 	writerClass := CVGLatexWriter
 ]
 
+{ #category : #export }
+CVGGenerator >> latexClosings [
+	^'\end{document}'
+]
+
+{ #category : #export }
+CVGGenerator >> latexDirectory [
+	^ '/Users/steven/Documents/projets/website/latex/'
+]
+
+{ #category : #export }
+CVGGenerator >> latexOpenings [
+	^'\documentclass{article}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+%\usepackage[latin1]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage{txfonts} 
+\renewcommand{\familydefault}{\sfdefault} 
+
+\usepackage{graphicx}
+
+\usepackage[cm]{fullpage}
+\usepackage{xcolor} 
+\usepackage[stable]{footmisc} 
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=black,citecolor=black]{hyperref}
+\usepackage{xcolor}
+\definecolor{alizarin}{rgb}{0.82, 0.1, 0.26}
+\definecolor{carmine}{rgb}{0.59, 0.0, 0.09}
+\definecolor{red}{rgb}{0.64, 0.0, 0.0}%darkcandyapplered
+\definecolor{ceruleanblue}{rgb}{0.16, 0.32, 0.75}
+
+\pdfstringdefDisableCommands{%
+  \def\footnote#1{}%
+  \def\footnotemark#1{}%
+}
+
+\usepackage{fancybox}
+\usepackage{framed}
+
+%\selectlanguage{french}
+
+\usepackage{tabularx}
+\usepackage{epigraph}
+\sloppy
+\begin{document}
+'
+]
+
+{ #category : #export }
+CVGGenerator >> latexStream [
+
+	^ latexStream ifNil: [ latexStream := WriteStream on: String new ]
+]
+
 { #category : #accessing }
 CVGGenerator >> levels [
 
@@ -1248,6 +1369,21 @@ CVGGenerator >> translated: anArray [
 		ifTrue: [ anArray second ]
 		ifFalse: [ anArray first ].
 	^ (translatedString reject: [ :e | e = $$ ]) replaceAll: $` with: $'
+]
+
+{ #category : #export }
+CVGGenerator >> writeLatex [
+
+	| file |
+	file := self latexDirectory / 'cv.tex'.
+
+	file writeStream
+		nextPutAll: self latexOpenings;
+		cr;
+		nextPutAll: latexStream contents;
+		cr;
+		nextPutAll: self latexClosings;
+		close
 ]
 
 { #category : #export }

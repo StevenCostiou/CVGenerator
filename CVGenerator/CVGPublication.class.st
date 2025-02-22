@@ -49,7 +49,7 @@ CVGPublication class >> allWorkshopsIn: flattenedData [
 
 { #category : #'as yet unclassified' }
 CVGPublication class >> generate: section with: aGenerator using: writer [
-	^aGenerator generateContributionSectionBydate: section with: writer
+	^aGenerator generateContributionSection: section with: writer
 ]
 
 { #category : #accessing }
