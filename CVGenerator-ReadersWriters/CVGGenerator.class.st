@@ -1347,6 +1347,17 @@ CVGGenerator >> resetStream [
 	stream := self newStream
 ]
 
+{ #category : #export }
+CVGGenerator >> sanitizeLatexContents [
+
+	| sanitizedContents |
+	sanitizedContents := latexStream contents copyReplaceAll: '$’' with: $' asString.		
+	sanitizedContents := sanitizedContents copyReplaceAll: '%' with: '\%'.		
+	sanitizedContents := sanitizedContents copyReplaceAll: 'R&D' with: 'R\&D'.		
+	sanitizedContents := sanitizedContents copyReplaceAll:	'\{' with: ''.
+	^sanitizedContents
+]
+
 { #category : #pages }
 CVGGenerator >> staticAppendicesFor: sectionName [
 
@@ -1393,7 +1404,7 @@ CVGGenerator >> writeLatex [
 	file writeStream
 		nextPutAll: self latexOpenings;
 		cr;
-		nextPutAll: (latexStream contents copyReplaceAll: '$’' with: $' asString);
+		nextPutAll: self sanitizeLatexContents;
 		cr;
 		nextPutAll: self latexClosings;
 		close

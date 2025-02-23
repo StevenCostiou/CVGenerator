@@ -186,6 +186,7 @@ CVGLatexWriter >> tabular [
 CVGLatexWriter >> text: aString [
 
 	| text |
+	(aString includesSubstring: '<i class="material-icons"') ifTrue:[^self].
 	text := aString asString.
 	[text includesSubstring: '<a href'] whileTrue: [ 
 		| str wstr |
