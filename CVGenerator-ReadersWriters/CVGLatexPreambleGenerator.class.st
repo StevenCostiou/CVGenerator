@@ -20,8 +20,8 @@ CVGLatexPreambleGenerator >> generateAdminSummary [
 CVGLatexPreambleGenerator >> generateCVSummary [
 
 	| title |
-	title := '1. Expérience et formation'.
-	^ self generatePreambleNamed: title size: 2 rows: #(  )
+	title := '1. Parcours et formation'.
+	^ self generatePreambleNamed: title size: 2 rows: #( )
 ]
 
 { #category : #'generation - summaries' }
@@ -117,10 +117,11 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 	| writer |
 	writer := CVGLatexWriter new.
 	writer subsubSectionX: title. 
-	writer cr.
+	rows ifEmpty: [ ^ writer contents ].
+"	writer cr.
 	writer text: '\hrule'.
 	writer cr.
-	writer text: '\vspace{-1em}'.
+	writer text: '\vspace{-1em}'."
 	writer cr.
 	writer newSummaryTable.
 	writer tableSize: colSize.
