@@ -64,7 +64,7 @@ CVGGenerator >> buildLatexDescriptions [
 	description add: (self generatedSection: 'Administration').
 	
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
-	description add: (self generatedSection: 'Teaching').
+	description add: (self generatedSection: 'Teachings').
 	description add: (self generatedSection: 'Past teaching activities').
 	pages at: 'cv' put: description.
 
@@ -1222,7 +1222,7 @@ CVGGenerator >> latexClosings [
 
 { #category : #export }
 CVGGenerator >> latexDirectory [
-	^ '/Users/steven/Documents/projets/website/latex/'
+	^ '/Users/steven/Documents/projets/website/latex/' asFileReference 
 ]
 
 { #category : #export }
@@ -1390,11 +1390,10 @@ CVGGenerator >> writeLatex [
 
 	| file |
 	file := self latexDirectory / 'cv.tex'.
-
 	file writeStream
 		nextPutAll: self latexOpenings;
 		cr;
-		nextPutAll: latexStream contents;
+		nextPutAll: (latexStream contents copyReplaceAll: '$’' with: $' asString);
 		cr;
 		nextPutAll: self latexClosings;
 		close

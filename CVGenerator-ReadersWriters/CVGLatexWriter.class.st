@@ -33,6 +33,7 @@ CVGLatexWriter >> closeRow [
 { #category : #tables }
 CVGLatexWriter >> closeSummaryTable [
 	self closeMarkup.
+	self cr.
 	self closeMarkup 
 ]
 
@@ -68,6 +69,7 @@ CVGLatexWriter >> listItem [
 { #category : #tables }
 CVGLatexWriter >> newSummaryTable [
 	self openMarkup: CVGLatexMarkupElement summaryTable.
+	self cr.
 	self openMarkup: CVGLatexMarkupElement summaryTabular
 ]
 
@@ -180,6 +182,29 @@ CVGLatexWriter >> tabular [
 	^CVGLatexMarkupElement tabular: tableSize 
 ]
 
+{ #category : #accessing }
+CVGLatexWriter >> text: aString [
+
+	| text |
+	text := aString asString.
+	[text includesSubstring: '<a href'] whileTrue: [ 
+		| str wstr |
+		str := text readStream.
+		wstr := WriteStream on: String new.
+		wstr << (str upToAll: '<a href="').
+		wstr space.
+		wstr << '\url{'.
+		wstr << (str upTo: $").
+		wstr << '}'.
+		wstr space.
+		str upToAll: 'a>'.
+		wstr << str upToEnd.
+		text := wstr contents.
+	
+ ].
+	stream << text
+]
+
 { #category : #emphasis }
 CVGLatexWriter >> title: title h: level [
 	self bold: title.
@@ -193,12 +218,18 @@ CVGLatexWriter >> unorderedList [
 
 { #category : #urls }
 CVGLatexWriter >> url: url image: imageUrl [
+
 	self writeText: url inMarkup: CVGLatexMarkupElement url
 ]
 
 { #category : #urls }
 CVGLatexWriter >> url: aString labeled: aName [
 	self writeText: aString inMarkup: CVGLatexMarkupElement url
+]
+
+{ #category : #writing }
+CVGLatexWriter >> write: aString [
+	self text: aString
 ]
 
 { #category : #export }
@@ -235,7 +266,7 @@ CVGLatexWriter >> writeSpace [
 { #category : #markup }
 CVGLatexWriter >> writeText: aString inMarkup: aMarkup [
 	self openMarkup: aMarkup.
-	stream << aString.
+	self text: aString.
 	self closeMarkup
 ]
 
