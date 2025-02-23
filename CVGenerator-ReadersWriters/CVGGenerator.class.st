@@ -1401,6 +1401,7 @@ CVGGenerator >> writeLatex [
 
 	| file |
 	file := self latexDirectory / 'cv.tex'.
+	file delete.
 	file writeStream
 		nextPutAll: self latexOpenings;
 		cr;
