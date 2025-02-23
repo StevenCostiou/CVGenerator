@@ -60,6 +60,12 @@ CVGLatexMarkupElement class >> red [
 ]
 
 { #category : #API }
+CVGLatexMarkupElement class >> section [
+
+	^ self markup: 'section'
+]
+
+{ #category : #API }
 CVGLatexMarkupElement class >> space [
 
 	^ (self markup: '~')

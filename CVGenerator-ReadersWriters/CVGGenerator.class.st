@@ -33,7 +33,7 @@ CVGGenerator class >> generateLatex: aCVGModel [
 CVGGenerator >> buildLatexDescriptions [
 
 	|pages description|
-	pages := Dictionary new.
+	pages := OrderedDictionary new.
 	
 	"Research"
 	description := OrderedCollection new.
@@ -42,31 +42,38 @@ CVGGenerator >> buildLatexDescriptions [
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
+	pages at: 'preamble' put: description.
 	
-
+	description := OrderedCollection new.
 	description add: (self generatedSection: 'Experience').
+	pages at: 'Parcours et formation' put: description.
 	
+	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
 	description add: (self generatedSection: 'Intro').
 	description add: (self generatedSection: 'Awards').
 	description add: (self generatedSection: 'Research').
 	description add: (self generatedSection: 'Service').	
 	description add: (self generatedSection: 'Students').
+	pages at: 'Activités de recherche' put: description.
 	
-	
-	
+	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
 	description add: (self generatedSection: 'Publications').
 	description add: (self generatedSection: 'Software').
 	description add: (self generatedSection: 'Talks').
+	pages at: 'Contributions' put: description.
 	
+	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
 	description add: (self generatedSection: 'Administration').
+	pages at: 'Responsabilités administratives' put: description.
 	
+	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
 	description add: (self generatedSection: 'Teachings').
 	description add: (self generatedSection: 'Past teaching activities').
-	pages at: 'cv' put: description.
+	pages at: 'Enseignement' put: description.
 
 	^pages	
 	
@@ -637,6 +644,10 @@ CVGGenerator >> generateLatexPages [
 
 	generatedPages := Dictionary new.
 	self buildLatexDescriptions associationsDo: [ :pageDescription | 
+		self latexStream cr.
+		pageDescription key = 'preamble' ifFalse: [ 
+			(CVGLatexWriter new on: self latexStream) section:
+				pageDescription key ].
 		self generateLatexPage: pageDescription ]
 ]
 
