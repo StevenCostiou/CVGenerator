@@ -17,9 +17,39 @@ CVGLatexPreambleGenerator >> countYearsForService: services [
 { #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generateAdminSummary [
 
-	| title |
+	| title admin rows cols writer elements |
 	title := '4. Responsabilités administratives'.
-	^ self generatePreambleNamed: title size: 2 rows: #(  )
+	admin := (model sections detect:[:s| s type = CVGAdmin]) data.
+	rows := OrderedCollection new.
+	
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: 'Responsabilités syndicales'; contents).
+	cols add: 'Représentant du personnel (suppléant), membre de la formation spécialisée du site du centre Inria de l''Universite de Lille (depuis fin 2024)'.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: 'Projets européens (2022)' ; contents).
+	cols add: 'Workpackage leader Inria, EDIH GreenPowerIT Hauts de France'.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add:  (CVGLatexWriter new red: 'Mandats administratifs (2016-2018)'; contents).
+	writer := CVGLatexWriter new.
+	elements := admin select:[:p| p type class = CVGMandateType].	
+	writer red: elements size printString.
+	writer text: ' mandats électoraux et membre de '.
+	elements := admin select:[:p| p type class = CVGMemberType ].	
+	writer red: elements size printString.
+	writer text: ' comités à l''UBO et au Lab-STICC'.
+	cols add: writer contents.
+	rows add: cols.
+	
+	cols := OrderedCollection new.
+	cols add: (CVGLatexWriter new red: 'Tâches d''intérêt collectif'; contents).
+	cols add: 'À l''Inria et à l''Université de Bretagne Occidentale, participation à la vie collective'.
+	rows add: cols.
+	
+	^ self generatePreambleNamed: title size: 2 rows: rows
 ]
 
 { #category : #'generation - summaries' }
@@ -183,8 +213,9 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 
 	writer closeSummaryTable.
 "		writer text: '\vspace{-1em}'.
-		writer cr.
-	writer text: '\hrule'."
+		writer cr."
+	writer cr.
+	writer text: '\hrule'.
 	writer cr.
 	^ writer contents
 ]
