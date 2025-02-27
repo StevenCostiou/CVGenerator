@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> countYearsForService: services [
+
+	^ services inject: 0 into: [ :sum :next | sum + next years size ]
+]
+
+{ #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generateAdminSummary [
 
 	| title |
@@ -19,9 +25,32 @@ CVGLatexPreambleGenerator >> generateAdminSummary [
 { #category : #'generation - summaries' }
 CVGLatexPreambleGenerator >> generateCVSummary [
 
-	| title |
+	| title rows |
 	title := '1. Parcours et formation'.
-	^ self generatePreambleNamed: title size: 2 rows: #( )
+	rows := OrderedCollection new.
+
+	rows add: { 
+			(CVGLatexWriter new
+				 red: 'Expérience professionnelle';
+				 contents).
+			(CVGLatexWriter new
+				 red: 'Industrie ';
+				 text: '6 ans --- ';
+				 red: 'Recherche ';
+				 text: ' 10 ans (y compris thèse)';
+				 contents) }.
+
+	rows add: { 
+			(CVGLatexWriter new
+				 red: 'Formation';
+				 contents).
+			(CVGLatexWriter new
+				 red: 'Licence/Master ';
+				 text: '2004 - 2009, ';
+				 red: 'Doctorat ';
+				 text: '2015 - 2018';
+				 contents) }.
+	^ self generatePreambleNamed: title size: 2 rows: rows
 ]
 
 { #category : #'generation - summaries' }
@@ -37,19 +66,31 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	pubs := publications select:[:p| p type class = CVGJournal].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
-	writer text: ' articles de journaux'.
+	writer text: ' articles de journaux, '.
+	pubs := publications select:[:p| p type class = CVGConference].
+	writer red: pubs size printString.
+	writer text: ' conférences internationales, '.
+	pubs := publications select:[:p| p type class = CVGWorkshop].		
+	writer red: pubs size printString.
+	writer text: ' workshops à comité de lecture, '.
+	pubs := publications select:[:p| p type class = CVGThesis].
+	writer red: pubs size printString.
+	writer text: ' thèse de doctorat (soutenue en 2018), '.
+	pubs := publications select:[:p| p type class = CVGOther].	
+	writer red: pubs size printString.
+	writer text: ' articles de blog (\url{thepharo.dev})'.
 	cols add: writer contents.
 	rows add: cols.
 	
-	cols := OrderedCollection new.
+	"cols := OrderedCollection new.
 	cols add: ' '.
 	pubs := publications select:[:p| p type class = CVGConference].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
 	writer text: ' conférences internationales'.
 	cols add: writer contents.
-	rows add: cols.
-	
+	rows add: cols."
+	"
 	cols := OrderedCollection new.
 	cols add: ' '.
 	pubs := publications select:[:p| p type class = CVGWorkshop].				
@@ -57,16 +98,16 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	writer red: pubs size printString.
 	writer text: ' workshops internationaux à comité de lecture'.
 	cols add: writer contents.
-	rows add: cols.
+	rows add: cols."
 	
-	cols := OrderedCollection new.
+"	cols := OrderedCollection new.
 	cols add: ' '.
 	pubs := publications select:[:p| p type class = CVGOther].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
 	writer text: ' articles de blog (\url{thepharo.dev})'.
 	cols add: writer contents.
-	rows add: cols.
+	rows add: cols."
 	
 	cols := OrderedCollection new.
 	cols add: ' '.
@@ -86,13 +127,13 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	writer text: ' présentations à des conférences internationales, '.
 	pubs := publications select:[:p| p type class = CVGTalkTool].
 	writer red: pubs size printString.
-	writer text: ' démonstrations d''outils à des conférences ou à des industriels, '.
+	writer text: ' démonstrations d''outils (conférences et industriels), '.
 	pubs := publications select:[:p| p type class = CVGTalkVulgarization].
 	writer red: pubs size printString.
-	writer text: ' présentation de vulgarisation à Inria, '.
+	writer text: ' vulgarisation, '.
 	pubs := publications select:[:p| p type class = CVGTalkSeminar].
 	writer red: pubs size printString.
-	writer text: ' séminaires nationaux ou internationaux'.
+	writer text: ' séminaires nationaux/internationaux'.
 	cols add: writer contents.
 	rows add: cols.
 	
@@ -120,8 +161,8 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 	rows ifEmpty: [ ^ writer contents ].
 "	writer cr.
 	writer text: '\hrule'.
-	writer cr.
-	writer text: '\vspace{-1em}'."
+	writer cr."
+	writer text: '\vspace{-1em}'.
 	writer cr.
 	writer newSummaryTable.
 	writer tableSize: colSize.
@@ -134,7 +175,12 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 			writer tableColumn: ' ' ].
 		writer closeRow ].
 	
+
 	writer closeSummaryTable.
+		writer text: '\vspace{-1em}'.
+		writer cr.
+	writer text: '\hrule'.
+	writer cr.
 	^ writer contents
 ]
 
@@ -197,38 +243,25 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 				 red: '2.4 Service';
 				 contents).
 	writer := CVGLatexWriter new.
-	
-	writer text: 'Comités de programmes ('.
 	pcs := service select:[:s| s type class = CVGPCType].
-	pcs do:[:pc|
-		writer red: (pc acronym = 'CNRS' ifTrue:[pc title] ifFalse:[pc acronym]).		
-		pc years do:[:y| writer red: ''''; red: (y copyFrom: 3 to: 4)].
-		pc = pcs last ifFalse:[writer text: ', ']].
-	writer text: '), '.
+	writer red: (self countYearsForService: pcs) printString.
+	writer text: ' comités de programmes, '.
 	
-	writer text: 'relectures ('.
 	pcs := service select:[:s| s type class = CVGReviewerType].
-	pcs do:[:pc|
-		writer red: pc acronym.		
-		pc years do:[:y| writer red: ''''; red: (y copyFrom: 3 to: 4)].
-		pc = pcs last ifFalse:[writer text: ', ']].	
-	writer text: '), '.
+	writer red: (self countYearsForService: pcs) printString.
+	writer text: ' relectures, '.
 	
-	writer text: 'session chair ('.
+	
 	pcs := service select:[:s| s type class = CVGSessionChairType].
-	pcs do:[:pc|
-		writer red: (pc acronym ifEmpty:[pc title]).		
-		pc years do:[:y| writer red: ''''; red: (y copyFrom: 3 to: 4)].
-		pc = pcs last ifFalse:[writer text: ', '. ]].	
-	writer text: '), '.
+	writer red: (self countYearsForService: pcs) printString.
+	writer text: ' session chair, '.
 	
-	writer text: 'organisation locale de conférences ('.
+	
 	pcs := service select:[:s| s type class = CVGLCType or:[s type class = CVGVolunteerType]].
-	pcs do:[:pc|
-		writer red: pc acronym.		
-		pc years do:[:y| writer red: ''''; red: (y copyFrom: 3 to: 4)].
-		pc = pcs last ifFalse:[writer text: ', ']].	
-	writer text: ')'.
+	writer red: (self countYearsForService: pcs) printString.
+	writer text: ' org. locales de conférences'.
+	
+	
 	
 	cols add: writer contents.
 	rows add: cols.
@@ -243,11 +276,11 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	writer red: (students select:[:s| s level = 'phd']) size printString.
 	writer text: ' doctorants, '.
 	writer red: (students select:[:s| s level = 'M2']) size printString.
-	writer text: ' M2/3$^{\`{e}me}$ année d''école d''ingénieur, '.
+	writer text: ' M2, '.
 	writer red: (students select:[:s| s level = 'M1']) size printString.
-	writer text: ' M1/2$^{ \`{e}me}$ année d''école d''ingénieur, '.
+	writer text: ' M1, '.
 	writer red: (students select:[:s| s level = 'Licence']) size printString.
-	writer text: ' Licence'.
+	writer text: ' L3'.
 	cols add: writer contents.
 	rows add: cols.
 	
@@ -318,6 +351,18 @@ CVGLatexPreambleGenerator >> generateTeachingSummary [
 	^self generatePreambleNamed: title size: 2 rows: rows  	
 			
 	
+]
+
+{ #category : #'generation - summaries' }
+CVGLatexPreambleGenerator >> generateTitle [
+
+	^'\begin{table}[t]
+    \begin{tabularx}{\textwidth}{lr}
+    \LARGE \textbf{STEVEN COSTIOU} &   \url{https://kloum.io/costiou}  \\
+    \large Chargé de recherche Inria, équipe EVREF -- CRIStAL, UMR CNRS 9189  &  steven.costiou@inria.fr \vspace{-2.5em}
+    \end{tabularx}
+\end{table}
+\hrule'
 ]
 
 { #category : #initialization }

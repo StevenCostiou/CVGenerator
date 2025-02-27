@@ -37,6 +37,7 @@ CVGGenerator >> buildLatexDescriptions [
 	
 	"Research"
 	description := OrderedCollection new.
+	description add: CVGLatexPreambleGenerator new generateTitle.
 	description add: (CVGLatexPreambleGenerator new model: model; generateCVSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
