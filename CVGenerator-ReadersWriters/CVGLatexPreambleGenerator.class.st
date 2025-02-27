@@ -92,7 +92,7 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 
 	publications := (model sections detect:[:s| s type = CVGPublication]) data.
 	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: '3.1 Publications (', (publications "reject:[:p| p type class = CVGBook]") size printString, ')'; contents).
+	cols add: (CVGLatexWriter new red: 'Publications (', (publications "reject:[:p| p type class = CVGBook]") size printString, ')'; contents).
 	pubs := publications select:[:p| p type class = CVGJournal].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
@@ -153,7 +153,7 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	
 	publications := (model sections detect:[:s| s type = CVGTalk]) data.
 	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: '3.2 Présentations (', publications size printString, ')'; contents).
+	cols add: (CVGLatexWriter new red: 'Présentations (', publications size printString, ')'; contents).
 	pubs := publications select:[:p| p type class = CVGTalkKeynote or:[p type class = CVGTalkConference] ].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
@@ -172,7 +172,7 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	
 	publications := (model sections detect:[:s| s type = CVGSoftware]) data.
 	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: '3.3 Développement technologiques'; contents).			
+	cols add: (CVGLatexWriter new red: 'Développement technologiques'; contents).			
 	writer := CVGLatexWriter new.
 	writer red: publications size printString.
 	writer text: ' logiciels et bibliothèques open-source'.
@@ -229,7 +229,7 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 
 	rows add: { 
 			(CVGLatexWriter new
-				 red: '2.1 Recherche';
+				 red: 'Recherche';
 				 contents).
 			(CVGLatexWriter new
 				 text:
@@ -250,7 +250,7 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	animations := ((model sections detect:[:s| s type = CVGResearch]) data select:[:d| d type class = CVGResearchType ]) asOrderedCollection.
 	cols := OrderedCollection new.
 	cols add: (CVGLatexWriter new
-				 red: '2.2 Animation de la recherche';
+				 red: 'Animation de la recherche';
 				 contents).
 	cols add: animations first title first.
 	rows add: cols.
@@ -265,7 +265,7 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	collaborations := (model sections detect:[:s| s type = CVGResearch]) data select:[:d| d type class = CVGCollaborationType ].
 	cols := OrderedCollection new.
 	cols add: (CVGLatexWriter new
-				 red: '2.3 Collaborations';
+				 red: 'Collaborations';
 				 contents).
 	cols add: (CVGLatexWriter new
 				 red: (collaborations size printString);			
@@ -276,7 +276,7 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	service := (model sections detect:[:s| s type = CVGService]) data.
 	cols := OrderedCollection new.
 	cols add: (CVGLatexWriter new
-				 red: '2.4 Service';
+				 red: 'Service';
 				 contents).
 	writer := CVGLatexWriter new.
 	pcs := service select:[:s| s type class = CVGPCType].
@@ -304,7 +304,7 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	
 	cols := OrderedCollection new.	
 	cols add: (CVGLatexWriter new
-				 red: '2.5 Encadrement';
+				 red: 'Encadrement';
 				 contents).
 				
 	writer := CVGLatexWriter new.
@@ -345,7 +345,7 @@ CVGLatexPreambleGenerator >> generateTeachingSummary [
 	
 	cols := OrderedCollection new.
 	writer := CVGLatexWriter new.
-	cols add: (CVGLatexWriter new red: ('5.1 Service effectué ', total printString, 'h'); text: 'éq. TD';contents).	
+	cols add: (CVGLatexWriter new red: ('Service effectué ', total printString, 'h'); text: 'éq. TD';contents).	
 	writer red: cm printString, 'h'.
 	writer text: 'CM '.
 	writer red: td printString, 'h'.
@@ -370,17 +370,17 @@ CVGLatexPreambleGenerator >> generateTeachingSummary [
 	rows add: cols.
 	
 	cols := OrderedCollection new.	
-	cols add: '\textcolor{red}{5.2 Ateliers scientifiques pour enfants}'.
+	cols add: '\textcolor{red}{Ateliers scientifiques pour enfants}'.
 	cols add: '\textcolor{red}{6} ateliers de vulgarisation pour enfants (\textcolor{red}{6h}), collégiens (\textcolor{red}{5h}), lycéens (\textcolor{red}{1h})'.
 	rows add: cols.
 	
 	cols := OrderedCollection new.	
-	cols add: '\textcolor{red}{5.3 Vulgarisation scientifique }'.
+	cols add: '\textcolor{red}{Vulgarisation scientifique }'.
 	cols add: 'Missions de vulgarisation \& animations scientifique'.
 	rows add: cols.
 	
 	cols := OrderedCollection new.	
-	cols add: '\textcolor{red}{5.4 Les cordées de la réussite}'.
+	cols add: '\textcolor{red}{Les cordées de la réussite}'.
 	cols add: '\textcolor{red}{100} heures d''encadrement d''élèves en première scientifique (3 prix de concours)                                                                       '.
 	rows add: cols.
 	
