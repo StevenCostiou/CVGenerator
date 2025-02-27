@@ -62,7 +62,7 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 
 	publications := (model sections detect:[:s| s type = CVGPublication]) data.
 	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: '3.1 Publications (', (publications reject:[:p| p type class = CVGBook]) size printString, ')'; contents).
+	cols add: (CVGLatexWriter new red: '3.1 Publications (', (publications "reject:[:p| p type class = CVGBook]") size printString, ')'; contents).
 	pubs := publications select:[:p| p type class = CVGJournal].				
 	writer := CVGLatexWriter new.
 	writer red: pubs size printString.
@@ -70,6 +70,9 @@ CVGLatexPreambleGenerator >> generateContributionsSummary [
 	pubs := publications select:[:p| p type class = CVGConference].
 	writer red: pubs size printString.
 	writer text: ' conférences internationales, '.
+	pubs := publications select:[:p| p type class = CVGBook].
+	writer red: pubs size printString.
+	writer text: ' conférences nationales, '.
 	pubs := publications select:[:p| p type class = CVGWorkshop].		
 	writer red: pubs size printString.
 	writer text: ' workshops à comité de lecture, '.
@@ -305,17 +308,13 @@ CVGLatexPreambleGenerator >> generateTeachingSummary [
 	M1 := (teachings select:[:c| c level first = 'M1']).
 	M2 := (teachings select:[:c| c level first = 'M2']).
 	
-	
-	cols := OrderedCollection new.
-	cols add: (CVGLatexWriter new red: ('5.1 Service effectué ', total printString, 'h'); text: 'éq. TD';contents).	
-	cols add: (self latexTeachingCount: L2 named: 'Licence 2 $\rightarrow$ ').	
-	rows add: cols.
-	
-	cols := OrderedCollection new.
 	cm := teachings inject: 0 into:[:sum :next| sum + next cm].
 	td  := teachings inject: 0 into:[:sum :next| sum + next td].
 	tp := teachings inject: 0 into:[:sum :next| sum + next tp].
+	
+	cols := OrderedCollection new.
 	writer := CVGLatexWriter new.
+	cols add: (CVGLatexWriter new red: ('5.1 Service effectué ', total printString, 'h'); text: 'éq. TD';contents).	
 	writer red: cm printString, 'h'.
 	writer text: 'CM '.
 	writer red: td printString, 'h'.
@@ -323,16 +322,20 @@ CVGLatexPreambleGenerator >> generateTeachingSummary [
 	writer red: tp printString, 'h'.
 	writer text: 'TP'.
 	cols add: writer contents.
-	cols add: (self latexTeachingCount: L3 named: 'Licence 3 $\rightarrow$ ').	
 	rows add: cols.
-	
+		
 	cols := OrderedCollection new.
-	cols add: ' '.
-	cols add: (self latexTeachingCount: M1 named: 'Master 1 $\rightarrow$ ').	
-	rows add: cols.
-	cols := OrderedCollection new.
-	cols add: ' '.
-	cols add: (self latexTeachingCount: M2 named: 'Master 2 $\rightarrow$ ').	
+	writer := CVGLatexWriter new.
+	cols add: '~'.
+		
+	writer text: (self latexTeachingCount: L2 named: 'Licence 2 : ').	
+	writer text: ', '.
+	writer text: (self latexTeachingCount: L3 named: 'Licence 3 : ').	
+	writer text: ', '.	
+	writer text: (self latexTeachingCount: M1 named: 'Master 1 : ').	
+	writer text: ', '.
+	writer text: (self latexTeachingCount: M2 named: 'Master 2 : ').	
+	cols add: writer contents.
 	rows add: cols.
 	
 	cols := OrderedCollection new.	

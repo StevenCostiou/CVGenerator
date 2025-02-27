@@ -43,6 +43,7 @@ CVGGenerator >> buildLatexDescriptions [
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
+	description add: '\pagebreak'.
 	pages at: 'preamble' put: description.
 	
 	description := OrderedCollection new.
