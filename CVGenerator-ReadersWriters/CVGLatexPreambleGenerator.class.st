@@ -311,9 +311,9 @@ CVGLatexPreambleGenerator >> generateResearchSummary [
 	students := (model sections detect:[:s| s type = CVGStudent]) data.
 	writer red: (students select:[:s| s level = 'phd']) size printString.
 	writer text: ' doctorants, '.
-	writer red: (students select:[:s| s level = 'M2']) size printString.
+	writer red: (students select:[:s| s level = 'M2' and: [s isMEM not]]) size printString.
 	writer text: ' M2, '.
-	writer red: (students select:[:s| s level = 'M1']) size printString.
+	writer red: (students select:[:s| s level = 'M1' and: [s isMEM not]]) size printString.
 	writer text: ' M1, '.
 	writer red: (students select:[:s| s level = 'Licence']) size printString.
 	writer text: ' L3'.
