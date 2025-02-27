@@ -53,6 +53,7 @@ CVGGenerator >> buildLatexDescriptions [
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
+	description add: '~\\'.
 	description add: (self generatedSection: 'Intro').
 	description add: (self generatedSection: 'Awards').
 	description add: (self generatedSection: 'Research').
@@ -63,6 +64,7 @@ CVGGenerator >> buildLatexDescriptions [
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
+	description add: '~\\'.
 	description add: (self generatedSection: 'Publications').
 	description add: (self generatedSection: 'Software').
 	description add: (self generatedSection: 'Talks').
@@ -71,12 +73,14 @@ CVGGenerator >> buildLatexDescriptions [
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
+	description add: '~\\'.
 	description add: (self generatedSection: 'Administration').
 	pages at: 'Responsabilités administratives' put: description.
 	description add: '\pagebreak'.
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
+	description add: '~\\'.
 	description add: (self generatedSection: 'Teachings').
 	description add: (self generatedSection: 'Past teaching activities').
 	pages at: 'Enseignement' put: description.
@@ -391,6 +395,7 @@ CVGGenerator >> generateContribution: aCVGAdmin [
 { #category : #'generation - sections' }
 CVGGenerator >> generateContributionSection: aSection with: writer [
 
+	writer writeContributionTitle: aSection.
 	writer writeContributionNumbers: aSection data size.
 	aSection sortedElements
 		do: [ :typedElement | 
@@ -398,7 +403,7 @@ CVGGenerator >> generateContributionSection: aSection with: writer [
 			type := typedElement key.
 			elements := typedElement value.
 			elements isEmpty
-				ifFalse: [ writer subSection: (self translated: type typeName).
+				ifFalse: [ writer contributionSubSection: (self translated: type typeName).
 					writer openItemList.
 					elements do: [ :e | e acceptGenerator: self ].
 					writer closeItemList ] ].

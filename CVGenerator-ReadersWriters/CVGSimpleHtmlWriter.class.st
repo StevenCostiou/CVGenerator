@@ -43,6 +43,12 @@ CVGSimpleHtmlWriter >> closeMarkup [
 	self writeMarkup: '/' , markupStack pop
 ]
 
+{ #category : #sections }
+CVGSimpleHtmlWriter >> contributionSubSection: aString [
+
+	self subSection: aString
+]
+
 { #category : #markup }
 CVGSimpleHtmlWriter >> div: aString [ 
 	self openMarkup: 'div' class: aString
@@ -268,6 +274,10 @@ CVGSimpleHtmlWriter >> writeAndExport: aGenerator [
 
 { #category : #sections }
 CVGSimpleHtmlWriter >> writeContributionNumbers: anInteger [
+]
+
+{ #category : #sections }
+CVGSimpleHtmlWriter >> writeContributionTitle: aCVGSection [
 ]
 
 { #category : #markup }

@@ -16,7 +16,13 @@ CVGLatexContributionWriter >> openItemList [
 
 { #category : #writing }
 CVGLatexContributionWriter >> writeContributionNumbers: anInteger [
-	self text: anInteger printString.
+"	self text: anInteger printString.
 	self text: Character space asString.
-	self text: 'contributions.'
+	self text: 'contributions.'"
+]
+
+{ #category : #writing }
+CVGLatexContributionWriter >> writeContributionTitle: aCVGSection [
+
+	self subSection: aCVGSection title 
 ]

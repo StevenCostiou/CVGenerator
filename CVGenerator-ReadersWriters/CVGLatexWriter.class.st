@@ -42,6 +42,12 @@ CVGLatexWriter >> closeTable [
 	self closeMarkup 
 ]
 
+{ #category : #sections }
+CVGLatexWriter >> contributionSubSection: aString [
+
+	self subsubSection: aString
+]
+
 { #category : #writing }
 CVGLatexWriter >> cr [
 	stream cr
