@@ -55,6 +55,12 @@ CVGLatexMarkupElement class >> newLine [
 ]
 
 { #category : #API }
+CVGLatexMarkupElement class >> paragraph [
+
+	^ self markup: 'paragraph*'
+]
+
+{ #category : #API }
 CVGLatexMarkupElement class >> red [
 	^self markup: 'textcolor{red}'
 ]
@@ -101,7 +107,7 @@ CVGLatexMarkupElement class >> summaryTable [
 
 	| markup |
 	markup := (self markup: 'table') beginEndMarkup.
-	markup openingMarkup: (markup openingMarkup), '[h]'.	
+	markup openingMarkup: (markup openingMarkup), '[!htbp]'.	
 	^ markup
 ]
 

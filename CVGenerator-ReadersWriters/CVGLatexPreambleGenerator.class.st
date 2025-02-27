@@ -157,12 +157,14 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 
 	| writer |
 	writer := CVGLatexWriter new.
-	writer subsubSectionX: title. 
+	writer paragraph: title. 
+	writer write: '~\\'.
+	writer cr.
 	rows ifEmpty: [ ^ writer contents ].
 "	writer cr.
 	writer text: '\hrule'.
 	writer cr."
-	writer text: '\vspace{-1em}'.
+	"writer text: '\vspace{-1em}'."
 	writer cr.
 	writer newSummaryTable.
 	writer tableSize: colSize.
@@ -177,9 +179,9 @@ CVGLatexPreambleGenerator >> generatePreambleNamed: title size: colSize rows: ro
 	
 
 	writer closeSummaryTable.
-		writer text: '\vspace{-1em}'.
+"		writer text: '\vspace{-1em}'.
 		writer cr.
-	writer text: '\hrule'.
+	writer text: '\hrule'."
 	writer cr.
 	^ writer contents
 ]

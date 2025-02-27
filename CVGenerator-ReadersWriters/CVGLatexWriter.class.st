@@ -95,6 +95,14 @@ CVGLatexWriter >> orderedList [
 	^CVGLatexMarkupElement enumerate
 ]
 
+{ #category : #sections }
+CVGLatexWriter >> paragraph: aString [
+
+	self
+		writeSection: aString
+		markup: CVGLatexMarkupElement paragraph
+]
+
 { #category : #emphasis }
 CVGLatexWriter >> red: aString [
 	self writeText: aString inMarkup: CVGLatexMarkupElement red
