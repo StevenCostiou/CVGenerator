@@ -18,5 +18,5 @@ CVGMandateType >> typeKey [ ^#mandate
 ]
 
 { #category : #'as yet unclassified' }
-CVGMandateType >> typeName [ ^#('Mandats électifs' 'Elective mandates')
+CVGMandateType >> typeName [ ^#('Mandats électifs et représentatifs' 'Elective and representative mandates')
 ]
