@@ -394,7 +394,7 @@ CVGLatexPreambleGenerator >> generateTitle [
 
 	^'\begin{table}[t]
     \begin{tabularx}{\textwidth}{lr}
-    \LARGE \textbf{STEVEN COSTIOU} &   \url{https://kloum.io/costiou}  \\
+    \large \textbf{STEVEN COSTIOU} &   \url{https://kloum.io/costiou}  \\
     \large Chargé de recherche Inria, équipe EVREF -- CRIStAL, UMR CNRS 9189  &  steven.costiou@inria.fr \vspace{-2.5em}
     \end{tabularx}
 \end{table}
