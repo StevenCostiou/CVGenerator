@@ -49,6 +49,7 @@ CVGGenerator >> buildLatexDescriptions [
 	description := OrderedCollection new.
 	description add: (self generatedSection: 'Experience').
 	pages at: 'Parcours et formation' put: description.
+	description add: '\pagebreak'.
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateResearchSummary).
@@ -58,6 +59,7 @@ CVGGenerator >> buildLatexDescriptions [
 	description add: (self generatedSection: 'Service').	
 	description add: (self generatedSection: 'Students').
 	pages at: 'Activités de recherche' put: description.
+	description add: '\pagebreak'.
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateContributionsSummary).
@@ -65,11 +67,13 @@ CVGGenerator >> buildLatexDescriptions [
 	description add: (self generatedSection: 'Software').
 	description add: (self generatedSection: 'Talks').
 	pages at: 'Contributions' put: description.
+	description add: '\pagebreak'.
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateAdminSummary).
 	description add: (self generatedSection: 'Administration').
 	pages at: 'Responsabilités administratives' put: description.
+	description add: '\pagebreak'.
 	
 	description := OrderedCollection new.
 	description add: (CVGLatexPreambleGenerator new model: model; generateTeachingSummary).
